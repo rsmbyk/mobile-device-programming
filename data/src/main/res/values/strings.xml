@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Data</string>
+
+    <string-array name="menus">
+        <item>Calculator</item>
+        <item>Camera</item>
+        <item>Networking</item>
+    </string-array>
+</resources>
