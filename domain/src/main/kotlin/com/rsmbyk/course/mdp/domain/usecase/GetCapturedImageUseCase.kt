@@ -5,6 +5,6 @@ import java.io.File
 
 class GetCapturedImageUseCase (private val imageRepository: ImageRepository) {
 
-    operator fun invoke (): File =
-        imageRepository.getImages ().first ()
+    operator fun invoke (directory: File): File =
+        imageRepository.getImages (directory).first ()
 }
