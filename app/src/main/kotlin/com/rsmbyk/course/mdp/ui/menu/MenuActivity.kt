@@ -1,5 +1,6 @@
 package com.rsmbyk.course.mdp.ui.menu
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -36,11 +37,21 @@ class MenuActivity: DaggerAppCompatActivity () {
     }
 
     private fun onMenuItemClick (position: Int) {
-        startActivity (Intent (this, when (Menu.values ()[position]) {
-            Menu.CALCULATOR -> CalculatorActivity::class.java
-            Menu.CAMERA -> CameraActivity::class.java
-            Menu.NETWORKING -> NetworkingActivity::class.java
-        }))
+        try {
+            startActivity (Intent (this, when (Menu.values ()[position]) {
+                Menu.CALCULATOR -> CalculatorActivity::class.java
+                Menu.CAMERA -> CameraActivity::class.java
+                Menu.NETWORKING -> NetworkingActivity::class.java
+            }))
+        } catch (e: IndexOutOfBoundsException) {
+            AlertDialog.Builder (this)
+                .setMessage ("Not implemented, yet!")
+                .setPositiveButton ("Close") { _, _ -> }
+                .setCancelable (false)
+                .create ()
+                .show ()
+        }
+
     }
 
     override fun onBackPressed () {
