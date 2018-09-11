@@ -5,6 +5,6 @@ import java.io.File
 
 class GetImagesUseCase (private val repository: ImageRepository) {
 
-    fun execute (): List<File> =
+    operator fun invoke (): List<File> =
         repository.getImages ()
 }

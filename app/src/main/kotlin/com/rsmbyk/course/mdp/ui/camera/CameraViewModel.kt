@@ -10,8 +10,8 @@ class CameraViewModel (
     private val getCapturedImageUseCase: GetCapturedImageUseCase): ViewModel () {
 
     fun getImages (): List<File> =
-        getImagesUseCase.execute ()
+        getImagesUseCase ()
 
     fun getCapturedImage (): File =
-        getCapturedImageUseCase.execute ()
+        getCapturedImageUseCase ()
 }
