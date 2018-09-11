@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Data</string>
+    <string name="request_param_nrp">nrp</string>
+    <string name="request_param_image">gambar</string>
 
     <string-array name="menus">
         <item>Calculator</item>
