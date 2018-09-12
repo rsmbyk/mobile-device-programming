@@ -1,6 +1,4 @@
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rsmbyk.course.mdp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.rsmbyk.course.mdp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -21,9 +19,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.calculator.CalculatorActivity" android:label="@string/activity_label_calculator"/>
-        <activity android:name=".ui.camera.CameraActivity" android:label="@string/activity_label_camera"/>
-        <activity android:name=".ui.networking.NetworkingActivity" android:label="@string/activity_label_networking"/>
+        <activity
+            android:name=".ui.calculator.CalculatorActivity"
+            android:label="@string/activity_label_calculator"
+            android:parentActivityName=".ui.menu.MenuActivity"/>
+
+        <activity
+            android:name=".ui.camera.CameraActivity"
+            android:label="@string/activity_label_camera"
+            android:parentActivityName=".ui.menu.MenuActivity"/>
+
+        <activity
+            android:name=".ui.networking.NetworkingActivity"
+            android:label="@string/activity_label_networking"
+            android:parentActivityName=".ui.menu.MenuActivity"/>
 
     </application>
 
