@@ -17,7 +17,8 @@ import javax.inject.Named
 class CameraActivityModule {
 
     @Provides
-    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue): ImageRepository =
+    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue)
+            : ImageRepository =
         ImageDataRepository (context, volleyRequestQueue)
 
     @Provides

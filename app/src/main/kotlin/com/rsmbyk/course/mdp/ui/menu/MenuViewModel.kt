@@ -6,5 +6,5 @@ import com.rsmbyk.course.mdp.domain.usecase.GetMenusUseCase
 class MenuViewModel (private val getMenusUseCase: GetMenusUseCase): ViewModel () {
 
     fun getMenus (): List<String> =
-        getMenusUseCase.execute ()
+        getMenusUseCase ()
 }

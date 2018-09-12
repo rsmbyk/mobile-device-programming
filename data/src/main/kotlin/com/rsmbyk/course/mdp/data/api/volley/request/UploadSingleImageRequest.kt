@@ -23,7 +23,7 @@ class UploadSingleImageRequest (
 
     override fun getParams (): MutableMap<String, String> {
         val bos: ByteArrayOutputStream = imageFile.compressImageFile ()
-        val b64EncodedImage: String = Base64.encodeToString (bos.toByteArray(), Base64.DEFAULT)
+        val b64EncodedImage: String = Base64.encodeToString (bos.toByteArray (), Base64.DEFAULT)
 
         return mutableMapOf (
             context.getString (R.string.request_param_nrp) to nrp,

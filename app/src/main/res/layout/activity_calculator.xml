@@ -1,83 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp" >
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:orientation="vertical">
-
-    <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/number1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edittext_hint_number1"
-                android:inputType="number" />
+            android:id="@+id/number1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edittext_hint_number1"
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/number2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edittext_hint_number2"
-                android:inputType="number" />
+            android:id="@+id/number2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/edittext_hint_number2"
+            android:inputType="number" />
 
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <android.support.design.widget.TextInputEditText
-                android:id="@+id/result"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/edittext_hint_result"
-                android:focusable="false"
-                android:enabled="false"/>
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:focusable="false"
+            android:hint="@string/edittext_hint_result" />
 
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btn_add"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_weight="1"
+            android:text="@string/btn_add" />
 
         <Button
-                android:id="@+id/btn_add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_add" />
+            android:id="@+id/btn_subtract"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_subtract" />
 
         <Button
-                android:id="@+id/btn_subtract"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_subtract" />
+            android:id="@+id/btn_multiply"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_multiply" />
 
         <Button
-                android:id="@+id/btn_multiply"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_multiply" />
-
-        <Button
-                android:id="@+id/btn_divide"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/btn_divide" />
+            android:id="@+id/btn_divide"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/btn_divide" />
 
     </LinearLayout>
 

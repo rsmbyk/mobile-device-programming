@@ -15,14 +15,17 @@ class CalculatorActivityModule {
         CalculatorDataRepository ()
 
     @Provides
-    fun provideGetOperationResultUseCase (calculatorRepository: CalculatorRepository): GetOperationResultUseCase =
+    fun provideGetOperationResultUseCase (calculatorRepository: CalculatorRepository)
+            : GetOperationResultUseCase =
         GetOperationResultUseCase (calculatorRepository)
 
     @Provides
-    fun provideCalculatorViewModelFactory (getOperationResultUseCase: GetOperationResultUseCase): CalculatorViewModelFactory =
+    fun provideCalculatorViewModelFactory (getOperationResultUseCase: GetOperationResultUseCase)
+            : CalculatorViewModelFactory =
         CalculatorViewModelFactory (getOperationResultUseCase)
 
     @Provides
-    fun provideCalculatorViewModel (activity: CalculatorActivity, factory: CalculatorViewModelFactory): CalculatorViewModel =
+    fun provideCalculatorViewModel (activity: CalculatorActivity, factory: CalculatorViewModelFactory)
+            : CalculatorViewModel =
         ViewModelProviders.of (activity, factory).get (CalculatorViewModel::class.java)
 }

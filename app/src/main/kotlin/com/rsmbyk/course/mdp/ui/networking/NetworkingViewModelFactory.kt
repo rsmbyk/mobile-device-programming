@@ -7,9 +7,9 @@ import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
 import java.io.File
 
 class NetworkingViewModelFactory (
-        private val uploadImageDirectory: File,
-        private val getCapturedImageUseCase: GetCapturedImageUseCase,
-        private val uploadImageUseCase: UploadImageUseCase)
+    private val uploadImageDirectory: File,
+    private val getCapturedImageUseCase: GetCapturedImageUseCase,
+    private val uploadImageUseCase: UploadImageUseCase)
         : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create (modelClass: Class<T>): T =

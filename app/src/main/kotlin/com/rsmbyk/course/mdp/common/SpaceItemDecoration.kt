@@ -8,11 +8,11 @@ import android.util.DisplayMetrics
 import android.view.View
 
 class SpaceItemDecoration (
-        context: Context,
-        private val spaceInDp: Int,
-        private val spanCount: Int = 1,
-        private val edgeSpace: Boolean = false)
-    : RecyclerView.ItemDecoration () {
+    context: Context,
+    spaceInDp: Int,
+    private val spanCount: Int = 1,
+    private val edgeSpace: Boolean = false)
+        : RecyclerView.ItemDecoration () {
 
     private val space: Int =
         spaceInDp * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)

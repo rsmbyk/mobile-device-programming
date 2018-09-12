@@ -17,7 +17,8 @@ import javax.inject.Named
 class NetworkingActivityModule {
 
     @Provides
-    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue): ImageRepository =
+    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue)
+            : ImageRepository =
         ImageDataRepository (context, volleyRequestQueue)
 
     @Provides
@@ -37,7 +38,8 @@ class NetworkingActivityModule {
         NetworkingViewModelFactory (uploadImageDirectory, getCapturedImageUseCase, uploadImageUseCase)
 
     @Provides
-    fun provideNetworkingViewModel (activity: NetworkingActivity, factory: NetworkingViewModelFactory): NetworkingViewModel =
+    fun provideNetworkingViewModel (activity: NetworkingActivity, factory: NetworkingViewModelFactory)
+            : NetworkingViewModel =
         ViewModelProviders.of (activity, factory).get (NetworkingViewModel::class.java)
 
     @Provides

@@ -7,5 +7,5 @@ import com.rsmbyk.course.mdp.domain.usecase.GetOperationResultUseCase
 class CalculatorViewModel (private val getOperationResultUseCase: GetOperationResultUseCase): ViewModel () {
 
     fun evaluate (operator: Operator, a: Int, b: Int): Int =
-        getOperationResultUseCase.execute (operator, a, b)
+        getOperationResultUseCase (operator, a, b)
 }

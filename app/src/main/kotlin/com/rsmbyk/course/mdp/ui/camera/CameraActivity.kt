@@ -51,7 +51,10 @@ class CameraActivity: DaggerAppCompatActivity () {
         if (requestCode == CameraUtil.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             viewModel.addCapturedImage ()
             image_list.smoothScrollToPosition (0)
-            sendBroadcast (Intent (Intent.ACTION_MEDIA_SCANNER_SCAN_FILE).setData (Uri.fromFile (viewModel.imageDirectory)))
+
+            val broadcastIntent = Intent (Intent.ACTION_MEDIA_SCANNER_SCAN_FILE)
+            broadcastIntent.setData (Uri.fromFile (viewModel.imageDirectory))
+            sendBroadcast (broadcastIntent)
         }
     }
 

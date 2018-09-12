@@ -6,7 +6,8 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_menu.*
 
 class MenuViewHolder (
-    override val containerView: View, private val onMenuItemClickListener: (position: Int) -> Unit)
+    override val containerView: View,
+    private val onMenuItemClickListener: (position: Int) -> Unit)
         : RecyclerView.ViewHolder (containerView), LayoutContainer {
 
     fun bind (menuText: String) {

@@ -11,9 +11,9 @@ class GridImageAdapter (private val images: List<File>)
 
     override fun onCreateViewHolder (parent: ViewGroup, viewType: Int): GridImageViewHolder =
         GridImageViewHolder (
-                LayoutInflater
-                        .from (parent.context)
-                        .inflate (R.layout.viewholder_image_grid, parent, false))
+            LayoutInflater
+                .from (parent.context)
+                .inflate (R.layout.viewholder_image_grid, parent, false))
 
     override fun onBindViewHolder (holder: GridImageViewHolder, position: Int) =
         holder.bind (images[position])
