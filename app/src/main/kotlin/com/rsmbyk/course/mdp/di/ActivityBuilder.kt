@@ -6,6 +6,8 @@ import com.rsmbyk.course.mdp.ui.camera.CameraActivity
 import com.rsmbyk.course.mdp.ui.camera.CameraActivityModule
 import com.rsmbyk.course.mdp.ui.menu.MenuActivity
 import com.rsmbyk.course.mdp.ui.menu.MenuActivityModule
+import com.rsmbyk.course.mdp.ui.networking.NetworkingActivity
+import com.rsmbyk.course.mdp.ui.networking.NetworkingActivityModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -20,4 +22,7 @@ abstract class ActivityBuilder {
 
     @ContributesAndroidInjector (modules = [CameraActivityModule::class])
     abstract fun bindCameraActivity (): CameraActivity
+
+    @ContributesAndroidInjector (modules = [NetworkingActivityModule::class])
+    abstract fun bindNetworkingActivity (): NetworkingActivity
 }
