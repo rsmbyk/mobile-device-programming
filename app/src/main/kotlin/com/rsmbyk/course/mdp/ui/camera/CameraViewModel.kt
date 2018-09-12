@@ -6,12 +6,19 @@ import com.rsmbyk.course.mdp.domain.usecase.GetImagesUseCase
 import java.io.File
 
 class CameraViewModel (
-    private val getImagesUseCase: GetImagesUseCase,
-    private val getCapturedImageUseCase: GetCapturedImageUseCase): ViewModel () {
+    val imageDirectory: File,
+    getImagesUseCase: GetImagesUseCase,
+    private val getCapturedImageUseCase: GetCapturedImageUseCase)
+        : ViewModel () {
 
-    fun getImages (): List<File> =
-        getImagesUseCase ()
+    private val imageList: MutableList<File> =
+        getImagesUseCase (imageDirectory).toMutableList ()
 
-    fun getCapturedImage (): File =
-        getCapturedImageUseCase ()
+    val imageListAdapter =
+        GridImageAdapter (imageList)
+
+    fun addCapturedImage () {
+        imageList.add (0, getCapturedImageUseCase (imageDirectory))
+        imageListAdapter.notifyItemInserted (0)
+    }
 }
