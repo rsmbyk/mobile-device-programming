@@ -19,6 +19,7 @@
 
         <LinearLayout
             android:id="@+id/upload_utils"
+            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"

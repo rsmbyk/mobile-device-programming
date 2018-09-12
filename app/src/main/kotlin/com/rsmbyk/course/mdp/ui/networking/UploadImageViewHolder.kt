@@ -17,7 +17,7 @@ class UploadImageViewHolder (override val containerView: View)
         Glide
             .with (itemView)
             .load (file)
-            .apply (RequestOptions ().placeholder (R.drawable.ic_image_placeholder))
+            .apply (RequestOptions ().placeholder (R.drawable.ic_broken_image))
             .into (preview)
         filename.text = file.nameWithoutExtension
     }
