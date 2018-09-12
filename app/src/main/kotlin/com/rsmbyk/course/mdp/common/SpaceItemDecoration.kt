@@ -8,11 +8,11 @@ import android.util.DisplayMetrics
 import android.view.View
 
 class SpaceItemDecoration (
-    context: Context,
-    spaceInDp: Int,
-    private val spanCount: Int = 1,
-    private val edgeSpace: Boolean = false)
-        : RecyclerView.ItemDecoration () {
+        context: Context,
+        spaceInDp: Int,
+        private val spanCount: Int = 1,
+        private val edgeSpace: Boolean = false)
+    : RecyclerView.ItemDecoration () {
 
     private val space: Int =
         spaceInDp * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
@@ -58,6 +58,11 @@ class SpaceItemDecoration (
         }
     }
 
-    private fun setOutRect (edgeCondition: Boolean) =
-        (if (edgeSpace) space else 0) / (if (edgeCondition) 1 else 2)
+    private fun setOutRect (edgeCondition: Boolean): Int =
+        if (edgeCondition) {
+            if (edgeSpace) space
+            else 0
+        } else {
+            space / 2
+        }
 }
