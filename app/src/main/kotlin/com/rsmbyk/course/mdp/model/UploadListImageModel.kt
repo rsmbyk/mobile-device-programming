@@ -4,5 +4,12 @@ import java.io.File
 
 data class UploadListImageModel (
     val file: File,
-    var isUploaded: Boolean = false
-)
+    var uploadProgress: UploadProgress = UploadProgress.IDLE) {
+
+    enum class UploadProgress {
+        IDLE,
+        UPLOADING,
+        FAILED,
+        SUCCESS
+    }
+}

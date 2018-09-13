@@ -5,7 +5,9 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.common.setVisible
 import com.rsmbyk.course.mdp.model.UploadListImageModel
+import com.rsmbyk.course.mdp.model.UploadListImageModel.UploadProgress
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_image_list.*
 import java.io.File
@@ -24,6 +26,7 @@ class UploadImageListViewHolder (override val containerView: View)
 
     fun bind (item: UploadListImageModel) {
         bind (item.file)
-        uploaded.visibility = if (item.isUploaded) View.VISIBLE else View.GONE
+        success_indicator.setVisible (item.uploadProgress == UploadProgress.SUCCESS)
+        uploading_indicator.setVisible (item.uploadProgress == UploadProgress.UPLOADING)
     }
 }

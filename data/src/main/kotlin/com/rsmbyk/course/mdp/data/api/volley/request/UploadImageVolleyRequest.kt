@@ -7,7 +7,7 @@ class UploadImageVolleyRequest (
     url: String,
     private val params: MutableMap<String, String>,
     listener: UploadImageListener)
-        : StringRequest (Method.POST, url, listener::onResponse, listener::onErrorResponse) {
+        : StringRequest (Method.POST, url, listener, listener) {
 
     override fun getBodyContentType (): String =
         "application/x-www-form-urlencoded"

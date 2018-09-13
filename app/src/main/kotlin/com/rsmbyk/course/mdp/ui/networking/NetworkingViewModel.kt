@@ -8,6 +8,7 @@ import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
 import com.rsmbyk.course.mdp.model.UploadListImageModel
+import com.rsmbyk.course.mdp.model.UploadListImageModel.UploadProgress
 import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import java.io.File
 
@@ -30,55 +31,63 @@ class NetworkingViewModel (
     }
 
     fun uploadImages (nrp: String) {
-        val request = UploadImageRequest (nrp, uploadList[0].file)
+        uploadList
+            .filter { it.uploadProgress == UploadProgress.FAILED }
+            .forEach { it.uploadProgress = UploadProgress.IDLE }
 
-        val firstIndex = uploadList.indexOfFirst (UploadListImageModel::isUploaded)
+        val firstIndex = getNextImageIndex ()
+        val request = UploadImageRequest (nrp, uploadList[firstIndex].file)
         state.value = state.value!!.copy (
             uploadState = UploadState.UPLOADING,
+            uploadSuccess = 0,
             uploadProgressIndex = firstIndex,
             uploadProgressName = uploadList[firstIndex].file.nameWithoutExtension)
+        uploadListAdapter.setItemProgress (firstIndex, UploadProgress.UPLOADING)
 
         uploadImageUseCase (request, object : UploadImageCallback {
             override fun onSuccess (response: UploadImageResponse) {
                 assert (response.hasil == RESPONSE_HASIL_SUKSES)
                 state.value = state.value!!.copy (
                     uploadSuccess = state.value!!.uploadSuccess + 1)
-                val index = state.value!!.uploadProgressIndex
-                uploadList[index].isUploaded = true
-                uploadListAdapter.notifyItemChanged (index)
+                uploadListAdapter.setItemProgress (state.value!!.uploadProgressIndex, UploadProgress.SUCCESS)
                 onComplete ()
             }
 
-            override fun onError (throwable: Throwable) =
+            override fun onError (throwable: Throwable) {
+                uploadListAdapter.setItemProgress (state.value!!.uploadProgressIndex, UploadProgress.FAILED)
                 onComplete ()
+            }
 
             private fun onComplete () {
-                val index = getNextImageIndex ()
-                if (index == -1)
+                val nextIndex = getNextImageIndex ()
+                if (nextIndex == -1)
                     state.value = state.value!!.copy (
                         uploadState = UploadState.FINISHED)
                 else {
                     state.value = state.value!!.copy (
-                        uploadProgressIndex = index + 1,
-                        uploadProgressName = uploadList[index].file.nameWithoutExtension)
-                    uploadImageUseCase (UploadImageRequest (nrp, uploadList[index].file), this)
+                        uploadProgressIndex = nextIndex,
+                        uploadProgressName = uploadList[nextIndex].file.nameWithoutExtension)
+                    uploadListAdapter.setItemProgress (nextIndex, UploadProgress.UPLOADING)
+                    uploadImageUseCase (UploadImageRequest (nrp, uploadList[nextIndex].file), this)
                 }
             }
         })
     }
 
+    private fun UploadImageListAdapter.setItemProgress (position: Int, uploadProgress: UploadProgress) {
+        uploadList[position].uploadProgress = uploadProgress
+        notifyItemChanged (position)
+    }
+
     private fun getNextImageIndex () =
-        uploadList.indexOf (
-            uploadList
-                .filterNot (UploadListImageModel::isUploaded)
-                .firstOrNull ())
+        uploadList.indexOf (uploadList.firstOrNull { it.uploadProgress == UploadProgress.IDLE })
 
     fun addCapturedImage () {
         val capturedImage = getCapturedImageUseCase (uploadImageDirectory)
         uploadList.add (UploadListImageModel (capturedImage))
         uploadListAdapter.notifyItemInserted (uploadList.size - 1)
         state.value = state.value!!.copy (
-            uploadTotal = uploadList.filter (UploadListImageModel::isUploaded).size)
+            uploadTotal = uploadList.filter { it.uploadProgress == UploadProgress.IDLE }.size)
     }
 
     fun clearUploadList () {
