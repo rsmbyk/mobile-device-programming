@@ -50,6 +50,7 @@ class NetworkingViewModel (
                 state.value = state.value!!.copy (
                     uploadSuccess = state.value!!.uploadSuccess + 1)
                 uploadListAdapter.setItemProgress (state.value!!.uploadProgressIndex, UploadProgress.SUCCESS)
+                uploadListAdapter.setItemElapsedTime (state.value!!.uploadProgressIndex, response.elapsedTimeInSecond)
                 onComplete ()
             }
 
@@ -76,6 +77,11 @@ class NetworkingViewModel (
 
     private fun UploadImageListAdapter.setItemProgress (position: Int, uploadProgress: UploadProgress) {
         uploadList[position].uploadProgress = uploadProgress
+        notifyItemChanged (position)
+    }
+
+    private fun UploadImageListAdapter.setItemElapsedTime (position: Int, elapsedTime: Float) {
+        uploadList[position].elapsedTime = elapsedTime
         notifyItemChanged (position)
     }
 

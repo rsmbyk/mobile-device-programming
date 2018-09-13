@@ -21,6 +21,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/preview"
+        android:layout_toRightOf="@id/preview"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
 
         <TextView
@@ -31,9 +34,10 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/elapsed_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:textColor="#99000000"
             android:textSize="14sp"
             android:visibility="gone" />

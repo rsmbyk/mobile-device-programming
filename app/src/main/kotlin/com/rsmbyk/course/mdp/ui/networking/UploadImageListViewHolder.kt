@@ -28,5 +28,7 @@ class UploadImageListViewHolder (override val containerView: View)
         bind (item.file)
         success_indicator.setVisible (item.uploadProgress == UploadProgress.SUCCESS)
         uploading_indicator.setVisible (item.uploadProgress == UploadProgress.UPLOADING)
+        elapsed_time.setVisible (item.uploadProgress == UploadProgress.SUCCESS)
+        elapsed_time.text = "${item.elapsedTime} second(s)"
     }
 }
