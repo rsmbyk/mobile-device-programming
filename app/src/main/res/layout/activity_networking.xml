@@ -18,7 +18,7 @@
             android:scrollbars="vertical" />
 
         <LinearLayout
-            android:id="@+id/upload_utils"
+            android:id="@+id/upload_control"
             style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             android:orientation="horizontal" >
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/progress_bar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,8 +67,7 @@
         app:layout_anchor="@id/upload_list"
         app:layout_anchorGravity="bottom|end"
         app:layout_behavior="@string/speeddial_scrolling_view_snackbar_behavior"
-        app:sdMainFabClosedSrc="@drawable/ic_add"
-        app:sdMainFabOpenedSrc="@drawable/ic_camera"
+        app:sdMainFabClosedSrc="@drawable/ic_camera"
         app:sdOverlayLayout="@id/overlay" />
 
 </android.support.design.widget.CoordinatorLayout>

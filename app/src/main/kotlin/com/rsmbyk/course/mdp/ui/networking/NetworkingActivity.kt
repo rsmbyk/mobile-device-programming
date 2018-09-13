@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AlertDialog.Builder
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,10 +13,8 @@ import android.util.DisplayMetrics
 import android.view.View
 import com.leinardi.android.speeddial.SpeedDialView
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.R.layout
-import com.rsmbyk.course.mdp.R.string
 import com.rsmbyk.course.mdp.common.CameraUtil
-import com.rsmbyk.course.mdp.ui.networking.NetworkingViewModel.UploadImageCallback
+import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_networking.*
@@ -41,39 +38,20 @@ class NetworkingActivity: DaggerAppCompatActivity () {
 
     override fun onCreate (savedInstanceState: Bundle?) {
         super.onCreate (savedInstanceState)
-        setContentView (layout.activity_networking)
+        setContentView (R.layout.activity_networking)
         cameraUtil.requestPermissions ()
         viewModel.state.observe (this, Observer (::handleViewState))
         btn_clear.setOnClickListener { viewModel.clearUploadList () }
         btn_upload.setOnClickListener {
-            progressBar.show ()
+            progress_bar.show ()
             btn_clear.hide ()
             btn_upload.hide ()
             fab_add.hide ()
-
-            viewModel.uploadImages (
-                getString (string.url_endpoint),
-                getString (string.nrp),
-                object : UploadImageCallback {
-                    override fun onError (throwable: Throwable) {
-                        Builder (this@NetworkingActivity)
-                            .setCancelable(false)
-                            .setMessage (throwable.message)
-                            .setPositiveButton ("Close") { _, _ -> }
-                            .create ()
-                            .show ()
-                    }
-
-                    override fun onFinished () {
-
-                    }
-                }
-            )
+            viewModel.uploadImages (getString (R.string.nrp))
         }
     }
 
     private fun setupFab () {
-        fab_add.inflate (R.menu.fab_add)
         fab_add.setOnChangeListener (object: SpeedDialView.OnChangeListener {
             override fun onMainActionSelected (): Boolean {
                 cameraUtil.openCamera (viewModel.uploadImageDirectory)
@@ -82,43 +60,42 @@ class NetworkingActivity: DaggerAppCompatActivity () {
 
             override fun onToggleChanged (isOpen: Boolean) {}
         })
-        fab_add.setOnActionSelectedListener {
-            false
-        }
     }
 
     private fun setupUploadList () {
+        upload_list.adapter = viewModel.uploadListAdapter
+        upload_list.layoutManager = LinearLayoutManager (this)
         upload_list.setHasFixedSize (true)
         upload_list.addItemDecoration (DividerItemDecoration (this, RecyclerView.VERTICAL))
-        upload_list.layoutManager = LinearLayoutManager (this)
-        upload_list.adapter = viewModel.uploadListAdapter
     }
 
     private fun handleViewState (state: NetworkingViewState?) {
         state ?: return
 
-        if (state.isUploading) {
+        if (state.uploadState == UploadState.UPLOADING) {
             btn_upload.hide ()
             btn_clear.hide ()
             fab_add.hide ()
-            progressBar.show ()
-            progressBar.progress = (state.uploadIndex+1) / state.uploadTotal * 100
+            progress_bar.show ()
+            progress_bar.progress = (state.uploadProgressIndex.toFloat () / state.uploadTotal.toFloat () * 100.0).toInt ()
         }
         else {
             val params = fab_add.layoutParams as CoordinatorLayout.LayoutParams
             if (state.uploadTotal > 0) {
-                upload_utils.show ()
+                upload_control.show ()
                 val density = resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT
                 params.setMargins (0, 0, 0, 48 * density)
             } else {
-                upload_utils.hide ()
+                upload_control.hide ()
                 params.setMargins (0, 0, 0, 0)
             }
             btn_upload.show ()
+            btn_upload.isEnabled = state.uploadState != UploadState.FINISHED
             btn_clear.show ()
             fab_add.show ()
+            fab_add.visibility = if (state.uploadState == UploadState.IDLE) View.VISIBLE else View.GONE
             fab_add.layoutParams = params
-            progressBar.hide ()
+            progress_bar.hide ()
         }
     }
 

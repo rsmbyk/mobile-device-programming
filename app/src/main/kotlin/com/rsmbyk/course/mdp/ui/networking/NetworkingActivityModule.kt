@@ -5,7 +5,9 @@ import android.content.Context
 import com.rsmbyk.course.mdp.common.CameraUtil
 import com.rsmbyk.course.mdp.data.api.volley.VolleyRequestQueue
 import com.rsmbyk.course.mdp.data.repository.ImageDataRepository
+import com.rsmbyk.course.mdp.data.repository.UploadImageDataRepository
 import com.rsmbyk.course.mdp.domain.repository.ImageRepository
+import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
 import dagger.Module
@@ -17,17 +19,21 @@ import javax.inject.Named
 class NetworkingActivityModule {
 
     @Provides
-    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue)
-            : ImageRepository =
-        ImageDataRepository (context, volleyRequestQueue)
+    fun provideImageRepository (): ImageRepository =
+        ImageDataRepository ()
 
     @Provides
     fun provideGetCapturedImageUseCase (imageRepository: ImageRepository): GetCapturedImageUseCase =
         GetCapturedImageUseCase (imageRepository)
 
     @Provides
-    fun provideUploadImageUseCase (imageRepository: ImageRepository): UploadImageUseCase =
-        UploadImageUseCase (imageRepository)
+    fun provideUploadImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue)
+            : UploadImageRepository =
+        UploadImageDataRepository (context, volleyRequestQueue)
+
+    @Provides
+    fun provideUploadImageUseCase (uploadImageRepository: UploadImageRepository): UploadImageUseCase =
+        UploadImageUseCase (uploadImageRepository)
 
     @Provides
     fun provideNetworkingViewModelFactory (

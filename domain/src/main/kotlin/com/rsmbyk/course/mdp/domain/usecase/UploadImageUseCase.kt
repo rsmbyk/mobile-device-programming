@@ -1,15 +1,14 @@
 package com.rsmbyk.course.mdp.domain.usecase
 
-import com.rsmbyk.course.mdp.domain.common.VolleyRequestCallback
-import com.rsmbyk.course.mdp.domain.repository.ImageRepository
-import java.io.File
+import com.rsmbyk.course.mdp.domain.common.UploadImageCallback
+import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
+import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 
-class UploadImageUseCase (private val imageRepository: ImageRepository) {
+class UploadImageUseCase (private val uploadImageRepository: UploadImageRepository) {
 
-    operator fun invoke (
-            url: String,
-            nrp: String,
-            imageFile: File,
-            callback: VolleyRequestCallback<String>) =
-        imageRepository.uploadImage (url, nrp, imageFile, callback)
+    operator fun invoke (uploadImageRequest: UploadImageRequest, callback: UploadImageCallback) =
+        uploadImageRepository.uploadImage (uploadImageRequest, callback)
+
+//    operator fun invoke (uploadImageRequest: UploadImageRequest): Observable<UploadImageResponse> =
+//        uploadImageRepository.uploadImage (uploadImageRequest)
 }

@@ -1,9 +1,7 @@
 package com.rsmbyk.course.mdp.ui.camera
 
 import android.arch.lifecycle.ViewModelProviders
-import android.content.Context
 import com.rsmbyk.course.mdp.common.CameraUtil
-import com.rsmbyk.course.mdp.data.api.volley.VolleyRequestQueue
 import com.rsmbyk.course.mdp.data.repository.ImageDataRepository
 import com.rsmbyk.course.mdp.domain.repository.ImageRepository
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
@@ -17,9 +15,8 @@ import javax.inject.Named
 class CameraActivityModule {
 
     @Provides
-    fun provideImageRepository (context: Context, volleyRequestQueue: VolleyRequestQueue)
-            : ImageRepository =
-        ImageDataRepository (context, volleyRequestQueue)
+    fun provideImageRepository (): ImageRepository =
+        ImageDataRepository ()
 
     @Provides
     fun provideGetImagesUseCase (imageRepository: ImageRepository): GetImagesUseCase =
@@ -31,9 +28,9 @@ class CameraActivityModule {
 
     @Provides
     fun provideCameraViewModelFactory (
-        @Named ("image_directory") imageDirectory: File,
-        getImagesUseCase: GetImagesUseCase,
-        getCapturedImageUseCase: GetCapturedImageUseCase)
+            @Named("image_directory") imageDirectory: File,
+            getImagesUseCase: GetImagesUseCase,
+            getCapturedImageUseCase: GetCapturedImageUseCase)
             : CameraViewModelFactory =
         CameraViewModelFactory (imageDirectory, getImagesUseCase, getCapturedImageUseCase)
 

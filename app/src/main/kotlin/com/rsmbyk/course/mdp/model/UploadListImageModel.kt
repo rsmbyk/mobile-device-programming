@@ -2,7 +2,7 @@ package com.rsmbyk.course.mdp.model
 
 import java.io.File
 
-data class UploadImageModel (
+data class UploadListImageModel (
     val file: File,
-    val uploaded: Boolean = false
+    var isUploaded: Boolean = false
 )

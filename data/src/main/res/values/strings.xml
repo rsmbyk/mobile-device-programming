@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Data</string>
-    <string name="request_param_nrp">nrp</string>
-    <string name="request_param_image">gambar</string>
+    <string name="upload_image_url">http://mobile.if.its.ac.id/kirimgambar</string>
+    <string name="upload_image_response_params_hasil">hasil</string>
+    <string name="upload_image_request_param_nrp">nrp</string>
+    <string name="upload_image_request_param_image">image</string>
 
     <string-array name="menus">
         <item>Calculator</item>

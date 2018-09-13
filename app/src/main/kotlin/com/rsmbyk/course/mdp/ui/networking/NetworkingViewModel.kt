@@ -2,10 +2,13 @@ package com.rsmbyk.course.mdp.ui.networking
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.rsmbyk.course.mdp.domain.common.VolleyRequestCallback
+import com.rsmbyk.course.mdp.domain.common.UploadImageCallback
+import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
+import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
-import com.rsmbyk.course.mdp.model.UploadImageModel
+import com.rsmbyk.course.mdp.model.UploadListImageModel
+import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import java.io.File
 
 class NetworkingViewModel (
@@ -14,57 +17,74 @@ class NetworkingViewModel (
     private val uploadImageUseCase: UploadImageUseCase)
         : ViewModel () {
 
+    companion object {
+        private const val RESPONSE_HASIL_SUKSES = "sukses"
+    }
+
     val state = MutableLiveData<NetworkingViewState> ()
-    val uploadList = mutableListOf<UploadImageModel> ()
-    val uploadListAdapter = UploadImageAdapter (uploadList)
+    val uploadList = mutableListOf<UploadListImageModel> ()
+    val uploadListAdapter = UploadImageListAdapter (uploadList)
 
     init {
         state.value = NetworkingViewState ()
     }
 
-    fun uploadImages (url: String, nrp: String, callback: UploadImageCallback) {
-        state.postValue (state.value?.copy (isUploading = true))
+    fun uploadImages (nrp: String) {
+        val request = UploadImageRequest (nrp, uploadList[0].file)
 
-        uploadList.forEachIndexed { index, item ->
-            state.postValue (state.value?.copy (
-                uploadIndex = 0,
-                uploadName = uploadList[0].file.nameWithoutExtension
-            ))
+        val firstIndex = uploadList.indexOfFirst (UploadListImageModel::isUploaded)
+        state.value = state.value!!.copy (
+            uploadState = UploadState.UPLOADING,
+            uploadProgressIndex = firstIndex,
+            uploadProgressName = uploadList[firstIndex].file.nameWithoutExtension)
 
-            uploadImageUseCase (url, nrp, item.file, object : VolleyRequestCallback<String> {
-                override fun onError (throwable: Throwable) {
-                    callback.onError (throwable)
-                    throw throwable
+        uploadImageUseCase (request, object : UploadImageCallback {
+            override fun onSuccess (response: UploadImageResponse) {
+                assert (response.hasil == RESPONSE_HASIL_SUKSES)
+                state.value = state.value!!.copy (
+                    uploadSuccess = state.value!!.uploadSuccess + 1)
+                val index = state.value!!.uploadProgressIndex
+                uploadList[index].isUploaded = true
+                uploadListAdapter.notifyItemChanged (index)
+                onComplete ()
+            }
+
+            override fun onError (throwable: Throwable) =
+                onComplete ()
+
+            private fun onComplete () {
+                val index = getNextImageIndex ()
+                if (index == -1)
+                    state.value = state.value!!.copy (
+                        uploadState = UploadState.FINISHED)
+                else {
+                    state.value = state.value!!.copy (
+                        uploadProgressIndex = index + 1,
+                        uploadProgressName = uploadList[index].file.nameWithoutExtension)
+                    uploadImageUseCase (UploadImageRequest (nrp, uploadList[index].file), this)
                 }
-
-                override fun onFinished (response: String) {
-                    if (index == uploadList.size - 1)
-                        state.postValue (NetworkingViewState ())
-                    else
-                        state.postValue (state.value!!.copy (
-                            uploadIndex = index,
-                            uploadName = uploadList[index].file.nameWithoutExtension
-                        ))
-                }
-            })
-        }
+            }
+        })
     }
+
+    private fun getNextImageIndex () =
+        uploadList.indexOf (
+            uploadList
+                .filterNot (UploadListImageModel::isUploaded)
+                .firstOrNull ())
 
     fun addCapturedImage () {
         val capturedImage = getCapturedImageUseCase (uploadImageDirectory)
-        uploadList.add (UploadImageModel (capturedImage))
-        uploadListAdapter.notifyItemInserted (0)
-        state.postValue (state.value?.copy (uploadTotal = uploadList.size))
+        uploadList.add (UploadListImageModel (capturedImage))
+        uploadListAdapter.notifyItemInserted (uploadList.size - 1)
+        state.value = state.value!!.copy (
+            uploadTotal = uploadList.filter (UploadListImageModel::isUploaded).size)
     }
 
     fun clearUploadList () {
         uploadList.forEach { it.file.delete () }
         uploadList.clear ()
-        state.postValue (state.value?.copy (uploadTotal = 0))
-    }
-
-    interface UploadImageCallback {
-        fun onError (throwable: Throwable)
-        fun onFinished ()
+        uploadListAdapter.notifyDataSetChanged ()
+        state.value = NetworkingViewState ()
     }
 }

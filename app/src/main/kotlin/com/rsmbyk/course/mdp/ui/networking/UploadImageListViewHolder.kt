@@ -5,12 +5,12 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.model.UploadImageModel
+import com.rsmbyk.course.mdp.model.UploadListImageModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_image_list.*
 import java.io.File
 
-class UploadImageViewHolder (override val containerView: View)
+class UploadImageListViewHolder (override val containerView: View)
     : RecyclerView.ViewHolder (containerView), LayoutContainer {
 
     fun bind (file: File) {
@@ -22,8 +22,8 @@ class UploadImageViewHolder (override val containerView: View)
         filename.text = file.nameWithoutExtension
     }
 
-    fun bind (item: UploadImageModel) {
+    fun bind (item: UploadListImageModel) {
         bind (item.file)
-        uploaded.visibility = if (item.uploaded) View.VISIBLE else View.GONE
+        uploaded.visibility = if (item.isUploaded) View.VISIBLE else View.GONE
     }
 }

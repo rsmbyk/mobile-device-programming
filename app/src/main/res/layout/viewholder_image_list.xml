@@ -17,6 +17,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:background="@color/background_primary"
         android:scaleType="centerCrop" />
 
     <TextView

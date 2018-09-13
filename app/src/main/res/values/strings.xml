@@ -29,7 +29,6 @@
     <string name="snackbar_action_storage_permission_denied">Revoke</string>
 
     <!-- Networking Activity -->
-    <string name="url_endpoint">https://mobile.its.ac.id/kirimgambar</string>
     <string name="nrp">05111540000174</string>
     <string name="btn_clear">Clear</string>
     <string name="btn_upload">Upload</string>
