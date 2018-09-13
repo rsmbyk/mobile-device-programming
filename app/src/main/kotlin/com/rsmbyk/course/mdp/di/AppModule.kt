@@ -4,24 +4,13 @@ import android.content.Context
 import android.os.Environment
 import com.rsmbyk.course.mdp.App
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.common.createNewDirectory
+import com.rsmbyk.course.mdp.common.deleteFileOnExit
 import dagger.Module
 import dagger.Provides
 import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
-
-private fun File.deleteFileOnExit (): File {
-    deleteOnExit ()
-    return this
-}
-
-private fun File.createNewDirectory (): File {
-    if (exists () && isFile)
-        deleteRecursively ()
-    if (!exists ())
-        mkdirs ()
-    return this
-}
 
 @Module
 class AppModule {

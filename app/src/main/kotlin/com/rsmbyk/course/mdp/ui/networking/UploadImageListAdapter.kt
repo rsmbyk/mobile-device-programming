@@ -19,6 +19,6 @@ class UploadImageListAdapter (private val uploadImages: List<UploadListImageMode
     override fun onBindViewHolder (holder: UploadImageListViewHolder, position: Int) =
         holder.bind (uploadImages[position])
 
-    override fun getItemCount(): Int =
+    override fun getItemCount (): Int =
         uploadImages.size
 }

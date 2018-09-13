@@ -14,19 +14,14 @@ import android.view.View
 import com.leinardi.android.speeddial.SpeedDialView
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.CameraUtil
+import com.rsmbyk.course.mdp.common.hide
+import com.rsmbyk.course.mdp.common.setVisible
+import com.rsmbyk.course.mdp.common.show
 import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_networking.*
 import javax.inject.Inject
-
-private fun View.show () {
-    visibility = View.VISIBLE
-}
-
-private fun View.hide () {
-    visibility = View.GONE
-}
 
 class NetworkingActivity: DaggerAppCompatActivity () {
 
@@ -93,7 +88,7 @@ class NetworkingActivity: DaggerAppCompatActivity () {
             btn_upload.isEnabled = state.uploadState != UploadState.FINISHED
             btn_clear.show ()
             fab_add.show ()
-            fab_add.visibility = if (state.uploadState == UploadState.IDLE) View.VISIBLE else View.GONE
+            fab_add.setVisible (state.uploadState == UploadState.IDLE)
             fab_add.layoutParams = params
             progress_bar.hide ()
         }
