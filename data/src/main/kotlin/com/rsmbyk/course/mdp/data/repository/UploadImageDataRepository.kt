@@ -16,14 +16,14 @@ class UploadImageDataRepository (
     private val volleyRequestQueue: VolleyRequestQueue)
         : UploadImageRepository {
 
-    override fun uploadImage (uploadImageRequest: UploadImageRequest, callback: UploadImageCallback) {
+    override fun uploadImage (requestCode: Int, uploadImageRequest: UploadImageRequest, callback: UploadImageCallback) {
         val url = context.getString (R.string.upload_image_url)
         val params = mutableMapOf (
             context.getString (R.string.upload_image_request_param_nrp)
                 to uploadImageRequest.nrp,
             context.getString (R.string.upload_image_request_param_image)
                 to uploadImageRequest.image.compress ().toBase64ImageString ())
-        val listener = UploadImageListener (context, callback)
+        val listener = UploadImageListener (requestCode, context, callback)
         val request = UploadImageVolleyRequest (url, params, listener)
         volleyRequestQueue.add (request)
     }

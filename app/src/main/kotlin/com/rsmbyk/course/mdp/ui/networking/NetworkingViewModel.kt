@@ -44,22 +44,20 @@ class NetworkingViewModel (
             uploadProgressName = uploadList[firstIndex].file.nameWithoutExtension)
         uploadListAdapter.setItemProgress (firstIndex, UploadProgress.UPLOADING)
 
-        uploadImageUseCase (request, object : UploadImageCallback {
-            override fun onSuccess (response: UploadImageResponse) {
+        uploadImageUseCase (firstIndex, request, object : UploadImageCallback {
+            override fun onSuccess (requestCode: Int, response: UploadImageResponse) {
                 assert (response.hasil == RESPONSE_HASIL_SUKSES)
                 state.value = state.value!!.copy (
                     uploadSuccess = state.value!!.uploadSuccess + 1)
-                uploadListAdapter.setItemProgress (state.value!!.uploadProgressIndex, UploadProgress.SUCCESS)
-                uploadListAdapter.setItemElapsedTime (state.value!!.uploadProgressIndex, response.elapsedTimeInSecond)
-                onComplete ()
+                uploadListAdapter.setItemProgress (requestCode, UploadProgress.SUCCESS)
+                uploadListAdapter.setItemElapsedTime (requestCode, response.elapsedTimeInSecond)
             }
 
-            override fun onError (throwable: Throwable) {
-                uploadListAdapter.setItemProgress (state.value!!.uploadProgressIndex, UploadProgress.FAILED)
-                onComplete ()
+            override fun onError (requestCode: Int, throwable: Throwable) {
+                uploadListAdapter.setItemProgress (requestCode, UploadProgress.FAILED)
             }
 
-            private fun onComplete () {
+            override fun onComplete (requestCode: Int) {
                 val nextIndex = getNextImageIndex ()
                 if (nextIndex == -1)
                     state.value = state.value!!.copy (
@@ -69,7 +67,7 @@ class NetworkingViewModel (
                         uploadProgressIndex = nextIndex,
                         uploadProgressName = uploadList[nextIndex].file.nameWithoutExtension)
                     uploadListAdapter.setItemProgress (nextIndex, UploadProgress.UPLOADING)
-                    uploadImageUseCase (UploadImageRequest (nrp, uploadList[nextIndex].file), this)
+                    uploadImageUseCase (nextIndex, UploadImageRequest (nrp, uploadList[nextIndex].file), this)
                 }
             }
         })

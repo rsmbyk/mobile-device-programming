@@ -6,8 +6,8 @@ import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 
 class UploadImageUseCase (private val uploadImageRepository: UploadImageRepository) {
 
-    operator fun invoke (uploadImageRequest: UploadImageRequest, callback: UploadImageCallback) =
-        uploadImageRepository.uploadImage (uploadImageRequest, callback)
+    operator fun invoke (requestCode: Int, uploadImageRequest: UploadImageRequest, callback: UploadImageCallback) =
+        uploadImageRepository.uploadImage (requestCode, uploadImageRequest, callback)
 
 //    operator fun invoke (uploadImageRequest: UploadImageRequest): Observable<UploadImageResponse> =
 //        uploadImageRepository.uploadImage (uploadImageRequest)
