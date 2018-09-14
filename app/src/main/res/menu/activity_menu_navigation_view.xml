@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_calculator"
+            android:icon="@drawable/ic_cross"
+            android:title="@string/menu_calculator" />
+
+        <item
+            android:id="@+id/menu_camera"
+            android:icon="@drawable/ic_camera"
+            android:title="@string/menu_camera" />
+
+        <item
+            android:id="@+id/menu_networking"
+            android:icon="@drawable/ic_network"
+            android:title="@string/menu_networking" />
+
+        <item
+            android:id="@+id/menu_database"
+            android:icon="@drawable/ic_storage"
+            android:title="@string/menu_database" />
+
+    </group>
+
+    <!--<group android:menuCategory="container">-->
+
+        <!--<item-->
+            <!--android:id="@+id/menu_networking"-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_networking" />-->
+
+        <!--<item-->
+            <!--android:id="@+id/menu_database"-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_database" />-->
+
+    <!--</group>-->
+
+    <!--<group android:menuCategory="secondary">-->
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_networking" />-->
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_database" />-->
+
+    <!--</group>-->
+
+    <!--<group android:menuCategory="system">-->
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_networking" />-->
+
+        <!--<item-->
+            <!--android:icon="@drawable/ic_add"-->
+            <!--android:title="@string/menu_database" />-->
+
+    <!--</group>-->
+
+</menu>

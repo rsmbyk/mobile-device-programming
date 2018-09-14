@@ -1,17 +1,21 @@
 <resources>
     <string name="app_name">Mobile</string>
 
-    <string name="toast_pending_exit">Tap again to exit</string>
+    <string name="name">Ronald Andrean</string>
+    <string name="nrp">05111540000057</string>
 
-    <string name="activity_label_mobile">Mobile</string>
-    <string name="activity_label_calculator">Calculator</string>
-    <string name="activity_label_camera">Camera</string>
-    <string name="activity_label_networking">Networking</string>
+    <string name="menu_mobile">Mobile</string>
+    <string name="menu_calculator">Calculator</string>
+    <string name="menu_camera">Camera</string>
+    <string name="menu_networking">Networking</string>
+    <string name="menu_database">Database</string>
 
     <string name="image_directory">MDP</string>
     <string name="upload_image_directory">Upload</string>
     <string name="image_file_prefix">MDP-</string>
     <string name="image_file_suffix">.jpg</string>
+
+    <string name="toast_pending_exit">Tap again to exit</string>
 
     <!-- Calculator Activity -->
     <string name="edittext_hint_number1">Number 1</string>
@@ -29,7 +33,6 @@
     <string name="snackbar_action_storage_permission_denied">Revoke</string>
 
     <!-- Networking Activity -->
-    <string name="nrp">05111540000174</string>
     <string name="btn_clear">Clear</string>
     <string name="btn_upload">Upload</string>
 </resources>

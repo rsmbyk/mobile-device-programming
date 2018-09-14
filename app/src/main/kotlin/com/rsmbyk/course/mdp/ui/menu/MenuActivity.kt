@@ -4,9 +4,11 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.view.GravityCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import android.widget.Toast
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.domain.model.Menu
@@ -26,7 +28,16 @@ class MenuActivity: DaggerAppCompatActivity () {
     override fun onCreate (savedInstanceState: Bundle?) {
         super.onCreate (savedInstanceState)
         setContentView (R.layout.activity_menu)
+        setupToolbar ()
         setupMenuList ()
+    }
+
+    private fun setupToolbar () {
+        setSupportActionBar (toolbar)
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled (true)
+            setHomeAsUpIndicator (R.drawable.ic_menu)
+        }
     }
 
     private fun setupMenuList () {
@@ -54,13 +65,27 @@ class MenuActivity: DaggerAppCompatActivity () {
 
     }
 
+    override fun onOptionsItemSelected (item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                drawer_layout.openDrawer (GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected (item)
+        }
+    }
+
     override fun onBackPressed () {
-        if (pendingExitHandler != null) {
-            super.onBackPressed ()
-        } else {
-            pendingExitHandler = Handler ()
-            pendingExitHandler?.postDelayed ({ pendingExitHandler = null }, 2000)
-            Toast.makeText (this, getString (R.string.toast_pending_exit), Toast.LENGTH_SHORT).show ()
+        if (drawer_layout.isDrawerOpen (GravityCompat.START))
+            drawer_layout.closeDrawers ()
+        else {
+            if (pendingExitHandler != null)
+                super.onBackPressed ()
+            else {
+                pendingExitHandler = Handler ()
+                pendingExitHandler?.postDelayed ({ pendingExitHandler = null }, 2000)
+                Toast.makeText (this, getString (R.string.toast_pending_exit), Toast.LENGTH_SHORT).show ()
+            }
         }
     }
 }
