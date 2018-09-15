@@ -12,7 +12,7 @@ import java.io.File
 import javax.inject.Named
 
 @Module
-class CameraActivityModule {
+class CameraFragmentModule {
 
     @Provides
     fun provideImageRepository (): ImageRepository =
@@ -35,11 +35,11 @@ class CameraActivityModule {
         CameraViewModelFactory (imageDirectory, getImagesUseCase, getCapturedImageUseCase)
 
     @Provides
-    fun provideCameraViewModel (activity: CameraActivity, factory: CameraViewModelFactory)
+    fun provideCameraViewModel (fragment: CameraFragment, factory: CameraViewModelFactory)
             : CameraViewModel =
-        ViewModelProviders.of (activity, factory).get (CameraViewModel::class.java)
+        ViewModelProviders.of (fragment, factory).get (CameraViewModel::class.java)
 
     @Provides
-    fun provideCameraActivityModule (activity: CameraActivity): CameraUtil =
-        CameraUtil (activity)
+    fun provideCameraActivityModule (fragment: CameraFragment): CameraUtil =
+        CameraUtil (fragment)
 }

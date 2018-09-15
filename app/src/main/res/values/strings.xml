@@ -16,6 +16,7 @@
     <string name="image_file_suffix">.jpg</string>
 
     <string name="toast_pending_exit">Tap again to exit</string>
+    <integer name="pending_exit_interval">2000</integer>
 
     <!-- Calculator Activity -->
     <string name="edittext_hint_number1">Number 1</string>

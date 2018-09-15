@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class CalculatorActivityModule {
+class CalculatorFragmentModule {
 
     @Provides
     fun provideCalculatorRepository (): CalculatorRepository =
@@ -25,7 +25,7 @@ class CalculatorActivityModule {
         CalculatorViewModelFactory (getOperationResultUseCase)
 
     @Provides
-    fun provideCalculatorViewModel (activity: CalculatorActivity, factory: CalculatorViewModelFactory)
+    fun provideCalculatorViewModel (fragment: CalculatorFragment, factory: CalculatorViewModelFactory)
             : CalculatorViewModel =
-        ViewModelProviders.of (activity, factory).get (CalculatorViewModel::class.java)
+        ViewModelProviders.of (fragment, factory).get (CalculatorViewModel::class.java)
 }

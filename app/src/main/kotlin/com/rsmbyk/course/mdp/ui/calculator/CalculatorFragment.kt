@@ -1,20 +1,24 @@
 package com.rsmbyk.course.mdp.ui.calculator
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.domain.model.Operator
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_calculator.*
 import javax.inject.Inject
 
-class CalculatorActivity: DaggerAppCompatActivity () {
+class CalculatorFragment: DaggerFragment () {
 
     @Inject
     lateinit var viewModel: CalculatorViewModel
 
-    override fun onCreate (savedInstanceState: Bundle?) {
-        super.onCreate (savedInstanceState)
-        setContentView (R.layout.activity_calculator)
+    override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate (R.layout.activity_calculator, container, false)
+
+    override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         setupButtons ()
     }
 

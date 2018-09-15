@@ -1,5 +1,6 @@
 package com.rsmbyk.course.mdp.ui.networking
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -10,7 +11,9 @@ import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.leinardi.android.speeddial.SpeedDialView
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.CameraUtil
@@ -18,12 +21,12 @@ import com.rsmbyk.course.mdp.common.hide
 import com.rsmbyk.course.mdp.common.setVisible
 import com.rsmbyk.course.mdp.common.show
 import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
-import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_networking.*
 import javax.inject.Inject
 
-class NetworkingActivity: DaggerAppCompatActivity () {
+class NetworkingFragment: DaggerFragment () {
 
     @Inject
     lateinit var viewModel: NetworkingViewModel
@@ -31,9 +34,10 @@ class NetworkingActivity: DaggerAppCompatActivity () {
     @Inject
     lateinit var cameraUtil: CameraUtil
 
-    override fun onCreate (savedInstanceState: Bundle?) {
-        super.onCreate (savedInstanceState)
-        setContentView (R.layout.activity_networking)
+    override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        inflater.inflate (R.layout.activity_networking, container, false)
+
+    override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         cameraUtil.requestPermissions ()
         viewModel.state.observe (this, Observer (::handleViewState))
         btn_clear.setOnClickListener { viewModel.clearUploadList () }
@@ -59,9 +63,9 @@ class NetworkingActivity: DaggerAppCompatActivity () {
 
     private fun setupUploadList () {
         upload_list.adapter = viewModel.uploadListAdapter
-        upload_list.layoutManager = LinearLayoutManager (this)
+        upload_list.layoutManager = LinearLayoutManager (context)
         upload_list.setHasFixedSize (true)
-        upload_list.addItemDecoration (DividerItemDecoration (this, RecyclerView.VERTICAL))
+        upload_list.addItemDecoration (DividerItemDecoration (context, RecyclerView.VERTICAL))
     }
 
     private fun handleViewState (state: NetworkingViewState?) {
@@ -95,15 +99,13 @@ class NetworkingActivity: DaggerAppCompatActivity () {
     }
 
     override fun onActivityResult (requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult (requestCode, resultCode, data)
-        if (requestCode == CameraUtil.REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+        if (requestCode == CameraUtil.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             viewModel.addCapturedImage ()
             upload_list.smoothScrollToPosition (viewModel.uploadList.size - 1)
         }
     }
 
     override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult (requestCode, permissions, grantResults)
         if (requestCode == CameraUtil.REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             setupUploadList ()
             setupFab ()

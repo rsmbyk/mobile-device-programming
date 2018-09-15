@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".ui.menu.MenuActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/menu_mobile"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -21,21 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ui.calculator.CalculatorActivity"
-            android:label="@string/menu_calculator"
-            android:parentActivityName=".ui.menu.MenuActivity" />
-
-        <activity
-            android:name=".ui.camera.CameraActivity"
-            android:label="@string/menu_camera"
-            android:parentActivityName=".ui.menu.MenuActivity" />
-
-        <activity
-            android:name=".ui.networking.NetworkingActivity"
-            android:label="@string/menu_networking"
-            android:parentActivityName=".ui.menu.MenuActivity" />
 
     </application>
 

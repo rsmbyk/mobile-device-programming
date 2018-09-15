@@ -16,7 +16,7 @@ import java.io.File
 import javax.inject.Named
 
 @Module
-class NetworkingActivityModule {
+class NetworkingFragmentModule {
 
     @Provides
     fun provideImageRepository (): ImageRepository =
@@ -44,11 +44,11 @@ class NetworkingActivityModule {
         NetworkingViewModelFactory (uploadImageDirectory, getCapturedImageUseCase, uploadImageUseCase)
 
     @Provides
-    fun provideNetworkingViewModel (activity: NetworkingActivity, factory: NetworkingViewModelFactory)
+    fun provideNetworkingViewModel (fragment: NetworkingFragment, factory: NetworkingViewModelFactory)
             : NetworkingViewModel =
-        ViewModelProviders.of (activity, factory).get (NetworkingViewModel::class.java)
+        ViewModelProviders.of (fragment, factory).get (NetworkingViewModel::class.java)
 
     @Provides
-    fun provideCameraActivityModule (activity: NetworkingActivity): CameraUtil =
-        CameraUtil (activity)
+    fun provideCameraActivityModule (fragment: NetworkingFragment): CameraUtil =
+        CameraUtil (fragment)
 }

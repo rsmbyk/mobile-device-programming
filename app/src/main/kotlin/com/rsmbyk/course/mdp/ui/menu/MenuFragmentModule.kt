@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class MenuActivityModule {
+class MenuFragmentModule {
 
     @Provides
     fun provideMenuRepository (context: Context): MenuRepository =
@@ -24,6 +24,6 @@ class MenuActivityModule {
         MenuViewModelFactory (getMenusUseCase)
 
     @Provides
-    fun provideMenuViewModel (activity: MenuActivity, factory: MenuViewModelFactory): MenuViewModel =
-        ViewModelProviders.of (activity, factory).get (MenuViewModel::class.java)
+    fun provideMenuViewModel (fragment: MenuFragment, factory: MenuViewModelFactory): MenuViewModel =
+        ViewModelProviders.of (fragment, factory).get (MenuViewModel::class.java)
 }
