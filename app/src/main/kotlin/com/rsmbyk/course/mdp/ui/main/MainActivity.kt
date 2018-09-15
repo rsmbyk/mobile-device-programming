@@ -9,7 +9,9 @@ import android.support.v4.view.GravityCompat
 import android.view.MenuItem
 import android.widget.Toast
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.camera.CameraFragment
+import com.rsmbyk.course.mdp.ui.networking.NetworkingFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -30,6 +32,7 @@ class MainActivity: DaggerAppCompatActivity () {
         super.onCreate (savedInstanceState)
         setContentView (R.layout.activity_main)
         setupToolbar ()
+        setupNavigationView ()
         supportFragmentManager.replace (R.id.fragment, CameraFragment ())
     }
 
@@ -38,6 +41,28 @@ class MainActivity: DaggerAppCompatActivity () {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled (true)
             setHomeAsUpIndicator (R.drawable.ic_menu)
+        }
+    }
+
+    private fun setupNavigationView () {
+        navigation_view.setNavigationItemSelectedListener {
+            supportFragmentManager.replace (R.id.fragment, when (it.itemId) {
+                R.id.menu_calculator -> CalculatorFragment ()
+                R.id.menu_camera -> CameraFragment ()
+                R.id.menu_networking -> NetworkingFragment ()
+//                R.id.menu_database -> DatabaseFragment ()
+                else -> throw IllegalArgumentException ()
+            })
+            supportActionBar?.title = when (it.itemId) {
+                R.id.menu_calculator -> getString (R.string.menu_calculator)
+                R.id.menu_camera -> getString (R.string.menu_camera)
+                R.id.menu_networking -> getString (R.string.menu_networking)
+                R.id.menu_database -> getString (R.string.menu_database)
+                else -> throw IllegalArgumentException ()
+            }
+            it.isChecked = true
+            drawer_layout.closeDrawers ()
+            true
         }
     }
 

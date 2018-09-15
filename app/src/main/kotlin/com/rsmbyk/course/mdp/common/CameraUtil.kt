@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.MediaStore
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
@@ -23,8 +22,7 @@ class CameraUtil (private val fragment: Fragment) {
         ContextCompat.checkSelfPermission (fragment.context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
 
     fun requestPermissions () {
-        ActivityCompat.requestPermissions (
-            fragment.activity!!,
+        fragment.requestPermissions (
             arrayOf (Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_PERMISSION_WRITE_EXTERNAL_STORAGE)
     }
