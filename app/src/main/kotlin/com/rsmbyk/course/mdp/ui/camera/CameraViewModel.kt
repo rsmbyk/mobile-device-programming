@@ -3,6 +3,8 @@ package com.rsmbyk.course.mdp.ui.camera
 import android.arch.lifecycle.ViewModel
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.GetImagesUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 class CameraViewModel (
@@ -11,14 +13,23 @@ class CameraViewModel (
     private val getCapturedImageUseCase: GetCapturedImageUseCase)
         : ViewModel () {
 
-    private val imageList: MutableList<File> =
-        getImagesUseCase (imageDirectory).toMutableList ()
+    private val imageList = mutableListOf<File> ()
+    val imageListAdapter = GridImageAdapter (imageList)
 
-    val imageListAdapter =
-        GridImageAdapter (imageList)
+    init {
+        getImagesUseCase (imageDirectory)
+            .subscribeOn (Schedulers.io ())
+            .observeOn (AndroidSchedulers.mainThread ())
+            .subscribe { imageList.addAll (it) }
+    }
 
     fun addCapturedImage () {
-        imageList.add (0, getCapturedImageUseCase (imageDirectory))
-        imageListAdapter.notifyItemInserted (0)
+        getCapturedImageUseCase (imageDirectory)
+            .subscribeOn (Schedulers.io ())
+            .observeOn (AndroidSchedulers.mainThread ())
+            .subscribe {
+                imageList.add (0, it)
+                imageListAdapter.notifyItemInserted (0)
+            }
     }
 }

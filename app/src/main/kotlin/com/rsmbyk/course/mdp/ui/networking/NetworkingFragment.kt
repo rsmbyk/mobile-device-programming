@@ -24,6 +24,7 @@ import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_camera.*
 import kotlinx.android.synthetic.main.activity_networking.*
+import java.io.File
 import javax.inject.Inject
 
 class NetworkingFragment: DaggerFragment () {
@@ -40,6 +41,7 @@ class NetworkingFragment: DaggerFragment () {
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         cameraUtil.requestPermissions ()
         viewModel.state.observe (this, Observer (::handleViewState))
+        viewModel.newImage.observe (this, Observer (::scrollToTop))
         btn_clear.setOnClickListener { viewModel.clearUploadList () }
         btn_upload.setOnClickListener {
             progress_bar.show ()
@@ -49,6 +51,9 @@ class NetworkingFragment: DaggerFragment () {
             viewModel.uploadImages (getString (R.string.nrp))
         }
     }
+
+    private fun scrollToTop (newImage: File?) =
+        upload_list.smoothScrollToPosition (viewModel.uploadList.size - 1)
 
     private fun setupFab () {
         fab_add.setOnChangeListener (object: SpeedDialView.OnChangeListener {
@@ -99,10 +104,8 @@ class NetworkingFragment: DaggerFragment () {
     }
 
     override fun onActivityResult (requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CameraUtil.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+        if (requestCode == CameraUtil.REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK)
             viewModel.addCapturedImage ()
-            upload_list.smoothScrollToPosition (viewModel.uploadList.size - 1)
-        }
     }
 
     override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -120,5 +123,6 @@ class NetworkingFragment: DaggerFragment () {
     override fun onDestroy () {
         super.onDestroy ()
         viewModel.state.removeObservers (this)
+        viewModel.newImage.removeObservers (this)
     }
 }

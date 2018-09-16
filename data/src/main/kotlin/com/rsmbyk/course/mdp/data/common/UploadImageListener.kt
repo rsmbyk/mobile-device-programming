@@ -10,9 +10,9 @@ import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 class UploadImageListener (
-        private val requestCode: Int,
-        private val context: Context,
-        private val callback: UploadImageCallback)
+    private val requestCode: Int,
+    private val context: Context,
+    private val callback: UploadImageCallback)
         : Response.Listener<String>, Response.ErrorListener {
 
     private val startTime: Long = System.nanoTime ()
@@ -25,9 +25,11 @@ class UploadImageListener (
                 context.getString (R.string.upload_image_response_params_hasil)),
             TimeUnit.NANOSECONDS.toMillis (elapsedTimeInNano) / 1000f)
         callback.onSuccess (requestCode, uploadImageResponse)
+        callback.onComplete (requestCode)
     }
 
     override fun onErrorResponse (error: VolleyError?) {
         error?.let { callback.onError (requestCode, it) }
+        callback.onComplete (requestCode)
     }
 }

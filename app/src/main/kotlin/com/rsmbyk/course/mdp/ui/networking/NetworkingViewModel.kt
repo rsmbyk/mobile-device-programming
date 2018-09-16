@@ -10,6 +10,8 @@ import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
 import com.rsmbyk.course.mdp.model.UploadListImageModel
 import com.rsmbyk.course.mdp.model.UploadListImageModel.UploadProgress
 import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 class NetworkingViewModel (
@@ -25,6 +27,7 @@ class NetworkingViewModel (
     val state = MutableLiveData<NetworkingViewState> ()
     val uploadList = mutableListOf<UploadListImageModel> ()
     val uploadListAdapter = UploadImageListAdapter (uploadList)
+    val newImage = MutableLiveData<File> ()
 
     init {
         state.value = NetworkingViewState ()
@@ -47,10 +50,10 @@ class NetworkingViewModel (
         uploadImageUseCase (firstIndex, request, object : UploadImageCallback {
             override fun onSuccess (requestCode: Int, response: UploadImageResponse) {
                 assert (response.hasil == RESPONSE_HASIL_SUKSES)
-                state.value = state.value!!.copy (
-                    uploadSuccess = state.value!!.uploadSuccess + 1)
                 uploadListAdapter.setItemProgress (requestCode, UploadProgress.SUCCESS)
                 uploadListAdapter.setItemElapsedTime (requestCode, response.elapsedTimeInSecond)
+                state.value = state.value!!.copy (
+                    uploadSuccess = state.value!!.uploadSuccess + 1)
             }
 
             override fun onError (requestCode: Int, throwable: Throwable) {
@@ -87,11 +90,16 @@ class NetworkingViewModel (
         uploadList.indexOf (uploadList.firstOrNull { it.uploadProgress == UploadProgress.IDLE })
 
     fun addCapturedImage () {
-        val capturedImage = getCapturedImageUseCase (uploadImageDirectory)
-        uploadList.add (UploadListImageModel (capturedImage))
-        uploadListAdapter.notifyItemInserted (uploadList.size - 1)
-        state.value = state.value!!.copy (
-            uploadTotal = uploadList.filter { it.uploadProgress == UploadProgress.IDLE }.size)
+        getCapturedImageUseCase (uploadImageDirectory)
+            .subscribeOn (Schedulers.io ())
+            .observeOn (AndroidSchedulers.mainThread ())
+            .subscribe { capturedImage ->
+                uploadList.add (UploadListImageModel (capturedImage))
+                uploadListAdapter.notifyItemInserted (uploadList.size - 1)
+                state.value = state.value!!.copy (
+                    uploadTotal = uploadList.filter { it.uploadProgress == UploadProgress.IDLE }.size)
+                newImage.value = capturedImage
+            }
     }
 
     fun clearUploadList () {
