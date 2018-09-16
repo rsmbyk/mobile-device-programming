@@ -33,7 +33,8 @@ class MainActivity: DaggerAppCompatActivity () {
         setContentView (R.layout.activity_main)
         setupToolbar ()
         setupNavigationView ()
-        supportFragmentManager.replace (R.id.fragment, CameraFragment ())
+        if (supportFragmentManager.findFragmentById (R.id.fragment) == null)
+            supportFragmentManager.replace (R.id.fragment, CameraFragment ())
     }
 
     private fun setupToolbar () {
