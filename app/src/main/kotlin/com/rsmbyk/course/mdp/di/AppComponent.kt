@@ -11,7 +11,8 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     ActivityBuilder::class,
     AppModule::class,
-    NetworkModule::class])
+    NetworkModule::class,
+    DatabaseModule::class])
 interface AppComponent : AndroidInjector<App> {
 
     @Component.Builder

@@ -40,4 +40,9 @@ class AppModule {
         File (imageDirectory.path, context.getString (R.string.upload_image_directory))
             .deleteFileOnExit ()
             .createNewDirectory ()
+
+    @Provides
+    @Named ("private_image_directory")
+    fun providePrivateImageDirectory (context: Context): File =
+        File (context.filesDir, context.getString (R.string.image_directory))
 }
