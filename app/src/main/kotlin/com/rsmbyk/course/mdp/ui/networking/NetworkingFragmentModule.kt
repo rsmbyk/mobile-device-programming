@@ -37,11 +37,12 @@ class NetworkingFragmentModule {
 
     @Provides
     fun provideNetworkingViewModelFactory (
+        @Named ("nrp") nrp: String,
         @Named ("upload_image_directory") uploadImageDirectory: File,
         getCapturedImageUseCase: GetCapturedImageUseCase,
         uploadImageUseCase: UploadImageUseCase)
             : NetworkingViewModelFactory =
-        NetworkingViewModelFactory (uploadImageDirectory, getCapturedImageUseCase, uploadImageUseCase)
+        NetworkingViewModelFactory (nrp, uploadImageDirectory, getCapturedImageUseCase, uploadImageUseCase)
 
     @Provides
     fun provideNetworkingViewModel (fragment: NetworkingFragment, factory: NetworkingViewModelFactory)

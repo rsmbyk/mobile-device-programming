@@ -43,13 +43,7 @@ class NetworkingFragment: DaggerFragment () {
         viewModel.state.observe (this, Observer (::handleViewState))
         viewModel.newImage.observe (this, Observer (::scrollToTop))
         btn_clear.setOnClickListener { viewModel.clearUploadList () }
-        btn_upload.setOnClickListener {
-            progress_bar.show ()
-            btn_clear.hide ()
-            btn_upload.hide ()
-            fab_add.hide ()
-            viewModel.uploadImages (getString (R.string.nrp))
-        }
+        btn_upload.setOnClickListener { viewModel.uploadImages () }
     }
 
     private fun scrollToTop (newImage: File?) =
@@ -94,7 +88,8 @@ class NetworkingFragment: DaggerFragment () {
                 params.setMargins (0, 0, 0, 0)
             }
             btn_upload.show ()
-            btn_upload.isEnabled = state.uploadState != UploadState.FINISHED
+            btn_upload.isEnabled =
+                state.uploadState != UploadState.FINISHED || state.uploadSuccess != state.uploadTotal
             btn_clear.show ()
             fab_add.show ()
             fab_add.setVisible (state.uploadState == UploadState.IDLE)

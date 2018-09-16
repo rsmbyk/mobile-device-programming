@@ -2,7 +2,6 @@ package com.rsmbyk.course.mdp.ui.networking
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import com.rsmbyk.course.mdp.domain.common.UploadImageCallback
 import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
 import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.usecase.GetCapturedImageUseCase
@@ -15,6 +14,7 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 
 class NetworkingViewModel (
+    private val nrp: String,
     val uploadImageDirectory: File,
     private val getCapturedImageUseCase: GetCapturedImageUseCase,
     private val uploadImageUseCase: UploadImageUseCase)
@@ -33,7 +33,7 @@ class NetworkingViewModel (
         state.value = NetworkingViewState ()
     }
 
-    fun uploadImages (nrp: String) {
+    fun uploadImages () {
         uploadList
             .filter { it.uploadProgress == UploadProgress.FAILED }
             .forEach { it.uploadProgress = UploadProgress.IDLE }
@@ -47,38 +47,46 @@ class NetworkingViewModel (
             uploadProgressName = uploadList[firstIndex].file.nameWithoutExtension)
         uploadListAdapter.setItemProgress (firstIndex, UploadProgress.UPLOADING)
 
-        uploadImageUseCase (firstIndex, request, object : UploadImageCallback {
-            override fun onSuccess (requestCode: Int, response: UploadImageResponse) {
-                assert (response.hasil == RESPONSE_HASIL_SUKSES)
-                uploadListAdapter.setItemProgress (requestCode, UploadProgress.SUCCESS)
-                uploadListAdapter.setItemElapsedTime (requestCode, response.elapsedTimeInSecond)
-                state.value = state.value!!.copy (
-                    uploadSuccess = state.value!!.uploadSuccess + 1)
-            }
+        uploadImageUseCase (request)
+            .subscribeOn (Schedulers.io ())
+            .observeOn (AndroidSchedulers.mainThread ())
+            .subscribe (::onUploadItemResponse, ::onUploadItemError, ::onUploadItemComplete)
+    }
 
-            override fun onError (requestCode: Int, throwable: Throwable) {
-                uploadListAdapter.setItemProgress (requestCode, UploadProgress.FAILED)
-            }
+    private fun onUploadItemResponse (response: UploadImageResponse) {
+        assert (response.hasil == RESPONSE_HASIL_SUKSES)
+        val index = state.value!!.uploadProgressIndex
+        uploadListAdapter.setItemProgress (index, UploadProgress.SUCCESS)
+        uploadListAdapter.setItemElapsedTime (index, response.elapsedTimeInSecond)
+        state.value = state.value!!.copy (
+            uploadSuccess = state.value!!.uploadSuccess + 1)
+    }
 
-            override fun onComplete (requestCode: Int) {
-                val nextIndex = getNextImageIndex ()
-                if (nextIndex == -1)
-                    state.value = state.value!!.copy (
-                        uploadState = UploadState.FINISHED)
-                else {
-                    state.value = state.value!!.copy (
-                        uploadProgressIndex = nextIndex,
-                        uploadProgressName = uploadList[nextIndex].file.nameWithoutExtension)
-                    uploadListAdapter.setItemProgress (nextIndex, UploadProgress.UPLOADING)
-                    uploadImageUseCase (nextIndex, UploadImageRequest (nrp, uploadList[nextIndex].file), this)
-                }
-            }
-        })
+    private fun onUploadItemError (throwable: Throwable) {
+        val index = state.value!!.uploadProgressIndex
+        uploadListAdapter.setItemProgress (index, UploadProgress.FAILED)
     }
 
     private fun UploadImageListAdapter.setItemProgress (position: Int, uploadProgress: UploadProgress) {
         uploadList[position].uploadProgress = uploadProgress
         notifyItemChanged (position)
+    }
+
+    private fun onUploadItemComplete () {
+        val nextIndex = getNextImageIndex ()
+        if (nextIndex == -1)
+            state.value = state.value!!.copy (
+                uploadState = UploadState.FINISHED)
+        else {
+            state.value = state.value!!.copy (
+                uploadProgressIndex = nextIndex,
+                uploadProgressName = uploadList[nextIndex].file.nameWithoutExtension)
+            uploadListAdapter.setItemProgress (nextIndex, UploadProgress.UPLOADING)
+            uploadImageUseCase (UploadImageRequest (nrp, uploadList[nextIndex].file))
+                .subscribeOn (Schedulers.io ())
+                .observeOn (AndroidSchedulers.mainThread ())
+                .subscribe (::onUploadItemResponse, ::onUploadItemError, ::onUploadItemComplete)
+        }
     }
 
     private fun UploadImageListAdapter.setItemElapsedTime (position: Int, elapsedTime: Float) {

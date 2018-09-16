@@ -21,6 +21,12 @@ class AppModule {
         app
 
     @Provides
+    @Named ("nrp")
+    @Singleton
+    fun provideNRP (context: Context): String =
+        context.getString (R.string.nrp)
+
+    @Provides
     @Named ("image_directory")
     fun provideImageDirectory (context: Context): File =
         File (
