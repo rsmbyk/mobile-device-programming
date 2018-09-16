@@ -1,9 +1,15 @@
 package com.rsmbyk.course.mdp.ui.calculator
 
 import android.arch.lifecycle.ViewModelProviders
+import com.rsmbyk.course.mdp.data.mapper.OperatorDataMapper
+import com.rsmbyk.course.mdp.data.model.OperatorData
 import com.rsmbyk.course.mdp.data.repository.CalculatorDataRepository
+import com.rsmbyk.course.mdp.domain.mapper.Mapper
+import com.rsmbyk.course.mdp.domain.model.Operator
 import com.rsmbyk.course.mdp.domain.repository.CalculatorRepository
-import com.rsmbyk.course.mdp.domain.usecase.GetOperationResultUseCase
+import com.rsmbyk.course.mdp.domain.usecase.EvaluateUseCase
+import com.rsmbyk.course.mdp.mapper.OperatorModelMapper
+import com.rsmbyk.course.mdp.model.OperatorModel
 import dagger.Module
 import dagger.Provides
 
@@ -11,18 +17,29 @@ import dagger.Provides
 class CalculatorFragmentModule {
 
     @Provides
-    fun provideCalculatorRepository (): CalculatorRepository =
-        CalculatorDataRepository ()
+    fun provideOperatorDataMapper (): Mapper<Operator, OperatorData> =
+        OperatorDataMapper ()
+
+    @Provides
+    fun provideCalculatorRepository (operatorDataMapper: Mapper<Operator, OperatorData>)
+            : CalculatorRepository =
+        CalculatorDataRepository (operatorDataMapper)
 
     @Provides
     fun provideGetOperationResultUseCase (calculatorRepository: CalculatorRepository)
-            : GetOperationResultUseCase =
-        GetOperationResultUseCase (calculatorRepository)
+            : EvaluateUseCase =
+        EvaluateUseCase (calculatorRepository)
 
     @Provides
-    fun provideCalculatorViewModelFactory (getOperationResultUseCase: GetOperationResultUseCase)
+    fun provideOperatorModelMapper (): Mapper<Operator, OperatorModel> =
+        OperatorModelMapper ()
+
+    @Provides
+    fun provideCalculatorViewModelFactory (
+        operatorModelMapper: Mapper<Operator, OperatorModel>,
+        evaluateUseCase: EvaluateUseCase)
             : CalculatorViewModelFactory =
-        CalculatorViewModelFactory (getOperationResultUseCase)
+        CalculatorViewModelFactory (operatorModelMapper, evaluateUseCase)
 
     @Provides
     fun provideCalculatorViewModel (fragment: CalculatorFragment, factory: CalculatorViewModelFactory)

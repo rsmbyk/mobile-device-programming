@@ -1,9 +1,9 @@
 package com.rsmbyk.course.mdp.domain.repository
 
+import com.rsmbyk.course.mdp.domain.model.Operator
+import io.reactivex.Observable
+
 interface CalculatorRepository {
 
-    fun add (a: Int, b: Int): Int
-    fun subtract (a: Int, b: Int): Int
-    fun multiply (a: Int, b: Int): Int
-    fun divide (a: Int, b: Int): Int
+    fun evaluate (operator: Operator, x: Int, y: Int): Observable<Int>
 }
