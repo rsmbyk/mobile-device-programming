@@ -1,5 +1,6 @@
 package com.rsmbyk.course.mdp.ui.menu
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
@@ -33,7 +34,10 @@ class MenuFragment: DaggerFragment () {
         menus.setHasFixedSize (true)
         menus.addItemDecoration (DividerItemDecoration (context, RecyclerView.VERTICAL))
         menus.layoutManager = LinearLayoutManager (context)
-        menus.adapter = MenuAdapter (viewModel.getMenus (), ::onMenuItemClick)
+        viewModel.menus.observe (this, Observer {
+            menus.adapter = MenuAdapter (it!!, ::onMenuItemClick)
+        })
+        viewModel.getMenus ()
     }
 
     private fun onMenuItemClick (position: Int) {
