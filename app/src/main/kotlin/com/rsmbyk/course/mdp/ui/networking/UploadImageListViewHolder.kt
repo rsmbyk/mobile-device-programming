@@ -7,10 +7,14 @@ import com.bumptech.glide.request.RequestOptions
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.setVisible
 import com.rsmbyk.course.mdp.model.UploadImageModel
-import com.rsmbyk.course.mdp.model.UploadImageModel.UploadProgress
+import com.rsmbyk.course.mdp.model.UploadImageModel.UploadProgress.IDLE
+import com.rsmbyk.course.mdp.model.UploadImageModel.UploadProgress.SUCCESS
+import com.rsmbyk.course.mdp.model.UploadImageModel.UploadProgress.UPLOADING
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_image_list.*
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class UploadImageListViewHolder (override val containerView: View)
     : RecyclerView.ViewHolder (containerView), LayoutContainer {
@@ -25,10 +29,25 @@ class UploadImageListViewHolder (override val containerView: View)
     }
 
     fun bind (item: UploadImageModel) {
-        bind (item.file)
-        success_indicator.setVisible (item.uploadProgress == UploadProgress.SUCCESS)
-        uploading_indicator.setVisible (item.uploadProgress == UploadProgress.UPLOADING)
-        elapsed_time.setVisible (item.uploadProgress == UploadProgress.SUCCESS)
-        elapsed_time.text = "${item.elapsedTime} second(s)"
+        item.apply {
+            bind (file)
+            upload_time.setVisible (uploadTime >= 0)
+            upload_time.text = uploadTime.toDateTime ()
+            indicators.setVisible (uploadProgress != IDLE || elapsedTime > -1f)
+            metadatas.setVisible (elapsedTime > -1f)
+            id.setVisible (uploadProgress == IDLE)
+            id.text = index.toString ()
+            elapsed_time.text = "${item.elapsedTime} s"
+            success_indicator.setVisible (uploadProgress == SUCCESS)
+            uploading_indicator.setVisible (uploadProgress == UPLOADING)
+        }
+    }
+
+    private fun Long.toDateTime (): String {
+        val calendar = Calendar.getInstance ()
+//        "dd MMMM yyyy, HH:MM"
+        calendar.timeInMillis = this
+        val sdf = SimpleDateFormat.getDateTimeInstance ()
+        return sdf.format (calendar.time)
     }
 }

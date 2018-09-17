@@ -76,4 +76,8 @@ class UploadImageDataRepository (
             volleyRequestQueue.add (request)
         }
     }
+
+    override fun getUploadedImages (): Single<List<UploadImage>> =
+        uploadImageDao.all ()
+            .map { it.map (mapper::mapToEntity) }
 }

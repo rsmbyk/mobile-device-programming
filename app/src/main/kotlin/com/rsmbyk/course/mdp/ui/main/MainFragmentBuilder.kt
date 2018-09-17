@@ -4,6 +4,8 @@ import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragmentModule
 import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import com.rsmbyk.course.mdp.ui.camera.CameraFragmentModule
+import com.rsmbyk.course.mdp.ui.database.DatabaseFragment
+import com.rsmbyk.course.mdp.ui.database.DatabaseFragmentModule
 import com.rsmbyk.course.mdp.ui.menu.MenuFragment
 import com.rsmbyk.course.mdp.ui.menu.MenuFragmentModule
 import com.rsmbyk.course.mdp.ui.networking.NetworkingFragment
@@ -25,4 +27,7 @@ abstract class MainFragmentBuilder {
 
     @ContributesAndroidInjector (modules = [NetworkingFragmentModule::class])
     abstract fun bindNetworkingFragment (): NetworkingFragment
+
+    @ContributesAndroidInjector (modules = [DatabaseFragmentModule::class])
+    abstract fun bindDatabaseFragment (): DatabaseFragment
 }

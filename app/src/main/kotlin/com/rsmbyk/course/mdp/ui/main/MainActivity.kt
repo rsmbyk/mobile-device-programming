@@ -9,8 +9,10 @@ import android.support.v4.view.GravityCompat
 import android.view.MenuItem
 import android.widget.Toast
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.model.MenuModel
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.camera.CameraFragment
+import com.rsmbyk.course.mdp.ui.database.DatabaseFragment
 import com.rsmbyk.course.mdp.ui.networking.NetworkingFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,22 +48,17 @@ class MainActivity: DaggerAppCompatActivity () {
     }
 
     private fun setupNavigationView () {
-        navigation_view.setNavigationItemSelectedListener {
-            supportFragmentManager.replace (R.id.fragment, when (it.itemId) {
-                R.id.menu_calculator -> CalculatorFragment ()
-                R.id.menu_camera -> CameraFragment ()
-                R.id.menu_networking -> NetworkingFragment ()
-//                R.id.menu_database -> DatabaseFragment ()
-                else -> throw IllegalArgumentException ()
+
+        navigation_view.setNavigationItemSelectedListener { menuItem ->
+            val menuModel = MenuModel.values ().first { it.id == menuItem.itemId }
+            supportFragmentManager.replace (R.id.fragment, when (menuModel) {
+                MenuModel.CALCULATOR -> CalculatorFragment ()
+                MenuModel.CAMERA -> CameraFragment ()
+                MenuModel.NETWORKING -> NetworkingFragment ()
+                MenuModel.DATABASE -> DatabaseFragment ()
             })
-            supportActionBar?.title = when (it.itemId) {
-                R.id.menu_calculator -> getString (R.string.menu_calculator)
-                R.id.menu_camera -> getString (R.string.menu_camera)
-                R.id.menu_networking -> getString (R.string.menu_networking)
-                R.id.menu_database -> getString (R.string.menu_database)
-                else -> throw IllegalArgumentException ()
-            }
-            it.isChecked = true
+            supportActionBar?.title = menuItem.title
+            menuItem.isChecked = true
             drawer_layout.closeDrawers ()
             true
         }
