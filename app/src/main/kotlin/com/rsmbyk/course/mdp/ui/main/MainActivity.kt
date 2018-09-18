@@ -36,7 +36,7 @@ class MainActivity: DaggerAppCompatActivity () {
         setupToolbar ()
         setupNavigationView ()
         if (supportFragmentManager.findFragmentById (R.id.fragment) == null)
-            supportFragmentManager.replace (R.id.fragment, CameraFragment ())
+            bottom_navigation.selectedItemId = R.id.menu_camera
     }
 
     private fun setupToolbar () {
@@ -49,7 +49,7 @@ class MainActivity: DaggerAppCompatActivity () {
 
     private fun setupNavigationView () {
 
-        navigation_view.setNavigationItemSelectedListener { menuItem ->
+        bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
             val menuModel = MenuModel.values ().first { it.id == menuItem.itemId }
             supportFragmentManager.replace (R.id.fragment, when (menuModel) {
                 MenuModel.CALCULATOR -> CalculatorFragment ()
@@ -57,6 +57,13 @@ class MainActivity: DaggerAppCompatActivity () {
                 MenuModel.NETWORKING -> NetworkingFragment ()
                 MenuModel.DATABASE -> DatabaseFragment ()
             })
+            navigation_view.setCheckedItem (menuItem)
+            supportActionBar?.title = menuItem.title
+            true
+        }
+
+        navigation_view.setNavigationItemSelectedListener { menuItem ->
+            bottom_navigation.selectedItemId = menuItem.itemId
             supportActionBar?.title = menuItem.title
             menuItem.isChecked = true
             drawer_layout.closeDrawers ()
