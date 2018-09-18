@@ -35,6 +35,7 @@
             android:elevation="8dp"
             app:itemIconTint="@drawable/bottom_navigation_colors"
             app:itemTextColor="@drawable/bottom_navigation_colors"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/activity_menu_navigation_view" />
 
     </LinearLayout>
