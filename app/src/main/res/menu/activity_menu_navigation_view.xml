@@ -5,7 +5,7 @@
 
         <item
             android:id="@+id/menu_calculator"
-            android:icon="@drawable/ic_cross"
+            android:icon="@drawable/ic_calculator"
             android:title="@string/menu_calculator" />
 
         <item
