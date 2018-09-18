@@ -15,7 +15,7 @@ import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import com.rsmbyk.course.mdp.ui.networking.NetworkingFragment
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_menu.*
+import kotlinx.android.synthetic.main.fragment_menu.*
 import javax.inject.Inject
 
 class MenuFragment: DaggerFragment () {
@@ -24,7 +24,7 @@ class MenuFragment: DaggerFragment () {
     lateinit var viewModel: MenuViewModel
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate (R.layout.activity_menu, container, false)
+        inflater.inflate (R.layout.fragment_menu, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         setupMenuList ()

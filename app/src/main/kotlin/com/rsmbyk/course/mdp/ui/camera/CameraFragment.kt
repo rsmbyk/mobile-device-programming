@@ -16,7 +16,7 @@ import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.CameraUtil
 import com.rsmbyk.course.mdp.common.SpaceItemDecoration
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.fragment_camera.*
 import javax.inject.Inject
 
 class CameraFragment: DaggerFragment () {
@@ -28,7 +28,7 @@ class CameraFragment: DaggerFragment () {
     lateinit var cameraUtil: CameraUtil
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate (R.layout.activity_camera, container, false)
+        inflater.inflate (R.layout.fragment_camera, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         fab_camera.setOnChangeListener (object: SpeedDialView.OnChangeListener {

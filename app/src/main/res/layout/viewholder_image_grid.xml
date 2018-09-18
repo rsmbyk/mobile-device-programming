@@ -8,4 +8,3 @@
     android:background="@color/background_primary"
     android:scaleType="centerCrop"
     app:pivot="width" />
-

@@ -22,8 +22,8 @@ import com.rsmbyk.course.mdp.common.setVisible
 import com.rsmbyk.course.mdp.common.show
 import com.rsmbyk.course.mdp.ui.networking.NetworkingViewState.UploadState
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_camera.*
-import kotlinx.android.synthetic.main.activity_networking.*
+import kotlinx.android.synthetic.main.fragment_camera.*
+import kotlinx.android.synthetic.main.fragment_networking.*
 import java.io.File
 import javax.inject.Inject
 
@@ -36,7 +36,7 @@ class NetworkingFragment: DaggerFragment () {
     lateinit var cameraUtil: CameraUtil
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate (R.layout.activity_networking, container, false)
+        inflater.inflate (R.layout.fragment_networking, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         cameraUtil.requestPermissions ()

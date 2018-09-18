@@ -7,9 +7,9 @@
     android:padding="16dp" >
 
     <android.support.design.widget.TextInputLayout
-        android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/number1"
@@ -21,9 +21,9 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:layout_marginBottom="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp" >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/number2"
@@ -36,8 +36,8 @@
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_marginBottom="4dp"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp" >
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/result"

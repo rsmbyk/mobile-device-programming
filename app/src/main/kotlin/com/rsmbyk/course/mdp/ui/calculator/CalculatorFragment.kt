@@ -11,7 +11,7 @@ import com.rsmbyk.course.mdp.common.setErrorText
 import com.rsmbyk.course.mdp.common.setIntText
 import com.rsmbyk.course.mdp.model.OperatorModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_calculator.*
+import kotlinx.android.synthetic.main.fragment_calculator.*
 import javax.inject.Inject
 
 class CalculatorFragment: DaggerFragment () {
@@ -20,7 +20,7 @@ class CalculatorFragment: DaggerFragment () {
     lateinit var viewModel: CalculatorViewModel
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate (R.layout.activity_calculator, container, false)
+        inflater.inflate (R.layout.fragment_calculator, container, false)
 
     override fun onActivityCreated (savedInstanceState: Bundle?) {
         super.onActivityCreated (savedInstanceState)
