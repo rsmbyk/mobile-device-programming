@@ -1,5 +1,7 @@
 package com.rsmbyk.course.mdp.ui.main
 
+import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragment
+import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragmentModule
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragmentModule
 import com.rsmbyk.course.mdp.ui.camera.CameraFragment
@@ -30,4 +32,7 @@ abstract class MainFragmentBuilder {
 
     @ContributesAndroidInjector (modules = [DatabaseFragmentModule::class])
     abstract fun bindDatabaseFragment (): DatabaseFragment
+
+    @ContributesAndroidInjector (modules = [AttendanceFragmentModule::class])
+    abstract fun bindAttendanceFragment (): AttendanceFragment
 }

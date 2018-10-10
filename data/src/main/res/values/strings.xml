@@ -5,9 +5,35 @@
     <string name="upload_image_request_param_nrp">nrp</string>
     <string name="upload_image_request_param_image">image</string>
 
+    <string name="predict_image_url">http://mobile.if.its.ac.id/predict</string>
+    <string name="predict_image_request_param_nrp">nrp</string>
+    <string name="predict_image_request_param_image">imagefile</string>
+
     <string-array name="menus">
         <item>Calculator</item>
         <item>Camera</item>
         <item>Networking</item>
+    </string-array>
+
+    <string-array name="attendance_column_header">
+        <item>NRP</item>
+        <item>Name</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item></item>
     </string-array>
 </resources>
