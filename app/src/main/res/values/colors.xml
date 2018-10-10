@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#2E7D32</color>
     <color name="colorAccent">#448AFF</color>
     <color name="background_primary">#d0d0d0</color>
+
+    <color name="material_datatables_column_header_font_color">#99000000</color>
+    <color name="material_datatables_content_text_color">#de000000</color>
+    <color name="material_dividers_color">#1e000000</color>
 </resources>
