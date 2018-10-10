@@ -22,5 +22,16 @@ fun File.compress (): ByteArrayOutputStream {
     return bos
 }
 
+fun ByteArray.compress (): ByteArrayOutputStream {
+    val image: Bitmap = BitmapFactory.decodeByteArray (this, 0, size)
+    val scaledImage: Bitmap = Bitmap.createScaledBitmap (image, 256, 256, true)
+    val bos = ByteArrayOutputStream ()
+    scaledImage.compress (Bitmap.CompressFormat.JPEG, 100, bos)
+    return bos
+}
+
 fun ByteArrayOutputStream.toBase64ImageString (): String =
-    "data:image/jpeg;base64,${Base64.encodeToString (toByteArray (), Base64.DEFAULT)}"
+    "data:image/jpeg;base64,${toBase64ImageStringWithoutPrefix ()}"
+
+fun ByteArrayOutputStream.toBase64ImageStringWithoutPrefix  (): String =
+    Base64.encodeToString (toByteArray (), Base64.DEFAULT)
