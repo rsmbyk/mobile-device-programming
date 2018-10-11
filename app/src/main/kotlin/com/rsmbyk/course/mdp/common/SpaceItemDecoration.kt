@@ -6,18 +6,23 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.State
 import android.util.DisplayMetrics
 import android.view.View
+import com.rsmbyk.course.mdp.R
 
 class SpaceItemDecoration (
     context: Context,
-    spaceInDp: Int,
+    spaceInDp: Int? = null,
     private val spanCount: Int = 1,
     private val edgeSpace: Boolean = false)
         : RecyclerView.ItemDecoration () {
 
-    private val space: Int =
-        spaceInDp * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    private val space: Int
 
-    // kotlin modulo operation does not work as expected with negative divident
+    init {
+        val finalSpaceInDp = (spaceInDp ?: context.resources.getInteger (R.integer.material_imagelists_padding))
+        space = finalSpaceInDp * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+    // kotlin modulo operation does not work as expected with negative dividend
     // https://youtrack.jetbrains.com/issue/KT-26751
     private fun Int.negativeMod (divisor: Int): Int {
         var quotient = this / divisor

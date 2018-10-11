@@ -6,7 +6,7 @@
 
     <string name="menu_mobile">Mobile</string>
     <string name="menu_calculator">Calculator</string>
-    <string name="menu_camera">Camera</string>
+    <string name="menu_camera">Gallery</string>
     <string name="menu_networking">Networking</string>
     <string name="menu_database">Database</string>
 
@@ -28,10 +28,11 @@
     <string name="btn_divide">/</string>
     <string name="placeholder_calculator_error">Error!!</string>
 
-    <!-- Camera Activity -->
-    <string name="toast_no_storage_permission">WRITE_EXTERNAL_STORAGE is required</string>
-    <string name="snackbar_storage_permission_denied">WRITE_EXTERNAL_STORAGE denied</string>
-    <string name="snackbar_action_storage_permission_denied">Revoke</string>
+    <!-- Galery -->
+    <string name="no_take_picture_permission">WRITE_EXTERNAL_STORAGE and CAMERA permission is required</string>
+    <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE permission was denied</string>
+    <string name="revoke_permission">Revoke</string>
+    <integer name="material_imagelists_padding">4</integer>
 
     <!-- Networking Activity -->
     <string name="btn_clear">Clear</string>
