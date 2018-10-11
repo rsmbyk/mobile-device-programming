@@ -16,8 +16,8 @@ import com.leinardi.android.speeddial.SpeedDialView
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.PermissionUtil
 import com.rsmbyk.course.mdp.common.SpaceItemDecoration
-import com.rsmbyk.course.mdp.ui.cmr.CameraActivity
-import com.rsmbyk.course.mdp.ui.cmr.CameraFragment
+import com.rsmbyk.course.mdp.ui.camera.CameraActivity
+import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import com.rsmbyk.course.mdp.ui.gallery.rv.GalleryAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_gallery.*

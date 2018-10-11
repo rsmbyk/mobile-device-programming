@@ -1,4 +1,4 @@
-package com.rsmbyk.course.mdp.ui.cmr
+package com.rsmbyk.course.mdp.ui.camera
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

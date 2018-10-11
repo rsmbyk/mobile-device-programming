@@ -25,7 +25,6 @@ import com.rsmbyk.course.mdp.mapper.PredictResponseModelMapper
 import com.rsmbyk.course.mdp.mapper.StudentModelMapper
 import com.rsmbyk.course.mdp.model.PredictResponseModel
 import com.rsmbyk.course.mdp.model.StudentModel
-import com.rsmbyk.course.mdp.ui.main.MainActivity
 import dagger.Module
 import dagger.Provides
 
@@ -33,8 +32,8 @@ import dagger.Provides
 class AttendanceFragmentModule {
 
     @Provides
-    fun providePermissionUtil (activity: MainActivity): PermissionUtil =
-        PermissionUtil (activity)
+    fun providePermissionUtil (fragment: AttendanceFragment): PermissionUtil =
+        PermissionUtil (fragment = fragment)
 
     @Provides
     fun provideStudentDao (database: MobileDatabase): StudentDao =

@@ -13,8 +13,8 @@ import com.rsmbyk.course.mdp.common.PermissionUtil
 import com.rsmbyk.course.mdp.model.StudentModel
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceAdapter
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceTableListener
-import com.rsmbyk.course.mdp.ui.cmr.CameraActivity
-import com.rsmbyk.course.mdp.ui.cmr.CameraFragment
+import com.rsmbyk.course.mdp.ui.camera.CameraActivity
+import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_attendance.*
 import javax.inject.Inject

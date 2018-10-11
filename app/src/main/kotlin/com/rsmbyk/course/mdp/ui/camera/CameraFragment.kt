@@ -1,4 +1,4 @@
-package com.rsmbyk.course.mdp.ui.cmr
+package com.rsmbyk.course.mdp.ui.camera
 
 import android.app.Activity
 import android.content.Intent
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_camera.*
 class CameraFragment: Fragment () {
 
     companion object {
-        const val PICTURE_EXTRA_NAME = "com.rsmbyk.course.mdp.ui.camera.CameraFragment.PICTURE"
+        const val PICTURE_EXTRA_NAME = "com.rsmbyk.course.mdp.ui.camera.GalleryFragment.PICTURE"
     }
 
     private val cameraListener = object : CameraListener () {
