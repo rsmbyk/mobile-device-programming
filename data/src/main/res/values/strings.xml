@@ -70,4 +70,23 @@
         <item>16</item>
         <item></item>
     </string-array>
+
+    <string-array name="students">
+        <item>05111540000003:Dely Teja Mukti</item>
+        <item>05111540000007:Faiq</item>
+        <item>05111540000019:Farza Nurifan</item>
+        <item>05111540000035:Findryan Kurnia Pradana</item>
+        <item>05111540000051:Asadul Haq Muhammad Shani</item>
+        <item>05111540000055:Pradipta Baskara</item>
+        <item>05111540000066:Gusti Ngurah Satria Aryawan</item>
+        <item>05111540000067:Djohan Prabowo</item>
+        <item>05111540000076:Rangga Senatama Putra</item>
+        <item>05111540000099:Muhammad Fajri Salam</item>
+        <item>05111540000123:Ariya Wildan Devanto</item>
+        <item>05111540000150:Brama Diwangkara</item>
+        <item>05111540000158:Rafi R Ramadhan</item>
+        <item>05111540000170:Muhammad Firza Gustama</item>
+        <item>05111540000174:Ronald Andrean</item>
+        <item>05111540007005:Moh Adam Alfian</item>
+    </string-array>
 </resources>
