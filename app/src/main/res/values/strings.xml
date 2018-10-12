@@ -6,9 +6,10 @@
 
     <string name="menu_mobile">Mobile</string>
     <string name="menu_calculator">Calculator</string>
-    <string name="menu_camera">Gallery</string>
-    <string name="menu_networking">Networking</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_upload">Upload</string>
     <string name="menu_database">Database</string>
+    <string name="menu_attendance">Attendance</string>
 
     <string name="image_directory">MDP</string>
     <string name="upload_image_directory">Upload</string>

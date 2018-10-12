@@ -27,6 +27,7 @@
             android:layout_weight="1" />
 
         <android.support.design.widget.BottomNavigationView
+            android:visibility="gone"
             android:id="@+id/bottom_navigation"
             style="@style/Widget.Design.BottomNavigationView"
             android:layout_width="match_parent"

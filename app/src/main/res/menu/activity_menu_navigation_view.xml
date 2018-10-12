@@ -9,20 +9,25 @@
             android:title="@string/menu_calculator" />
 
         <item
-            android:id="@+id/menu_camera"
+            android:id="@+id/menu_gallery"
             android:checked="true"
             android:icon="@drawable/ic_camera"
-            android:title="@string/menu_camera" />
+            android:title="@string/menu_gallery" />
 
         <item
-            android:id="@+id/menu_networking"
+            android:id="@+id/menu_upload"
             android:icon="@drawable/ic_network"
-            android:title="@string/menu_networking" />
+            android:title="@string/menu_upload" />
 
         <item
             android:id="@+id/menu_database"
             android:icon="@drawable/ic_storage"
             android:title="@string/menu_database" />
+
+        <item
+            android:id="@+id/menu_attendance"
+            android:icon="@drawable/ic_event"
+            android:title="@string/menu_attendance" />
 
     </group>
 

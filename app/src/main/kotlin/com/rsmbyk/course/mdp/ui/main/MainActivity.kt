@@ -9,23 +9,25 @@ import android.support.v4.view.GravityCompat
 import android.view.MenuItem
 import android.widget.Toast
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.model.MenuModel
+import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragment
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
-import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import com.rsmbyk.course.mdp.ui.database.DatabaseFragment
-import com.rsmbyk.course.mdp.ui.networking.NetworkingFragment
+import com.rsmbyk.course.mdp.ui.gallery.GalleryFragment
+import com.rsmbyk.course.mdp.ui.upload.UploadFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity: DaggerAppCompatActivity () {
 
+    companion object {
+        private const val TITLE_BUNDLE_KEY = "title"
+    }
+
     private var pendingExitHandler: Handler? = null
 
-    private fun FragmentManager.replace (@IdRes id: Int, fragment: Fragment, addToBackStack: Boolean = false) {
+    private fun FragmentManager.replaceFragment (@IdRes id: Int, fragment: Fragment?) {
         beginTransaction ().apply {
-            replace (id, fragment)
-            if (addToBackStack)
-                addToBackStack (null)
+            replace (id, fragment!!)
             commit ()
         }
     }
@@ -34,9 +36,8 @@ class MainActivity: DaggerAppCompatActivity () {
         super.onCreate (savedInstanceState)
         setContentView (R.layout.activity_main)
         setupToolbar ()
+        savedInstanceState?.getString (TITLE_BUNDLE_KEY)?.let (supportActionBar!!::setTitle)
         setupNavigationView ()
-        if (supportFragmentManager.findFragmentById (R.id.fragment) == null)
-            bottom_navigation.selectedItemId = R.id.menu_camera
     }
 
     private fun setupToolbar () {
@@ -48,26 +49,25 @@ class MainActivity: DaggerAppCompatActivity () {
     }
 
     private fun setupNavigationView () {
-
-        bottom_navigation.setOnNavigationItemSelectedListener { menuItem ->
-            val menuModel = MenuModel.values ().first { it.id == menuItem.itemId }
-            supportFragmentManager.replace (R.id.fragment, when (menuModel) {
-                MenuModel.CALCULATOR -> CalculatorFragment ()
-                MenuModel.CAMERA -> CameraFragment ()
-                MenuModel.NETWORKING -> NetworkingFragment ()
-                MenuModel.DATABASE -> DatabaseFragment ()
-            })
-            navigation_view.setCheckedItem (menuItem)
-            supportActionBar?.title = menuItem.title
-            true
-        }
-
         navigation_view.setNavigationItemSelectedListener { menuItem ->
-            bottom_navigation.selectedItemId = menuItem.itemId
+            supportFragmentManager.replaceFragment (R.id.fragment, when (menuItem.itemId) {
+                R.id.menu_calculator -> CalculatorFragment ()
+                R.id.menu_gallery -> GalleryFragment ()
+                R.id.menu_upload -> UploadFragment ()
+                R.id.menu_database -> DatabaseFragment ()
+                R.id.menu_attendance -> AttendanceFragment ()
+                else -> null
+            })
             supportActionBar?.title = menuItem.title
             menuItem.isChecked = true
             drawer_layout.closeDrawers ()
             true
+        }
+
+        if (supportFragmentManager.findFragmentById (R.id.fragment) == null) {
+            supportFragmentManager.replaceFragment (R.id.fragment, AttendanceFragment ())
+            supportActionBar?.title = getString (R.string.menu_attendance)
+            navigation_view.setCheckedItem (R.id.menu_attendance)
         }
     }
 
@@ -79,6 +79,11 @@ class MainActivity: DaggerAppCompatActivity () {
             }
             else -> super.onOptionsItemSelected (item)
         }
+    }
+
+    override fun onSaveInstanceState (outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putString (TITLE_BUNDLE_KEY, supportActionBar?.title?.toString ())
     }
 
     override fun onBackPressed () {
