@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/material_lists_two_line_height"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <View
+        android:id="@+id/error_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/material_lists_two_line_height"
+        android:background="@color/material_red_accent_100" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/material_lists_two_line_padding" >
+
+        <ImageView
+            android:id="@+id/preview"
+            android:layout_width="@dimen/material_lists_two_line_supporting_visual_medium_size"
+            android:layout_height="@dimen/material_lists_two_line_supporting_visual_medium_size"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:id="@+id/indicators"
+            android:layout_width="@dimen/material_lists_two_line_control_size"
+            android:layout_height="@dimen/material_lists_two_line_control_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" >
+
+            <ImageView
+                android:id="@+id/success_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_check" />
+
+            <ProgressBar
+                android:id="@+id/uploading_indicator"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/material_lists_two_line_padding"
+            android:layout_marginEnd="@dimen/material_lists_two_line_padding"
+            android:layout_toStartOf="@id/indicators"
+            android:layout_toLeftOf="@id/indicators"
+            android:layout_toEndOf="@id/preview"
+            android:layout_toRightOf="@id/preview"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/material_lists_text_primary"
+                android:textSize="@dimen/material_lists_two_line_text_primary_size" />
+
+            <TextView
+                android:id="@+id/elapsed_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/material_lists_text_secondary"
+                android:textSize="@dimen/material_lists_two_line_text_secondary_size" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

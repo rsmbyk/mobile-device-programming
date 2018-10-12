@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Data</string>
     <string name="upload_image_url">http://mobile.if.its.ac.id/kirimgambar</string>
+    <string name="upload_image_request_nrp">.test</string>
     <string name="upload_image_response_params_hasil">hasil</string>
     <string name="upload_image_request_param_nrp">nrp</string>
     <string name="upload_image_request_param_image">image</string>
@@ -13,6 +14,39 @@
         <item>Calculator</item>
         <item>Camera</item>
         <item>Networking</item>
+    </string-array>
+
+    <string-array name="upload_list">
+        <item>Normal tegak lurus kamera</item>
+        <item>Normal tegak lurus kamera tidak berkacamata</item>
+        <item>Tersenyum tegak lurus kamera</item>
+        <item>Sedih tegak lurus kamera</item>
+        <item>Mengantuk tegak lurus kamera</item>
+        <item>Normal menoleh ke kanan 30 derajat</item>
+        <item>Normal menoleh ke kanan 30 derajat tidak berkacamata</item>
+        <item>Tersenyum menoleh ke kanan 30 derajat</item>
+        <item>Sedih menoleh ke kanan 30 derajat</item>
+        <item>Mengantuk menoleh ke kanan 30 derajat</item>
+        <item>Normal menoleh ke kiri 30 derajat</item>
+        <item>Normal menoleh ke kiri 30 derajat tidak berkacamata</item>
+        <item>Tersenyum menoleh ke kiri 30 derajat</item>
+        <item>Sedih menoleh ke kiri 30 derajat</item>
+        <item>Mengantuk menoleh ke kiri 30 derajat</item>
+        <item>Normal tegak lurus kamera muka basah</item>
+        <item>Normal tegak lurus kamera tidak berkacamata muka basah</item>
+        <item>Tersenyum tegak lurus kamera muka basah</item>
+        <item>Sedih tegak lurus kamera muka basah</item>
+        <item>Mengantuk tegak lurus kamera muka basah</item>
+        <item>Normal menoleh ke kanan 30 derajat muka basah</item>
+        <item>Normal menoleh ke kanan 30 derajat tidak berkacamata muka basah</item>
+        <item>Tersenyum menoleh ke kanan 30 derajat muka basah</item>
+        <item>Sedih menoleh ke kanan 30 derajat muka basah</item>
+        <item>Mengantuk menoleh ke kanan 30 derajat muka basah</item>
+        <item>Normal menoleh ke kiri 30 derajat muka basah</item>
+        <item>Normal menoleh ke kiri 30 derajat tidak berkacamata muka basah</item>
+        <item>Tersenyum menoleh ke kiri 30 derajat muka basah</item>
+        <item>Sedih menoleh ke kiri 30 derajat muka basah</item>
+        <item>Mengantuk menoleh ke kiri 30 derajat muka basah</item>
     </string-array>
 
     <string-array name="attendance_column_header">

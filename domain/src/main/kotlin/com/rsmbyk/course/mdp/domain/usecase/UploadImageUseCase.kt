@@ -1,12 +1,12 @@
 package com.rsmbyk.course.mdp.domain.usecase
 
-import com.rsmbyk.course.mdp.domain.model.UploadImage
 import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
+import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 
-class UploadImageUseCase (private val uploadImageRepository: UploadImageRepository) {
+class UploadImageUseCase (private val repository: UploadImageRepository) {
 
-    operator fun invoke (uploadImageRequest: UploadImageRequest): Observable<UploadImage> =
-        uploadImageRepository.uploadImage (uploadImageRequest)
+    operator fun invoke (request: UploadImageRequest): Single<UploadImageResponse> =
+        repository.uploadImage (request)
 }

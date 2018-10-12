@@ -1,8 +1,9 @@
 package com.rsmbyk.course.mdp.domain.model
 
-data class UploadImage (
-    val code: Int,
-    val path: String,
+class UploadImage (
+    val id: Int,
+    val name: String,
+    val image: ByteArray,
     val elapsedTime: Float,
-    val uploadTime: Long
-): Entity
+    val timestamp: Long)
+        : Entity

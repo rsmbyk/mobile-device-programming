@@ -1,18 +1,23 @@
 package com.rsmbyk.course.mdp.data.api.volley.request
 
+import android.content.Context
 import com.android.volley.VolleyError
-import com.android.volley.toolbox.StringRequest
+import com.rsmbyk.course.mdp.data.R
+import com.rsmbyk.course.mdp.data.api.volley.parambuilder.UploadImageRequestParameterBuilder
+import com.rsmbyk.course.mdp.data.api.volley.parser.UploadImageResponseParser
+import com.rsmbyk.course.mdp.data.model.UploadImageRequestData
+import com.rsmbyk.course.mdp.data.model.UploadImageResponseData
 
 class UploadImageVolleyRequest (
-    url: String,
-    private val params: MutableMap<String, String>,
-    listener: (response: String) -> Unit,
+    context: Context,
+    request: UploadImageRequestData,
+    listener: (response: UploadImageResponseData) -> Unit,
     errorListener: (error: VolleyError) -> Unit)
-        : StringRequest (Method.POST, url, listener, errorListener) {
-
-    override fun getBodyContentType (): String =
-        "application/x-www-form-urlencoded"
-
-    override fun getParams (): MutableMap<String, String> =
-        params
-}
+        : VolleyRequest<UploadImageRequestData, UploadImageResponseData> (
+            Method.POST,
+            context.getString (R.string.upload_image_url),
+            request,
+            listener,
+            errorListener,
+            UploadImageRequestParameterBuilder (context),
+            UploadImageResponseParser ())
