@@ -13,6 +13,12 @@
     <dimen name="material_lists_two_line_text_primary_size">16sp</dimen>
     <dimen name="material_lists_two_line_text_secondary_size">14sp</dimen>
     <dimen name="material_lists_two_line_control_size">24sp</dimen>
+    <dimen name="material_lists_three_line_height">88dp</dimen>
+    <dimen name="material_lists_supporting_visual_medium_size">40dp</dimen>
+    <dimen name="material_lists_inner_padding">16dp</dimen>
+    <dimen name="material_lists_outer_padding">8dp</dimen>
+    <dimen name="material_lists_text_primary_size">16sp</dimen>
+    <dimen name="material_lists_text_secondary_size">14sp</dimen>
 
     <dimen name="material_fab_margin">16dp</dimen>
 </resources>
