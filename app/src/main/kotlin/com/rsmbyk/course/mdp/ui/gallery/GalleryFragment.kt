@@ -17,10 +17,10 @@ import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.PermissionUtil
 import com.rsmbyk.course.mdp.common.SpaceItemDecoration
 import com.rsmbyk.course.mdp.ui.camera.CameraActivity
-import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import com.rsmbyk.course.mdp.ui.gallery.rv.GalleryAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_gallery.*
+import java.io.File
 import javax.inject.Inject
 
 class GalleryFragment: DaggerFragment () {
@@ -78,7 +78,7 @@ class GalleryFragment: DaggerFragment () {
         if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) 3 else 4
 
     private fun requestTakePicturePermissions () {
-        permissionUtil.requestPermission (
+        permissionUtil.requestPermissions (
             arrayOf (Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA),
             ::openCameraActivity,
             ::onTakePicturePermissionDenied)
@@ -93,7 +93,8 @@ class GalleryFragment: DaggerFragment () {
     override fun onActivityResult (requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == TAKE_PICTURE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             data?.let {
-                val image = it.getByteArrayExtra (CameraFragment.PICTURE_EXTRA_NAME)
+                val picturePath = it.getStringExtra (CameraActivity.PICTURE_PATH_EXTRA)
+                val image = File (picturePath).readBytes ()
                 viewModel.saveImage (image)
                 adapter.addImage (image)
                 image_list.smoothScrollToPosition (0)

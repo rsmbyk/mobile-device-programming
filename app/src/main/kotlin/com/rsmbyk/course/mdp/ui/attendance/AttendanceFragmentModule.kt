@@ -4,7 +4,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import com.rsmbyk.course.mdp.common.PermissionUtil
 import com.rsmbyk.course.mdp.data.api.volley.VolleyRequestQueue
-import com.rsmbyk.course.mdp.data.db.MobileDatabase
 import com.rsmbyk.course.mdp.data.db.dao.StudentDao
 import com.rsmbyk.course.mdp.data.db.entity.StudentEntity
 import com.rsmbyk.course.mdp.data.mapper.PredictRequestDataMapper
@@ -34,10 +33,6 @@ class AttendanceFragmentModule {
     @Provides
     fun providePermissionUtil (fragment: AttendanceFragment): PermissionUtil =
         PermissionUtil (fragment = fragment)
-
-    @Provides
-    fun provideStudentDao (database: MobileDatabase): StudentDao =
-        database.studentDao ()
 
     @Provides
     fun provideStudentEntityMapper (): Mapper<Student, StudentEntity> =

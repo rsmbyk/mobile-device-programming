@@ -12,7 +12,7 @@ class PermissionUtil (private val activity: Activity? = null, private val fragme
     private val context = activity ?: fragment?.context
     private val requestQueue = LinkedList<Request> ()
 
-    fun requestPermission (
+    fun requestPermissions (
             permissions: Array<String>,
             onGranted: (requestCode: Int) -> Unit,
             onDenied: ((requestCode: Int) -> Unit)? = null,
@@ -28,21 +28,21 @@ class PermissionUtil (private val activity: Activity? = null, private val fragme
             onGranted: (requestCode: Int) -> Unit,
             onDenied: ((requestCode: Int) -> Unit)? = null,
             requestCode: Int? = null): Int =
-        requestPermission (arrayOf (permission), onGranted, onDenied, requestCode)
+        requestPermissions (arrayOf (permission), onGranted, onDenied, requestCode)
 
-    fun requestPermission (
+    fun requestPermissions (
             permission: Array<String>,
             onGranted: () -> Unit,
             onDenied: (() -> Unit)? = null,
             requestCode: Int? = null): Int =
-        requestPermission (permission, { _ -> onGranted () }, { _ -> onDenied?.invoke () }, requestCode)
+        requestPermissions (permission, { _ -> onGranted () }, { _ -> onDenied?.invoke () }, requestCode)
 
     fun requestPermission (
             permission: String,
             onGranted: () -> Unit,
             onDenied: (() -> Unit)? = null,
             requestCode: Int? = null): Int =
-        requestPermission (arrayOf (permission), { _ -> onGranted () }, { _ -> onDenied?.invoke () }, requestCode)
+        requestPermissions (arrayOf (permission), { _ -> onGranted () }, { _ -> onDenied?.invoke () }, requestCode)
 
     private fun processNextRequest () {
         requestQueue.firstOrNull ()?.apply {
@@ -51,8 +51,7 @@ class PermissionUtil (private val activity: Activity? = null, private val fragme
             else {
                 if (activity != null)
                     ActivityCompat.requestPermissions (activity, permissions, requestCode)
-                else if (fragment != null)
-                    fragment.requestPermissions (permissions, requestCode)
+                else fragment?.requestPermissions (permissions, requestCode)
             }
         }
     }

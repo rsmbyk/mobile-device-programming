@@ -14,9 +14,9 @@ import com.rsmbyk.course.mdp.model.StudentModel
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceAdapter
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceTableListener
 import com.rsmbyk.course.mdp.ui.camera.CameraActivity
-import com.rsmbyk.course.mdp.ui.camera.CameraFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_attendance.*
+import java.io.File
 import javax.inject.Inject
 
 class AttendanceFragment: DaggerFragment () {
@@ -65,9 +65,9 @@ class AttendanceFragment: DaggerFragment () {
     override fun onActivityResult (requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == Activity.RESULT_OK) {
             data?.let {
-                viewModel.checkFace (
-                    requestCode,
-                    it.getByteArrayExtra (CameraFragment.PICTURE_EXTRA_NAME))
+                val picturePath = it.getStringExtra (CameraActivity.PICTURE_PATH_EXTRA)
+                val image = File (picturePath).readBytes ()
+                viewModel.checkFace (requestCode, image)
             }
         }
     }
