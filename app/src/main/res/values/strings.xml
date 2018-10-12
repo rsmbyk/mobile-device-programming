@@ -34,7 +34,9 @@
     <string name="revoke_permission">Revoke</string>
     <integer name="material_imagelists_padding">4</integer>
 
-    <!-- Networking Activity -->
-    <string name="btn_clear">Clear</string>
+    <!-- Upload -->
+    <string name="upload_image_elapsed_time">%1$fs</string>
     <string name="btn_upload">Upload</string>
+    <string name="btn_retry">Retry</string>
+    <string name="btn_clear">Clear</string>
 </resources>

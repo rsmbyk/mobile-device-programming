@@ -3,9 +3,18 @@
     <color name="colorPrimary">#43A047</color>
     <color name="colorPrimaryDark">#2E7D32</color>
     <color name="colorAccent">#448AFF</color>
-    <color name="background_primary">#d0d0d0</color>
+    <color name="backgroundPrimary">#dedede</color>
 
-    <color name="material_datatables_column_header_font_color">#99000000</color>
-    <color name="material_datatables_content_text_color">#de000000</color>
-    <color name="material_dividers_color">#1e000000</color>
+    <color name="material_red_accent_100">#FF8A80</color>
+
+    <color name="material_dividers">#1e000000</color>
+
+    <color name="material_icons_light_unfocused">#89000000</color>
+    <color name="material_icons_light_inactive">#60000000</color>
+
+    <color name="material_datatables_column_header_text">#99000000</color>
+    <color name="material_datatables_content_text">#de000000</color>
+
+    <color name="material_lists_text_primary">#de000000</color>
+    <color name="material_lists_text_secondary">#99000000</color>
 </resources>
