@@ -11,13 +11,9 @@ import java.util.*
 
 class GalleryDataRepository (private val context: Context): GalleryRepository {
 
-    private val galleryDirectory: File = File (
-        Environment.getExternalStoragePublicDirectory (Environment.DIRECTORY_PICTURES),
-        context.getString (R.string.gallery_image_directory)).apply {
-            if (exists () && isFile)
-                deleteRecursively ()
-            if (!exists ())
-                mkdirs ()
+    private val galleryDirectory = File (Environment.getExternalStoragePublicDirectory (Environment.DIRECTORY_PICTURES), context.getString (R.string.gallery_image_directory)).apply {
+        if (exists () && isFile) deleteRecursively ()
+        if (!exists ()) mkdirs ()
     }
 
     override fun getImages (): Single<List<ByteArray>> {
