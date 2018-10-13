@@ -9,8 +9,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class GalleryViewModel (
-        private val getGalleryImagesUseCase: GetGalleryImagesUseCase,
-        private val saveGalleryImageUseCase: SaveGalleryImageUseCase)
+    private val getGalleryImagesUseCase: GetGalleryImagesUseCase,
+    private val saveGalleryImageUseCase: SaveGalleryImageUseCase)
         : ViewModel () {
 
     private val disposable = CompositeDisposable ()
