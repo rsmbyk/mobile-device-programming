@@ -17,9 +17,8 @@ class DoubleTapExitHandler (private val activity: Activity): LifecycleObserver {
         this.drawerLayout = drawerLayout
     }
 
-    fun onBackPressed (): Boolean {
-        return checkDrawer (drawerLayout) && checkHandler ()
-    }
+    fun onBackPressed (): Boolean =
+        checkDrawer (drawerLayout) && checkHandler ()
 
     private fun checkDrawer (drawerLayout: DrawerLayout?): Boolean {
         if (drawerLayout != null) {
