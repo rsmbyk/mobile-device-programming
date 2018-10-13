@@ -17,32 +17,26 @@ import dagger.Provides
 class CalculatorFragmentModule {
 
     @Provides
-    fun provideOperatorDataMapper (): Mapper<Operator, OperatorData> =
-        OperatorDataMapper ()
+    fun provideCalculatorViewModel (fragment: CalculatorFragment, factory: CalculatorViewModelFactory): CalculatorViewModel =
+        ViewModelProviders.of (fragment, factory).get (CalculatorViewModel::class.java)
 
     @Provides
-    fun provideCalculatorRepository (operatorDataMapper: Mapper<Operator, OperatorData>)
-            : CalculatorRepository =
-        CalculatorDataRepository (operatorDataMapper)
-
-    @Provides
-    fun provideGetOperationResultUseCase (calculatorRepository: CalculatorRepository)
-            : EvaluateUseCase =
-        EvaluateUseCase (calculatorRepository)
+    fun provideCalculatorViewModelFactory (operatorModelMapper: Mapper<Operator, OperatorModel>, evaluateUseCase: EvaluateUseCase): CalculatorViewModelFactory =
+        CalculatorViewModelFactory (operatorModelMapper, evaluateUseCase)
 
     @Provides
     fun provideOperatorModelMapper (): Mapper<Operator, OperatorModel> =
         OperatorModelMapper ()
 
     @Provides
-    fun provideCalculatorViewModelFactory (
-        operatorModelMapper: Mapper<Operator, OperatorModel>,
-        evaluateUseCase: EvaluateUseCase)
-            : CalculatorViewModelFactory =
-        CalculatorViewModelFactory (operatorModelMapper, evaluateUseCase)
+    fun provideEvaluateUseCase (calculatorRepository: CalculatorRepository): EvaluateUseCase =
+        EvaluateUseCase (calculatorRepository)
 
     @Provides
-    fun provideCalculatorViewModel (fragment: CalculatorFragment, factory: CalculatorViewModelFactory)
-            : CalculatorViewModel =
-        ViewModelProviders.of (fragment, factory).get (CalculatorViewModel::class.java)
+    fun provideCalculatorRepository (operatorDataMapper: Mapper<Operator, OperatorData>): CalculatorRepository =
+        CalculatorDataRepository (operatorDataMapper)
+
+    @Provides
+    fun provideOperatorDataMapper (): Mapper<Operator, OperatorData> =
+        OperatorDataMapper ()
 }

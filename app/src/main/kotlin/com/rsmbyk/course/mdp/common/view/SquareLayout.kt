@@ -1,4 +1,4 @@
-package com.rsmbyk.course.mdp.common
+package com.rsmbyk.course.mdp.common.view
 
 import android.content.Context
 import android.content.res.TypedArray

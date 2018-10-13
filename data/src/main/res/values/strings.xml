@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Data</string>
+
+    <string name="gallery_image_directory">MDP</string>
+    <string name="gallery_image_file_prefix">MDP-</string>
+    <string name="gallery_image_file_suffix">.jpeg</string>
+
     <string name="upload_image_url">http://mobile.if.its.ac.id/kirimgambar</string>
     <string name="upload_image_request_nrp">.test</string>
     <string name="upload_image_response_params_hasil">hasil</string>

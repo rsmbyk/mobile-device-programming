@@ -33,19 +33,21 @@ class AttendanceViewModel (
         getAttendanceColumnHeadersUseCase ()
 
     fun getStudents () {
-        disposable.add (getStudentsUseCase ()
-            .map { it.map (studentMapper::mapToModel) }
-            .subscribeOn (Schedulers.io ())
-            .observeOn (AndroidSchedulers.mainThread ())
-            .subscribe (students::setValue, error::setValue))
+        disposable.add (
+            getStudentsUseCase ()
+                .map (studentMapper::mapToModel)
+                .subscribeOn (Schedulers.io ())
+                .observeOn (AndroidSchedulers.mainThread ())
+                .subscribe (students::setValue, error::setValue))
     }
 
     fun checkFace (row: Int, image: ByteArray) {
-        disposable.add (getPredictionUseCase (PredictRequest (students.value!![row].nrp, image))
-            .map (predictResponseMapper::mapToModel)
-            .subscribeOn (Schedulers.io ())
-            .observeOn (AndroidSchedulers.mainThread ())
-            .subscribe (predictResult::setValue, error::setValue))
+        disposable.add (
+            getPredictionUseCase (PredictRequest (students.value!![row].nrp, image))
+                .map (predictResponseMapper::mapToModel)
+                .subscribeOn (Schedulers.io ())
+                .observeOn (AndroidSchedulers.mainThread ())
+                .subscribe (predictResult::setValue, error::setValue))
     }
 
     override fun onCleared () =

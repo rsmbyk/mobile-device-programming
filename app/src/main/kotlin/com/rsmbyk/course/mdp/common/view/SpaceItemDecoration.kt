@@ -1,4 +1,4 @@
-package com.rsmbyk.course.mdp.common
+package com.rsmbyk.course.mdp.common.view
 
 import android.content.Context
 import android.graphics.Rect
@@ -15,12 +15,9 @@ class SpaceItemDecoration (
     private val edgeSpace: Boolean = false)
         : RecyclerView.ItemDecoration () {
 
-    private val space: Int
-
-    init {
-        val finalSpaceInDp = (spaceInDp ?: context.resources.getInteger (R.integer.material_imagelists_padding))
-        space = finalSpaceInDp * (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-    }
+    private val space: Int =
+        spaceInDp?.times (context.resources.displayMetrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
+        ?: context.resources.getDimensionPixelSize (R.dimen.material_imagelists_padding)
 
     // kotlin modulo operation does not work as expected with negative dividend
     // https://youtrack.jetbrains.com/issue/KT-26751
@@ -30,7 +27,6 @@ class SpaceItemDecoration (
             quotient -= 1
         return this - (divisor * quotient)
     }
-
 
     override fun getItemOffsets (outRect: Rect, view: View, parent: RecyclerView, state: State) {
         super.getItemOffsets (outRect, view, parent, state)
@@ -50,11 +46,12 @@ class SpaceItemDecoration (
         outRect.bottom = setOutRect (position >= lastRowIndex)
     }
 
-    private fun setOutRect (edgeCondition: Boolean): Int =
-        if (edgeCondition) {
+    private fun setOutRect (edgeCondition: Boolean): Int {
+        return if (edgeCondition) {
             if (edgeSpace) space
             else 0
         } else {
             space / 2
         }
+    }
 }

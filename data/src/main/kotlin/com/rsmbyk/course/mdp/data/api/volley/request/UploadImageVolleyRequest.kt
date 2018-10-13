@@ -20,4 +20,4 @@ class UploadImageVolleyRequest (
             listener,
             errorListener,
             UploadImageRequestParameterBuilder (context),
-            UploadImageResponseParser ())
+            UploadImageResponseParser (context))

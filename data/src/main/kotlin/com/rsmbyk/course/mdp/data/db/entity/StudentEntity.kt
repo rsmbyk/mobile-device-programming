@@ -8,7 +8,6 @@ class StudentEntity (
 
     @PrimaryKey
     val nrp: String,
-
     val name: String,
     val attendances: List<Boolean>
 )

@@ -5,12 +5,10 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.setVisible
+import com.rsmbyk.course.mdp.common.util.setVisible
 import com.rsmbyk.course.mdp.model.UploadImageModel
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.viewholder_upload_image.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 class UploadImageListViewHolder (override val containerView: View)
     : RecyclerView.ViewHolder (containerView), LayoutContainer {
@@ -35,13 +33,5 @@ class UploadImageListViewHolder (override val containerView: View)
             containerView.setOnClickListener { onClickListener (index) }
             containerView.setOnLongClickListener { onLongClickListener (index) }
         }
-    }
-
-    private fun Long.toDateTime (): String {
-        val calendar = Calendar.getInstance ()
-        //  "dd MMMM yyyy, HH:MM"
-        calendar.timeInMillis = this
-        val sdf = SimpleDateFormat.getDateTimeInstance ()
-        return sdf.format (calendar.time)
     }
 }

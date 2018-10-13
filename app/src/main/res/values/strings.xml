@@ -11,15 +11,10 @@
     <string name="menu_database">Database</string>
     <string name="menu_attendance">Attendance</string>
 
-    <string name="image_directory">MDP</string>
-    <string name="upload_image_directory">Upload</string>
-    <string name="image_file_prefix">MDP-</string>
-    <string name="image_file_suffix">.jpg</string>
-
     <string name="toast_pending_exit">Tap again to exit</string>
     <integer name="pending_exit_interval">2000</integer>
 
-    <!-- Calculator Activity -->
+    <!-- Calculator -->
     <string name="edittext_hint_number1">Number 1</string>
     <string name="edittext_hint_number2">Number 2</string>
     <string name="edittext_hint_result">Result</string>
@@ -28,12 +23,13 @@
     <string name="btn_multiply">x</string>
     <string name="btn_divide">/</string>
     <string name="placeholder_calculator_error">Error!!</string>
+    <string name="calculator_error_empty">Can\'t be empty</string>
+    <string name="calculator_error_invalid_int">Invalid int</string>
 
-    <!-- Galery -->
+    <!-- Gallery -->
     <string name="no_take_picture_permission">WRITE_EXTERNAL_STORAGE and CAMERA permission is required</string>
-    <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE permission was denied</string>
+    <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE was denied</string>
     <string name="revoke_permission">Revoke</string>
-    <integer name="material_imagelists_padding">4</integer>
 
     <!-- Upload -->
     <string name="upload_image_elapsed_time">%1$fs</string>

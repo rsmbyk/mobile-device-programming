@@ -6,7 +6,8 @@ import com.rsmbyk.course.mdp.data.common.compress
 import com.rsmbyk.course.mdp.data.common.toBase64ImageString
 import com.rsmbyk.course.mdp.data.model.UploadImageRequestData
 
-class UploadImageRequestParameterBuilder (private val context: Context): ParameterBuilder<UploadImageRequestData> {
+class UploadImageRequestParameterBuilder (private val context: Context)
+    : ParameterBuilder<UploadImageRequestData> {
 
     override fun build (request: UploadImageRequestData): MutableMap<String, String> {
         return request.run {

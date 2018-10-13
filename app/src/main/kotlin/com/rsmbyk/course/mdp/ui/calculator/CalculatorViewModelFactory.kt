@@ -8,10 +8,10 @@ import com.rsmbyk.course.mdp.domain.usecase.EvaluateUseCase
 import com.rsmbyk.course.mdp.model.OperatorModel
 
 class CalculatorViewModelFactory (
-    private val operatorModelMapper: Mapper<Operator, OperatorModel>,
+    private val operatorMapper: Mapper<Operator, OperatorModel>,
     private val evaluateUseCase: EvaluateUseCase)
         : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create (modelClass: Class<T>): T =
-        CalculatorViewModel (operatorModelMapper, evaluateUseCase) as T
+        CalculatorViewModel (operatorMapper, evaluateUseCase) as T
 }

@@ -17,15 +17,15 @@ import io.reactivex.Flowable
 import io.reactivex.Single
 
 class AttendanceDataRepository (
-        private val context: Context,
-        private val studentDao: StudentDao,
-        private val volleyRequestQueue: VolleyRequestQueue,
-        private val studentEntityMapper: Mapper<Student, StudentEntity>,
-        private val predictRequestDataMapper: Mapper<PredictRequest, PredictRequestData>,
-        private val predictResponseDataMapper: Mapper<PredictResponse, PredictResponseData>)
+    private val context: Context,
+    private val studentDao: StudentDao,
+    private val volleyRequestQueue: VolleyRequestQueue,
+    private val studentEntityMapper: Mapper<Student, StudentEntity>,
+    private val predictRequestMapper: Mapper<PredictRequest, PredictRequestData>,
+    private val predictResponseMapper: Mapper<PredictResponse, PredictResponseData>)
         : AttendanceRepository {
 
-    override fun getColumnHeaderList (): List<String> =
+    override fun getColumnHeaders (): List<String> =
         context.resources.getStringArray (R.array.attendance_column_header).toList ()
 
     override fun getStudents (): Flowable<List<Student>> =
@@ -35,8 +35,8 @@ class AttendanceDataRepository (
         return Single.create { emitter ->
             volleyRequestQueue.add (PredictVolleyRequest (
                 context,
-                predictRequestDataMapper.mapToModel (request),
-                { emitter.onSuccess (predictResponseDataMapper.mapToEntity (it)) },
+                predictRequestMapper.mapToModel (request),
+                { emitter.onSuccess (predictResponseMapper.mapToEntity (it)) },
                 emitter::onError))
         }
     }

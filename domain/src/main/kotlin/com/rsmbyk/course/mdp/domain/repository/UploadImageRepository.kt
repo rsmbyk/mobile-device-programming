@@ -7,8 +7,8 @@ import io.reactivex.Single
 
 interface UploadImageRepository {
 
-    fun getUploadList (): List<String>
+    fun getNames (): List<String>
     fun uploadImage (request: UploadImageRequest): Single<UploadImageResponse>
-    fun saveUploadImage (uploadImage: UploadImage)
-    fun getUploadImages (): Single<List<UploadImage>>
+    fun saveImage (uploadImage: UploadImage)
+    fun getImages (): Single<List<UploadImage>>
 }

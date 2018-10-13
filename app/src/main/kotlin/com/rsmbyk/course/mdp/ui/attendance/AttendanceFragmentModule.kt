@@ -2,7 +2,7 @@ package com.rsmbyk.course.mdp.ui.attendance
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import com.rsmbyk.course.mdp.common.PermissionUtil
+import com.rsmbyk.course.mdp.common.util.PermissionUtil
 import com.rsmbyk.course.mdp.data.api.volley.VolleyRequestQueue
 import com.rsmbyk.course.mdp.data.db.dao.StudentDao
 import com.rsmbyk.course.mdp.data.db.entity.StudentEntity
@@ -31,31 +31,13 @@ import dagger.Provides
 class AttendanceFragmentModule {
 
     @Provides
-    fun providePermissionUtil (fragment: AttendanceFragment): PermissionUtil =
-        PermissionUtil (fragment = fragment)
+    fun provideViewModel (fragment: AttendanceFragment, factory: AttendanceViewModelFactory): AttendanceViewModel =
+        ViewModelProviders.of (fragment, factory).get (AttendanceViewModel::class.java)
 
     @Provides
-    fun provideStudentEntityMapper (): Mapper<Student, StudentEntity> =
-        StudentEntityMapper ()
-
-    @Provides
-    fun providePredictRequestDataMapper (): Mapper<PredictRequest, PredictRequestData> =
-        PredictRequestDataMapper ()
-
-    @Provides
-    fun providePredictResponseDataMapper (): Mapper<PredictResponse, PredictResponseData> =
-        PredictResponseDataMapper ()
-
-    @Provides
-    fun provideAttendanceRepository (context: Context, studentDao: StudentDao, volleyRequestQueue: VolleyRequestQueue, studentEntityMapper: Mapper<Student, StudentEntity>, predictRequestDataMapper: Mapper<PredictRequest, PredictRequestData>, predictResponseDataMapper: Mapper<PredictResponse, PredictResponseData>): AttendanceRepository {
-        return AttendanceDataRepository (
-            context,
-            studentDao,
-            volleyRequestQueue,
-            studentEntityMapper,
-            predictRequestDataMapper,
-            predictResponseDataMapper
-        )
+    fun provideViewModelFactory (getAttendanceColumnHeadersUseCase: GetAttendanceColumnHeadersUseCase, getStudentsUseCase: GetStudentsUseCase, getPredictionUseCase: GetPredictionUseCase, studentModelMapper: Mapper<Student, StudentModel>, predictResponseModelMapper: Mapper<PredictResponse, PredictResponseModel>): AttendanceViewModelFactory {
+        return AttendanceViewModelFactory (
+            getAttendanceColumnHeadersUseCase, getStudentsUseCase, getPredictionUseCase, studentModelMapper, predictResponseModelMapper)
     }
 
     @Provides
@@ -71,6 +53,24 @@ class AttendanceFragmentModule {
         GetPredictionUseCase (repository)
 
     @Provides
+    fun provideAttendanceRepository (context: Context, studentDao: StudentDao, volleyRequestQueue: VolleyRequestQueue, studentEntityMapper: Mapper<Student, StudentEntity>, predictRequestDataMapper: Mapper<PredictRequest, PredictRequestData>, predictResponseDataMapper: Mapper<PredictResponse, PredictResponseData>): AttendanceRepository {
+        return AttendanceDataRepository (
+            context, studentDao, volleyRequestQueue, studentEntityMapper, predictRequestDataMapper, predictResponseDataMapper)
+    }
+
+    @Provides
+    fun provideStudentEntityMapper (): Mapper<Student, StudentEntity> =
+        StudentEntityMapper ()
+
+    @Provides
+    fun providePredictRequestDataMapper (): Mapper<PredictRequest, PredictRequestData> =
+        PredictRequestDataMapper ()
+
+    @Provides
+    fun providePredictResponseDataMapper (): Mapper<PredictResponse, PredictResponseData> =
+        PredictResponseDataMapper ()
+
+    @Provides
     fun provideStudentModelMapper (): Mapper<Student, StudentModel> =
         StudentModelMapper ()
 
@@ -79,17 +79,6 @@ class AttendanceFragmentModule {
         PredictResponseModelMapper ()
 
     @Provides
-    fun provideViewModelFactory (getAttendanceColumnHeadersUseCase: GetAttendanceColumnHeadersUseCase, getStudentsUseCase: GetStudentsUseCase, getPredictionUseCase: GetPredictionUseCase, studentMapper: Mapper<Student, StudentModel>, predictResponseMapper: Mapper<PredictResponse, PredictResponseModel>): AttendanceViewModelFactory {
-        return AttendanceViewModelFactory (
-            getAttendanceColumnHeadersUseCase,
-            getStudentsUseCase,
-            getPredictionUseCase,
-            studentMapper,
-            predictResponseMapper
-        )
-    }
-
-    @Provides
-    fun provideViewModel (fragment: AttendanceFragment, factory: AttendanceViewModelFactory): AttendanceViewModel =
-        ViewModelProviders.of (fragment, factory).get (AttendanceViewModel::class.java)
+    fun providePermissionUtil (fragment: AttendanceFragment): PermissionUtil =
+        PermissionUtil (fragment = fragment)
 }

@@ -24,11 +24,12 @@ class DatabaseViewModel (
     }
 
     private fun getUploadImages () {
-        disposable.add (getUploadImagesUseCase ()
-            .map (uploadImageMapper::mapToModel)
-            .subscribeOn (Schedulers.io ())
-            .observeOn (AndroidSchedulers.mainThread ())
-            .subscribe (uploadImages::setValue))
+        disposable.add (
+            getUploadImagesUseCase ()
+                .map (uploadImageMapper::mapToModel)
+                .subscribeOn (Schedulers.io ())
+                .observeOn (AndroidSchedulers.mainThread ())
+                .subscribe (uploadImages::setValue))
     }
 
     override fun onCleared () =

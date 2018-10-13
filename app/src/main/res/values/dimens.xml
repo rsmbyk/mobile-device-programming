@@ -20,5 +20,7 @@
     <dimen name="material_lists_text_primary_size">16sp</dimen>
     <dimen name="material_lists_text_secondary_size">14sp</dimen>
 
+    <dimen name="material_imagelists_padding">4dp</dimen>
+
     <dimen name="material_fab_margin">16dp</dimen>
 </resources>
