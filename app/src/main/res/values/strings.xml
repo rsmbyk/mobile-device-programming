@@ -26,7 +26,7 @@
     <string name="calculator_error_empty">Can\'t be empty</string>
     <string name="calculator_error_invalid_int">Invalid int</string>
 
-    <!-- Galery -->
+    <!-- Gallery -->
     <string name="no_take_picture_permission">WRITE_EXTERNAL_STORAGE and CAMERA permission is required</string>
     <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE was denied</string>
     <string name="revoke_permission">Revoke</string>
