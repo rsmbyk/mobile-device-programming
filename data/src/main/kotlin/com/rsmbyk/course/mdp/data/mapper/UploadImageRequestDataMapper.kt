@@ -9,6 +9,6 @@ class UploadImageRequestDataMapper: Mapper<UploadImageRequest, UploadImageReques
     override fun mapToEntity (model: UploadImageRequestData): UploadImageRequest =
         model.run { UploadImageRequest (image) }
 
-    override fun mapToModel(entity: UploadImageRequest): UploadImageRequestData =
+    override fun mapToModel (entity: UploadImageRequest): UploadImageRequestData =
         entity.run { UploadImageRequestData (image) }
 }
