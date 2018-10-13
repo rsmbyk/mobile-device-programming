@@ -5,7 +5,6 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.view.SquareLayout.Pivot
 
 class SquareLayout (context: Context, attrs: AttributeSet): RelativeLayout (context, attrs) {
 
