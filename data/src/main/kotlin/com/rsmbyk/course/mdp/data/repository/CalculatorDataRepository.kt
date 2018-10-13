@@ -4,18 +4,17 @@ import com.rsmbyk.course.mdp.data.model.OperatorData
 import com.rsmbyk.course.mdp.domain.mapper.Mapper
 import com.rsmbyk.course.mdp.domain.model.Operator
 import com.rsmbyk.course.mdp.domain.repository.CalculatorRepository
-import io.reactivex.Observable
+import io.reactivex.Single
 
-class CalculatorDataRepository (private val mapper: Mapper<Operator, OperatorData>): CalculatorRepository {
+class CalculatorDataRepository (private val operatorMapper: Mapper<Operator, OperatorData>)
+    : CalculatorRepository {
 
-    override fun evaluate (operator: Operator, x: Int, y: Int): Observable<Int> {
-        return Observable.create { emitter ->
+    override fun evaluate (operator: Operator, x: Int, y: Int): Single<Int> {
+        return Single.create { emitter ->
             try {
-                emitter.onNext (mapper.mapToModel (operator).func (x, y))
+                emitter.onSuccess (operatorMapper.mapToModel (operator).func (x, y))
             } catch (e: Exception) {
                 emitter.onError (e)
-            } finally {
-                emitter.onComplete ()
             }
         }
     }

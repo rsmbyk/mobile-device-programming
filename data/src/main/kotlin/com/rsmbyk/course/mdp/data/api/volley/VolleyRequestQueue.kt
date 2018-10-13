@@ -13,7 +13,4 @@ class VolleyRequestQueue (context: Context) {
 
     fun <T> add (request: Request<T>): Request<T> =
         requestQueue.add (request)
-
-    fun cancelAll (tag: Any) =
-        requestQueue.cancelAll (tag)
 }

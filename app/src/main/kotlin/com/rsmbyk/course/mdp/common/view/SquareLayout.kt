@@ -1,10 +1,14 @@
-package com.rsmbyk.course.mdp.common
+package com.rsmbyk.course.mdp.common.view
 
 import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.RelativeLayout
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.common.view.SquareLayout.Pivot.HEIGHT
+import com.rsmbyk.course.mdp.common.view.SquareLayout.Pivot.LARGEST
+import com.rsmbyk.course.mdp.common.view.SquareLayout.Pivot.SMALLEST
+import com.rsmbyk.course.mdp.common.view.SquareLayout.Pivot.WIDTH
 
 class SquareLayout (context: Context, attrs: AttributeSet): RelativeLayout (context, attrs) {
 
@@ -27,10 +31,10 @@ class SquareLayout (context: Context, attrs: AttributeSet): RelativeLayout (cont
 
     private fun getMeasuredPivot (): Int {
         return when (pivot) {
-            Pivot.WIDTH -> measuredWidth
-            Pivot.HEIGHT -> measuredHeight
-            Pivot.SMALLEST -> minOf (measuredWidth, measuredHeight)
-            Pivot.LARGEST -> maxOf (measuredWidth, measuredHeight)
+            WIDTH -> measuredWidth
+            HEIGHT -> measuredHeight
+            SMALLEST -> minOf (measuredWidth, measuredHeight)
+            LARGEST -> maxOf (measuredWidth, measuredHeight)
         }
     }
 

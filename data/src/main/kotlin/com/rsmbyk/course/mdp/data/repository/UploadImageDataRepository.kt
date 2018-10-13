@@ -16,15 +16,15 @@ import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 import io.reactivex.Single
 
 class UploadImageDataRepository (
-        private val context: Context,
-        private val uploadImageDao: UploadImageDao,
-        private val volleyRequestQueue: VolleyRequestQueue,
-        private val uploadImageMapper: Mapper<UploadImage, UploadImageEntity>,
-        private val uploadImageRequestMapper: Mapper<UploadImageRequest, UploadImageRequestData>,
-        private val uploadImageResponseMapper: Mapper<UploadImageResponse, UploadImageResponseData>)
+    private val context: Context,
+    private val uploadImageDao: UploadImageDao,
+    private val volleyRequestQueue: VolleyRequestQueue,
+    private val uploadImageMapper: Mapper<UploadImage, UploadImageEntity>,
+    private val uploadImageRequestMapper: Mapper<UploadImageRequest, UploadImageRequestData>,
+    private val uploadImageResponseMapper: Mapper<UploadImageResponse, UploadImageResponseData>)
         : UploadImageRepository {
 
-    override fun getUploadList (): List<String> =
+    override fun getNames (): List<String> =
         context.resources.getStringArray (R.array.upload_list).toList ()
 
     override fun uploadImage (request: UploadImageRequest): Single<UploadImageResponse> {
@@ -37,10 +37,10 @@ class UploadImageDataRepository (
         }
     }
 
-    override fun saveUploadImage (uploadImage: UploadImage) =
+    override fun saveImage (uploadImage: UploadImage) =
         uploadImageDao.insert (uploadImageMapper.mapToModel (uploadImage))
 
-    override fun getUploadImages (): Single<List<UploadImage>> {
+    override fun getImages (): Single<List<UploadImage>> {
         return uploadImageDao.all ()
             .map (uploadImageMapper::mapToEntity)
     }

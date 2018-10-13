@@ -7,7 +7,7 @@ import com.rsmbyk.course.mdp.R.layout
 import com.rsmbyk.course.mdp.model.UploadImageModel
 
 class UploadImageListAdapter (
-    private var uploadImages: List<UploadImageModel>,
+    private val uploadImages: List<UploadImageModel>,
     private val onClickListener: (index: Int) -> Unit,
     private val onLongClickListener: (index: Int) -> Boolean)
         : RecyclerView.Adapter<UploadImageListViewHolder> () {

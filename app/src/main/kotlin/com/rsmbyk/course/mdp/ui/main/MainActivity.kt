@@ -1,14 +1,13 @@
 package com.rsmbyk.course.mdp.ui.main
 
 import android.os.Bundle
-import android.os.Handler
 import android.support.annotation.IdRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.view.GravityCompat
 import android.view.MenuItem
-import android.widget.Toast
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.common.handler.DoubleTapExitHandler
 import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragment
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.database.DatabaseFragment
@@ -16,6 +15,7 @@ import com.rsmbyk.course.mdp.ui.gallery.GalleryFragment
 import com.rsmbyk.course.mdp.ui.upload.UploadFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 class MainActivity: DaggerAppCompatActivity () {
 
@@ -23,7 +23,8 @@ class MainActivity: DaggerAppCompatActivity () {
         private const val TITLE_BUNDLE_KEY = "title"
     }
 
-    private var pendingExitHandler: Handler? = null
+    @Inject
+    lateinit var exitHandler: DoubleTapExitHandler
 
     private fun FragmentManager.replaceFragment (@IdRes id: Int, fragment: Fragment?) {
         beginTransaction ().apply {
@@ -38,6 +39,7 @@ class MainActivity: DaggerAppCompatActivity () {
         setupToolbar ()
         savedInstanceState?.getString (TITLE_BUNDLE_KEY)?.let (supportActionBar!!::setTitle)
         setupNavigationView ()
+        exitHandler.bindDrawer (drawer_layout)
     }
 
     private fun setupToolbar () {
@@ -87,22 +89,7 @@ class MainActivity: DaggerAppCompatActivity () {
     }
 
     override fun onBackPressed () {
-        if (drawer_layout.isDrawerOpen (GravityCompat.START))
-            drawer_layout.closeDrawers ()
-        else {
-            if (pendingExitHandler != null)
-                super.onBackPressed ()
-            else {
-                pendingExitHandler = Handler ()
-                pendingExitHandler
-                    ?.postDelayed (
-                        { pendingExitHandler = null },
-                        resources.getInteger (R.integer.pending_exit_interval).toLong ())
-                Toast
-                    .makeText (
-                        this, getString (R.string.toast_pending_exit), Toast.LENGTH_SHORT)
-                    .show ()
-            }
-        }
+        if (exitHandler.onBackPressed ())
+            super.onBackPressed()
     }
 }

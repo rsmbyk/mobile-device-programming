@@ -6,5 +6,5 @@ import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 class SaveUploadImageUseCase (private val repository: UploadImageRepository) {
 
     operator fun invoke (uploadImage: UploadImage) =
-        repository.saveUploadImage (uploadImage)
+        repository.saveImage (uploadImage)
 }

@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.Toast
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.setErrorText
-import com.rsmbyk.course.mdp.common.setIntText
 import com.rsmbyk.course.mdp.model.OperatorModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_calculator.*
@@ -22,15 +21,10 @@ class CalculatorFragment: DaggerFragment () {
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate (R.layout.fragment_calculator, container, false)
 
-    override fun onActivityCreated (savedInstanceState: Bundle?) {
-        super.onActivityCreated (savedInstanceState)
-        viewModel.result.observe (this, Observer (result::setIntText))
-        viewModel.error.observe (this, Observer (result::setErrorText))
-    }
-
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated (view, savedInstanceState)
         setupButtons ()
+        viewModel.result.observe (this, Observer (::showResult))
+        viewModel.error.observe (this, Observer (::showError))
     }
 
     private fun setupButtons () {
@@ -51,11 +45,27 @@ class CalculatorFragment: DaggerFragment () {
     }
 
     private fun EditText.validate (): Boolean {
-        return text.isNotEmpty ().apply {
-            if (!this)
-                error = "Can't be empty"
+        return text.run {
+            if (isEmpty ()) {
+                error = getString (R.string.calculator_error_empty)
+                return false
+            } else {
+                try {
+                    toString ().toInt ()
+                } catch (e: NumberFormatException) {
+                    error = getString (R.string.calculator_error_invalid_int)
+                    return false
+                }
+            }
+            true
         }
     }
+
+    private fun showResult (textResult: Int?) =
+        result.setText (textResult?.toString ())
+
+    private fun showError (t: Throwable?) =
+        Toast.makeText (context!!, t?.message, Toast.LENGTH_LONG).show ()
 
     override fun onDestroy () {
         super.onDestroy ()

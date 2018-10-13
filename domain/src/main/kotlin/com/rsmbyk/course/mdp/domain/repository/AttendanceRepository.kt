@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 interface AttendanceRepository {
 
-    fun getColumnHeaderList (): List<String>
+    fun getColumnHeaders (): List<String>
     fun getStudents (): Flowable<List<Student>>
     fun getPrediction (request: PredictRequest): Single<PredictResponse>
 }

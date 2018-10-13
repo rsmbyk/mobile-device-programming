@@ -14,13 +14,12 @@ import com.rsmbyk.course.mdp.data.db.entity.UploadImageEntity
 import com.rsmbyk.course.mdp.data.db.seeder.StudentSeeder
 import java.util.concurrent.Executors
 
-@Database (version = 2, entities = [
-    UploadImageEntity::class,
-    StudentEntity::class])
+@Database (version = 1, entities = [UploadImageEntity::class, StudentEntity::class])
 @TypeConverters (AttendanceConverter::class)
 abstract class MobileDatabase: RoomDatabase () {
 
     companion object {
+
         private var INSTANCE: MobileDatabase? = null
         private const val DATABASE_NAME = "mobile-db"
 

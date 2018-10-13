@@ -14,8 +14,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.leinardi.android.speeddial.SpeedDialView
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.PermissionUtil
-import com.rsmbyk.course.mdp.common.SpaceItemDecoration
+import com.rsmbyk.course.mdp.common.util.PermissionUtil
+import com.rsmbyk.course.mdp.common.view.SpaceItemDecoration
 import com.rsmbyk.course.mdp.ui.camera.CameraActivity
 import com.rsmbyk.course.mdp.ui.gallery.rv.GalleryAdapter
 import dagger.android.support.DaggerFragment
@@ -41,9 +41,7 @@ class GalleryFragment: DaggerFragment () {
         inflater.inflate (R.layout.fragment_gallery, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
-        image_list.addItemDecoration (SpaceItemDecoration (context!!, spanCount = getSpanCount ()))
-        image_list.layoutManager = GridLayoutManager (context, getSpanCount ())
-        image_list.adapter = adapter
+        setupImageList ()
         fab_camera.setOnChangeListener (object: SpeedDialView.OnChangeListener {
             override fun onMainActionSelected (): Boolean {
                 requestTakePicturePermissions ()
@@ -54,6 +52,13 @@ class GalleryFragment: DaggerFragment () {
         })
         viewModel.images.observe (this, Observer (::setupImageList))
         requestReadStoragePermission ()
+    }
+
+    private fun setupImageList () {
+        image_list.addItemDecoration (SpaceItemDecoration(context!!, spanCount = getSpanCount()))
+        image_list.layoutManager = GridLayoutManager (context, getSpanCount ())
+        image_list.adapter = adapter
+
     }
 
     private fun requestReadStoragePermission () {
@@ -106,5 +111,10 @@ class GalleryFragment: DaggerFragment () {
     override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult (requestCode, permissions, grantResults)
         permissionUtil.handlePermissionResult (requestCode, grantResults)
+    }
+
+    override fun onDestroy () {
+        super.onDestroy ()
+        viewModel.images.removeObservers (this)
     }
 }

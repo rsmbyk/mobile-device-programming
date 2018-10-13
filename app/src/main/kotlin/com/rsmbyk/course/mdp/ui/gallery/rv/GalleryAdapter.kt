@@ -7,7 +7,7 @@ import com.rsmbyk.course.mdp.R.layout
 
 class GalleryAdapter: RecyclerView.Adapter<GalleryViewHolder> () {
 
-    private val images = mutableListOf<ByteArray>()
+    private var images = mutableListOf<ByteArray>()
 
     override fun onCreateViewHolder (parent: ViewGroup, viewType: Int): GalleryViewHolder {
         return GalleryViewHolder(
@@ -23,8 +23,10 @@ class GalleryAdapter: RecyclerView.Adapter<GalleryViewHolder> () {
     override fun getItemCount (): Int =
         images.size
 
-    fun setImages (images: List<ByteArray>) =
-        images.forEach (::addImage)
+    fun setImages (images: List<ByteArray>) {
+        this.images = images.toMutableList ()
+        notifyDataSetChanged ()
+    }
 
     fun addImage (image: ByteArray) {
         images.add (0, image)

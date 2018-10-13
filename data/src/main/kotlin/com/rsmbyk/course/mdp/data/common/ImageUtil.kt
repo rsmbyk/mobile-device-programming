@@ -7,20 +7,13 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 
 private val imageFileExtensions = arrayOf ("jpg", "jpeg", "png", "gif")
+private const val BASE64_PREFIX = "data:image/jpeg;base64,"
 
 private fun String.endsWithIgnoreCase (suffix: String): Boolean =
     endsWith (suffix, true)
 
 fun File.isImageFile (): Boolean =
     imageFileExtensions.any (name::endsWithIgnoreCase)
-
-fun File.compress (): ByteArrayOutputStream {
-    val image: Bitmap = BitmapFactory.decodeFile (path)
-    val scaledImage: Bitmap = Bitmap.createScaledBitmap (image, 256, 256, true)
-    val bos = ByteArrayOutputStream ()
-    scaledImage.compress (Bitmap.CompressFormat.JPEG, 100, bos)
-    return bos
-}
 
 fun ByteArray.compress (): ByteArrayOutputStream {
     val image: Bitmap = BitmapFactory.decodeByteArray (this, 0, size)
@@ -31,7 +24,7 @@ fun ByteArray.compress (): ByteArrayOutputStream {
 }
 
 fun ByteArrayOutputStream.toBase64ImageString (): String =
-    "data:image/jpeg;base64,${toBase64ImageStringWithoutPrefix ()}"
+    BASE64_PREFIX + toBase64ImageStringWithoutPrefix ()
 
 fun ByteArrayOutputStream.toBase64ImageStringWithoutPrefix  (): String =
     Base64.encodeToString (toByteArray (), Base64.DEFAULT)

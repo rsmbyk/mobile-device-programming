@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.PermissionUtil
+import com.rsmbyk.course.mdp.common.util.PermissionUtil
 import com.rsmbyk.course.mdp.model.StudentModel
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceAdapter
 import com.rsmbyk.course.mdp.ui.attendance.tableview.AttendanceTableListener
@@ -31,13 +31,8 @@ class AttendanceFragment: DaggerFragment () {
         inflater.inflate (R.layout.fragment_attendance, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
-        viewModel.students.observe (this, Observer(::setupTableView))
+        viewModel.students.observe (this, Observer (::setupTableView))
         viewModel.getStudents ()
-    }
-
-    override fun onResume () {
-        super.onResume ()
-
     }
 
     private fun setupTableView (students: List<StudentModel>?) {
@@ -70,5 +65,10 @@ class AttendanceFragment: DaggerFragment () {
                 viewModel.checkFace (requestCode, image)
             }
         }
+    }
+
+    override fun onDestroy () {
+        super.onDestroy ()
+        viewModel.students.removeObservers (this)
     }
 }

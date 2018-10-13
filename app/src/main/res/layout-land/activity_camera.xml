@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:padding="16dp" >
 
-    <com.rsmbyk.course.mdp.common.SquareLayout
+    <com.rsmbyk.course.mdp.common.view.SquareLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:pivot="height" >
@@ -18,7 +18,7 @@
             app:cameraFacing="front"
             app:cameraPictureSizeAspectRatio="1:1" />
 
-    </com.rsmbyk.course.mdp.common.SquareLayout>
+    </com.rsmbyk.course.mdp.common.view.SquareLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

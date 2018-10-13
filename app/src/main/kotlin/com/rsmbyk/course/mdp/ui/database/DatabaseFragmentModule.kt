@@ -26,6 +26,23 @@ import dagger.Provides
 class DatabaseFragmentModule {
 
     @Provides
+    fun provideDatabaseViewModel (fragment: DatabaseFragment, factory: DatabaseViewModelFactory): DatabaseViewModel =
+        ViewModelProviders.of (fragment, factory).get (DatabaseViewModel::class.java)
+
+    @Provides
+    fun provideDatabaseViewModelFactory (getUploadImagesUseCase: GetUploadImagesUseCase, uploadImageMapper: Mapper<UploadImage, UploadImageModel>): DatabaseViewModelFactory =
+        DatabaseViewModelFactory (getUploadImagesUseCase, uploadImageMapper)
+
+    @Provides
+    fun provideGetUploadImagesUseCase (repository: UploadImageRepository): GetUploadImagesUseCase =
+        GetUploadImagesUseCase (repository)
+
+    @Provides
+    fun provideUploadImageRepository (context: Context, uploadImageDao: UploadImageDao, volleyRequestQueue: VolleyRequestQueue, uploadImageEntityMapper: Mapper<UploadImage, UploadImageEntity>, uploadImageRequestDataMapper: Mapper<UploadImageRequest, UploadImageRequestData>, uploadImageResponseDataMapper: Mapper<UploadImageResponse, UploadImageResponseData>): UploadImageRepository =
+        UploadImageDataRepository (
+            context, uploadImageDao, volleyRequestQueue, uploadImageEntityMapper, uploadImageRequestDataMapper, uploadImageResponseDataMapper)
+
+    @Provides
     fun provideUploadImageEntityMapper (): Mapper<UploadImage, UploadImageEntity> =
         UploadImageEntityMapper ()
 
@@ -38,23 +55,6 @@ class DatabaseFragmentModule {
         UploadImageResponseDataMapper ()
 
     @Provides
-    fun provideUploadImageRepository (context: Context, uploadImageDao: UploadImageDao, volleyRequestQueue: VolleyRequestQueue, uploadImageMapper: Mapper<UploadImage, UploadImageEntity>, uploadImageRequestMapper: Mapper<UploadImageRequest, UploadImageRequestData>, uploadImageResponseMapper: Mapper<UploadImageResponse, UploadImageResponseData>): UploadImageRepository =
-        UploadImageDataRepository (
-            context, uploadImageDao, volleyRequestQueue, uploadImageMapper, uploadImageRequestMapper, uploadImageResponseMapper)
-
-    @Provides
-    fun provideGetUploadImagesUseCase (repository: UploadImageRepository): GetUploadImagesUseCase =
-        GetUploadImagesUseCase (repository)
-
-    @Provides
     fun provideUploadImageModelMapper (): Mapper<UploadImage, UploadImageModel> =
         UploadImageModelMapper ()
-
-    @Provides
-    fun provideDatabaseViewModelFactory (getUploadImagesUseCase: GetUploadImagesUseCase, uploadImageMapper: Mapper<UploadImage, UploadImageModel>): DatabaseViewModelFactory =
-        DatabaseViewModelFactory (getUploadImagesUseCase, uploadImageMapper)
-
-    @Provides
-    fun provideDatabaseViewModel (fragment: DatabaseFragment, factory: DatabaseViewModelFactory): DatabaseViewModel =
-        ViewModelProviders.of (fragment, factory).get (DatabaseViewModel::class.java)
 }
