@@ -10,12 +10,6 @@
     <string name="predict_image_request_param_nrp">nrp</string>
     <string name="predict_image_request_param_image">imagefile</string>
 
-    <string-array name="menus">
-        <item>Calculator</item>
-        <item>Camera</item>
-        <item>Networking</item>
-    </string-array>
-
     <string-array name="upload_list">
         <item>Normal tegak lurus kamera</item>
         <item>Normal tegak lurus kamera tidak berkacamata</item>
