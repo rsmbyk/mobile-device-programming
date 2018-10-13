@@ -41,7 +41,6 @@ class GalleryFragment: DaggerFragment () {
         inflater.inflate (R.layout.fragment_gallery, container, false)
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
-        setupImageList ()
         fab_camera.setOnChangeListener (object: SpeedDialView.OnChangeListener {
             override fun onMainActionSelected (): Boolean {
                 requestTakePicturePermissions ()
@@ -50,15 +49,15 @@ class GalleryFragment: DaggerFragment () {
 
             override fun onToggleChanged (isOpen: Boolean) {}
         })
+        setupImageList ()
         viewModel.images.observe (this, Observer (::setupImageList))
         requestReadStoragePermission ()
     }
 
     private fun setupImageList () {
-        image_list.addItemDecoration (SpaceItemDecoration(context!!, spanCount = getSpanCount()))
+        image_list.addItemDecoration (SpaceItemDecoration (context!!, spanCount = getSpanCount()))
         image_list.layoutManager = GridLayoutManager (context, getSpanCount ())
         image_list.adapter = adapter
-
     }
 
     private fun requestReadStoragePermission () {
