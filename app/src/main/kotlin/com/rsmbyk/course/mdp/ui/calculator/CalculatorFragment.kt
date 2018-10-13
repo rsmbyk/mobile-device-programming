@@ -49,15 +49,16 @@ class CalculatorFragment: DaggerFragment () {
             if (isEmpty ()) {
                 error = getString (R.string.calculator_error_empty)
                 return false
-            } else {
-                try {
-                    toString ().toInt ()
-                } catch (e: NumberFormatException) {
-                    error = getString (R.string.calculator_error_invalid_int)
-                    return false
-                }
             }
-            true
+            
+            try {
+                toString ().toInt ()
+            } catch (e: NumberFormatException) {
+                error = getString (R.string.calculator_error_invalid_int)
+                return false
+            }
+            
+            return true
         }
     }
 
