@@ -5,10 +5,6 @@ import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.ImageView
 import com.rsmbyk.course.mdp.R
-import com.rsmbyk.course.mdp.common.view.SquareImageView.Pivot.HEIGHT
-import com.rsmbyk.course.mdp.common.view.SquareImageView.Pivot.LARGEST
-import com.rsmbyk.course.mdp.common.view.SquareImageView.Pivot.SMALLEST
-import com.rsmbyk.course.mdp.common.view.SquareImageView.Pivot.WIDTH
 
 class SquareImageView (context: Context, attrs: AttributeSet): ImageView (context, attrs) {
 
@@ -24,10 +20,10 @@ class SquareImageView (context: Context, attrs: AttributeSet): ImageView (contex
 
     public override fun onMeasure (widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure (widthMeasureSpec, when (pivot) {
-            WIDTH -> widthMeasureSpec
-            HEIGHT -> heightMeasureSpec
-            SMALLEST -> minOf (widthMeasureSpec, heightMeasureSpec)
-            LARGEST -> maxOf (widthMeasureSpec, heightMeasureSpec)
+            Pivot.WIDTH -> widthMeasureSpec
+            Pivot.HEIGHT -> heightMeasureSpec
+            Pivot.SMALLEST -> minOf (widthMeasureSpec, heightMeasureSpec)
+            Pivot.LARGEST -> maxOf (widthMeasureSpec, heightMeasureSpec)
         })
     }
 
