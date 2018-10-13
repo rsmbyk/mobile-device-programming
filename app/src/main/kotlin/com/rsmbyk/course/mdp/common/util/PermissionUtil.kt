@@ -18,7 +18,7 @@ class PermissionUtil (private val activity: Activity? = null, private val fragme
             onDenied: ((requestCode: Int) -> Unit)? = null,
             requestCode: Int? = null): Int {
         val finalRequestCode = requestCode ?: Random ().nextInt (65535)
-        requestQueue.push (Request(permissions, finalRequestCode, onGranted, onDenied))
+        requestQueue.push (Request (permissions, finalRequestCode, onGranted, onDenied))
         processNextRequest ()
         return finalRequestCode
     }
