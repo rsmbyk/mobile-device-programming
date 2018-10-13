@@ -2,7 +2,6 @@ package com.rsmbyk.course.mdp.ui.upload
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.util.Log
 import com.rsmbyk.course.mdp.domain.mapper.Mapper
 import com.rsmbyk.course.mdp.domain.model.UploadImage
 import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
@@ -42,7 +41,7 @@ class UploadViewModel (
                 .mapIndexed { index, name -> UploadImageModel (index, name) }
                 .toMutableList ()
         }
-        Log.e("ddddddd", "test")
+        
         uploadImages.value = backingUploadImages
         return backingUploadImages
     }
