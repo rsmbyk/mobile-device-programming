@@ -13,6 +13,7 @@ import com.rsmbyk.course.mdp.domain.model.UploadImage
 import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
 import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
+import io.reactivex.Maybe
 import io.reactivex.Single
 
 class UploadImageDataRepository (
@@ -40,7 +41,7 @@ class UploadImageDataRepository (
     override fun saveImage (uploadImage: UploadImage) =
         uploadImageDao.insert (uploadImageMapper.mapToModel (uploadImage))
 
-    override fun getImages (): Single<List<UploadImage>> {
+    override fun getImages (): Maybe<List<UploadImage>> {
         return uploadImageDao.all ()
             .map (uploadImageMapper::mapToEntity)
     }

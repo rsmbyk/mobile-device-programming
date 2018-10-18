@@ -5,13 +5,13 @@ import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy
 import android.arch.persistence.room.Query
 import com.rsmbyk.course.mdp.data.db.entity.UploadImageEntity
-import io.reactivex.Single
+import io.reactivex.Maybe
 
 @Dao
 interface UploadImageDao {
 
     @Query ("SELECT * FROM images")
-    fun all (): Single<List<UploadImageEntity>>
+    fun all (): Maybe<List<UploadImageEntity>>
 
     @Insert (onConflict = OnConflictStrategy.REPLACE)
     fun insert (uploadImage: UploadImageEntity)
