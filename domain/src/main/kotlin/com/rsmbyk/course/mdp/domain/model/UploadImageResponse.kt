@@ -1,3 +1,3 @@
 package com.rsmbyk.course.mdp.domain.model
 
-class UploadImageResponse: Entity
+class UploadImageResponse (val msg: String): Entity

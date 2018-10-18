@@ -1,3 +1,5 @@
 package com.rsmbyk.course.mdp.data.model
 
-class UploadImageResponseData
+import com.google.gson.annotations.SerializedName
+
+class UploadImageResponseData (@SerializedName ("msg") val msg: String)

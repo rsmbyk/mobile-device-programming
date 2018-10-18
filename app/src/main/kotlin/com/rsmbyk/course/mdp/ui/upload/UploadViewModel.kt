@@ -41,7 +41,7 @@ class UploadViewModel (
                 .mapIndexed { index, name -> UploadImageModel (index, name) }
                 .toMutableList ()
         }
-        
+
         uploadImages.value = backingUploadImages
         return backingUploadImages
     }
@@ -90,13 +90,17 @@ class UploadViewModel (
     }
 
     private fun onUploadSuccess (response: UploadImageResponseModel) {
-        backingUploadImages.first { it.state == UploadImageModel.State.UPLOADING }.apply {
-            state = UploadImageModel.State.SUCCESS
-            elapsedTime = TimeUnit.NANOSECONDS.toMillis (System.nanoTime () - startTime) / 1000f
-            timestamp = System.currentTimeMillis ()
-            saveUploadImage (index)
-            notify (index)
-            startUpload ()
+        if (response.msg == UploadImageResponseModel.Message.DETECTED) {
+            backingUploadImages.first { it.state == UploadImageModel.State.UPLOADING }.apply {
+                state = UploadImageModel.State.SUCCESS
+                elapsedTime = TimeUnit.NANOSECONDS.toMillis (System.nanoTime () - startTime) / 1000f
+                timestamp = System.currentTimeMillis ()
+                saveUploadImage (index)
+                notify (index)
+                startUpload ()
+            }
+        } else {
+            error.value = Throwable ("Face not detected")
         }
     }
 

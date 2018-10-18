@@ -7,8 +7,12 @@ import com.rsmbyk.course.mdp.model.UploadImageResponseModel
 class UploadImageResponseModelMapper: Mapper<UploadImageResponse, UploadImageResponseModel> {
 
     override fun mapToEntity (model: UploadImageResponseModel): UploadImageResponse =
-        model.run { UploadImageResponse () }
+        model.run { UploadImageResponse (msg.name) }
 
     override fun mapToModel (entity: UploadImageResponse): UploadImageResponseModel =
-        entity.run { UploadImageResponseModel () }
+        entity.run {
+            UploadImageResponseModel (
+                UploadImageResponseModel.Message.valueOf (msg.trim ().toUpperCase ())
+            )
+        }
 }

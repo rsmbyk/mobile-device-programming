@@ -7,8 +7,8 @@ import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 class UploadImageResponseDataMapper: Mapper<UploadImageResponse, UploadImageResponseData> {
 
     override fun mapToEntity (model: UploadImageResponseData): UploadImageResponse =
-        model.run { UploadImageResponse () }
+        model.run { UploadImageResponse (msg) }
 
     override fun mapToModel (entity: UploadImageResponse): UploadImageResponseData =
-        entity.run { UploadImageResponseData () }
+        entity.run { UploadImageResponseData (msg) }
 }
