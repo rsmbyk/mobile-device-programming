@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.viewholder_upload_image.*
 class UploadImageListViewHolder (override val containerView: View)
     : RecyclerView.ViewHolder (containerView), LayoutContainer {
 
-    fun bind (item: UploadImageModel, onClickListener: (index: Int) -> Unit, onLongClickListener: (index: Int) -> Boolean) {
+    fun bind (item: UploadImageModel, onClickListener: (index: Int) -> Unit) {
         item.apply {
             Glide
                 .with (itemView)
@@ -30,8 +30,10 @@ class UploadImageListViewHolder (override val containerView: View)
             success_indicator.setVisible (state == UploadImageModel.State.SUCCESS)
             error_indicator.setVisible (state == UploadImageModel.State.FAILED)
 
-            containerView.setOnClickListener { onClickListener (index) }
-            containerView.setOnLongClickListener { onLongClickListener (index) }
+            containerView.setOnClickListener {
+                if (state == UploadImageModel.State.IDLE)
+                    onClickListener (index)
+            }
         }
     }
 }

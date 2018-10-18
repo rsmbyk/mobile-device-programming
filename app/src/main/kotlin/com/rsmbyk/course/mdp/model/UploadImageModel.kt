@@ -13,8 +13,9 @@ data class UploadImageModel (
     enum class State {
         IDLE,
         UPLOADING,
+        SUCCESS,
         FAILED,
-        SUCCESS
+        COMPLETED
     }
 
     override fun equals(other: Any?): Boolean {

@@ -18,6 +18,7 @@ import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
 import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.repository.UploadImageRepository
 import com.rsmbyk.course.mdp.domain.usecase.GetUploadImageNamesUseCase
+import com.rsmbyk.course.mdp.domain.usecase.GetUploadImagesUseCase
 import com.rsmbyk.course.mdp.domain.usecase.SaveUploadImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
 import com.rsmbyk.course.mdp.mapper.UploadImageModelMapper
@@ -35,13 +36,17 @@ class UploadFragmentModule {
         ViewModelProviders.of (fragment, factory).get (UploadViewModel::class.java)
 
     @Provides
-    fun provideNetworkingViewModelFactory (getUploadImageNamesUseCase: GetUploadImageNamesUseCase, uploadImageUseCase: UploadImageUseCase, saveUploadImageUseCase: SaveUploadImageUseCase, uploadImageModelMapper: Mapper<UploadImage, UploadImageModel>, uploadImageResponseModelMapper: Mapper<UploadImageResponse, UploadImageResponseModel>): UploadViewModelFactory =
+    fun provideNetworkingViewModelFactory (getUploadImageNamesUseCase: GetUploadImageNamesUseCase, getUploadImagesUseCase: GetUploadImagesUseCase, uploadImageUseCase: UploadImageUseCase, saveUploadImageUseCase: SaveUploadImageUseCase, uploadImageModelMapper: Mapper<UploadImage, UploadImageModel>, uploadImageResponseModelMapper: Mapper<UploadImageResponse, UploadImageResponseModel>): UploadViewModelFactory =
         UploadViewModelFactory (
-            getUploadImageNamesUseCase, uploadImageUseCase, saveUploadImageUseCase, uploadImageModelMapper, uploadImageResponseModelMapper)
+            getUploadImageNamesUseCase, getUploadImagesUseCase, uploadImageUseCase, saveUploadImageUseCase, uploadImageModelMapper, uploadImageResponseModelMapper)
 
     @Provides
     fun provideGetUploadImageNamesUseCase (repository: UploadImageRepository): GetUploadImageNamesUseCase =
         GetUploadImageNamesUseCase (repository)
+
+    @Provides
+    fun provideGetUploadImagesUseCase (repository: UploadImageRepository): GetUploadImagesUseCase =
+        GetUploadImagesUseCase (repository)
 
     @Provides
     fun provideUploadImageUseCase (repository: UploadImageRepository): UploadImageUseCase =

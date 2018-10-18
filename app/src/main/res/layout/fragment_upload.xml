@@ -1,52 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/upload_root_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent" >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/upload_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="match_parent"
         android:scrollbars="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_dodgeInsetEdges="bottom" />
 
-    <LinearLayout
-        android:id="@+id/upload_control"
-        style="@style/Widget.AppCompat.ButtonBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_button_bar_height"
-        android:background="@color/backgroundPrimary"
-        android:gravity="center_vertical|end"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btn_clear"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_clear" />
-
-        <Button
-            android:id="@+id/btn_retry"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_retry"
-            android:textStyle="bold"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/btn_upload"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_upload"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

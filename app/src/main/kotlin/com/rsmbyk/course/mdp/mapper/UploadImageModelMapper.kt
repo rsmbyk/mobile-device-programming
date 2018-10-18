@@ -16,7 +16,7 @@ class UploadImageModelMapper: Mapper<UploadImage, UploadImageModel> {
     override fun mapToModel (entity: UploadImage): UploadImageModel {
         return entity.run {
             UploadImageModel (
-                id, name, image, elapsedTime, timestamp)
+                id, name, image, elapsedTime, timestamp, UploadImageModel.State.COMPLETED)
         }
     }
 }

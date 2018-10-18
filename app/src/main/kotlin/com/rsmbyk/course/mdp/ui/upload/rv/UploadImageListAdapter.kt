@@ -8,8 +8,7 @@ import com.rsmbyk.course.mdp.model.UploadImageModel
 
 class UploadImageListAdapter (
     private val uploadImages: List<UploadImageModel>,
-    private val onClickListener: (index: Int) -> Unit,
-    private val onLongClickListener: (index: Int) -> Boolean)
+    private val onClickListener: (index: Int) -> Unit)
         : RecyclerView.Adapter<UploadImageListViewHolder> () {
 
     override fun onCreateViewHolder (parent: ViewGroup, viewType: Int): UploadImageListViewHolder {
@@ -21,13 +20,9 @@ class UploadImageListAdapter (
     }
 
     override fun onBindViewHolder (holder: UploadImageListViewHolder, position: Int) {
-        holder.bind (uploadImages[position], onClickListener, onLongClickListener)
+        holder.bind (uploadImages[position], onClickListener)
     }
 
     override fun getItemCount (): Int =
         uploadImages.size
-
-    fun updateImage (index: Int?) {
-        index?.also (::notifyItemChanged)
-    }
 }
