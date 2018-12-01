@@ -2,12 +2,16 @@ package com.rsmbyk.course.mdp.ui.camera
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.otaliastudios.cameraview.CameraListener
+import com.otaliastudios.cameraview.CameraUtils
 import com.rsmbyk.course.mdp.R
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 class CameraActivity: AppCompatActivity () {
 
@@ -16,14 +20,23 @@ class CameraActivity: AppCompatActivity () {
     }
 
     private val cameraListener = object : CameraListener () {
-        override fun onPictureTaken (jpeg: ByteArray?) {
-            val tempFile = File.createTempFile ("MDP-", null)
-            tempFile.deleteOnExit ()
-            tempFile.writeBytes (jpeg!!)
+        override fun onPictureTaken (picture: ByteArray?) {
+            CameraUtils.decodeBitmap (picture, 90, 90) {
+                try {
+                    val tempFile = File.createTempFile ("MDP-", null)
+                    tempFile.deleteOnExit ()
 
-            val intent = Intent ().putExtra (PICTURE_PATH_EXTRA, tempFile.canonicalPath)
-            setResult (Activity.RESULT_OK, intent)
-            finish ()
+                    FileOutputStream (tempFile.canonicalPath).use {
+                        out -> it.compress (Bitmap.CompressFormat.PNG, 100, out) }
+
+                    val intent = Intent ().putExtra (PICTURE_PATH_EXTRA, tempFile.canonicalPath)
+                    setResult (Activity.RESULT_OK, intent)
+                    finish ()
+                } catch (e: IOException) {
+                    e.printStackTrace ()
+                    camera.start ()
+                }
+            }
         }
     }
 
