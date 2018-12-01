@@ -16,13 +16,19 @@ class ZXHandler {
     }
 
     fun start () {
-        scannerView.setResultHandler (result::setValue)
-        scannerView.startCamera ()
+        if (::scannerView.isInitialized) {
+            scannerView.setResultHandler (result::setValue)
+            scannerView.startCamera ()
+        }
     }
 
-    fun resume () =
-        scannerView.resumeCameraPreview (result::setValue)
+    fun resume () {
+        if (::scannerView.isInitialized)
+            scannerView.resumeCameraPreview (result::setValue)
+    }
 
-    fun stop () =
-        scannerView.stopCamera ()
+    fun stop () {
+        if (::scannerView.isInitialized)
+            scannerView.stopCamera ()
+    }
 }

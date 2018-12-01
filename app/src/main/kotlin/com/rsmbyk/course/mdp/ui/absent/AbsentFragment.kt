@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.google.zxing.Result
 import com.rsmbyk.course.mdp.R
+import com.rsmbyk.course.mdp.R.string
 import com.rsmbyk.course.mdp.common.handler.ZXHandler
 import com.rsmbyk.course.mdp.common.util.PermissionUtil
 import com.rsmbyk.course.mdp.model.AgendaModel
@@ -35,20 +36,32 @@ class AbsentFragment: DaggerFragment () {
     @Inject lateinit var permissionUtil: PermissionUtil
     @Inject lateinit var zxHandler: ZXHandler
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+    override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+//        inflater.inflate (R.layout.fragment_absent, container, false)
         ZXingScannerView (context!!)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
         viewModel.agenda.observe (this, Observer (::onAgendaLoaded))
         viewModel.currentLocation.observe (this, Observer (::onAgendaRange))
         viewModel.faceImage.observe (this, Observer (::onFaceCaptured))
         viewModel.predictResponse.observe (this, Observer (::onPredictionResponse))
         viewModel.error.observe (this, Observer (::showError))
         viewModel.notif.observe (this, Observer (::showNotif))
-        permissionUtil.requestPermission (Manifest.permission.CAMERA, { _ ->
-            zxHandler.result.observe (this, Observer (::handleQRResult))
-            zxHandler.setResultHandler (view as ZXingScannerView)
-        })
+        zxHandler.result.observe (this, Observer (::handleQRResult))
+        zxHandler.setResultHandler (view as ZXingScannerView)
+        requestCameraPermission ()
+    }
+
+    private fun requestCameraPermission () {
+        permissionUtil.requestPermission (
+            Manifest.permission.CAMERA,
+            { _ ->
+                zxHandler.start () },
+            { _ ->
+                onPermissionDenied (
+                    string.location_permission_denied, ::requestCameraPermission)
+            }
+        )
     }
 
     private fun handleQRResult (result: Result?) {
@@ -60,7 +73,8 @@ class AbsentFragment: DaggerFragment () {
 
     private fun onAgendaRange (currentLocation: Location?) {
         zxHandler.stop ()
-        startActivityForResult (Intent (context!!, CameraActivity::class.java), CAPTURE_FACE_IMAGE_REQUEST)
+        startActivityForResult (
+            Intent (context!!, CameraActivity::class.java), CAPTURE_FACE_IMAGE_REQUEST)
     }
 
     private fun onFaceCaptured (faceImage: ByteArray?) =
@@ -71,15 +85,22 @@ class AbsentFragment: DaggerFragment () {
             Manifest.permission.ACCESS_FINE_LOCATION,
             viewModel::calculateDistance,
             {
-                showGenericError (
-                    R.string.read_storage_permission_denied,
+                onPermissionDenied (
+                    string.read_storage_permission_denied,
                     ::requestLocationPermission)
             })
     }
 
-    private fun showGenericError (@StringRes resId: Int, listener: () -> Unit) {
+    private fun showError (@StringRes resId: Int, listener: () -> Unit) {
         Snackbar.make (view!!, resId, Snackbar.LENGTH_INDEFINITE)
                 .setAction (R.string.btn_retry) { listener () }
+                .show ()
+    }
+
+    private fun onPermissionDenied (@StringRes resId: Int, listener: () -> Unit) {
+        Snackbar.make (view!!, resId, Snackbar.LENGTH_INDEFINITE)
+                .setAction (R.string.revoke_permission) { listener () }
+                .show ()
     }
 
     private fun onPredictionResponse (predictResponseModel: PredictResponseModel?) {
@@ -87,7 +108,7 @@ class AbsentFragment: DaggerFragment () {
         builder.setTitle ("Prediction Response")
         builder.setMessage (predictResponseModel!!.msg)
         builder.setCancelable (false)
-        builder.setPositiveButton ("Close", { _, _ -> })
+        builder.setPositiveButton ("Close") { _, _ -> }
         builder.create ().show ()
     }
 
@@ -101,7 +122,7 @@ class AbsentFragment: DaggerFragment () {
 
     override fun onResume () {
         super.onResume ()
-        permissionUtil.requestPermission (Manifest.permission.CAMERA, zxHandler::start)
+        zxHandler.start ()
     }
 
     override fun onPause () {
@@ -123,4 +144,7 @@ class AbsentFragment: DaggerFragment () {
             }
         }
     }
+
+    override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<out String>, grantResults: IntArray) =
+        permissionUtil.handlePermissionResult (requestCode, grantResults)
 }

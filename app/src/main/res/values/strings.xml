@@ -30,10 +30,11 @@
 
     <!-- Gallery -->
     <string name="no_take_picture_permission">WRITE_EXTERNAL_STORAGE and CAMERA permission is required</string>
-    <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE was denied</string>
+    <string name="read_storage_permission_denied">READ_EXTERNAL_STORAGE permission was denied</string>
     <string name="revoke_permission">Revoke</string>
 
     <!-- Upload -->
+    <string name="no_camera_permission">CAMERA permission is required</string>
     <string name="upload_image_elapsed_time">%1$fs</string>
     <string name="btn_upload">Upload</string>
     <string name="btn_retry">Retry</string>
@@ -41,5 +42,6 @@
 
     <!-- Absent -->
     <string name="qrcode_invalid">Invalid QRCode</string>
-    <string name="location_permission_denied">ACCESS_LOCATION was denied</string>
+    <string name="camera_permission_denied">CAMERA permission was denied</string>
+    <string name="location_permission_denied">ACCESS_LOCATION permission was denied</string>
 </resources>
