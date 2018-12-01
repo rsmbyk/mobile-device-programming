@@ -5,15 +5,30 @@
     <string name="gallery_image_file_prefix">MDP-</string>
     <string name="gallery_image_file_suffix">.jpeg</string>
 
-    <string name="upload_image_url">http://mobile.if.its.ac.id/kirimgambar</string>
-    <string name="upload_image_request_nrp">.test</string>
+    <string name="upload_image_url">http://etc.if.its.ac.id/sendImg/</string>
+    <string name="upload_image_request_nrp">5115100174</string>
+    <string name="upload_image_request_password">ronald123</string>
     <string name="upload_image_response_params_hasil">hasil</string>
-    <string name="upload_image_request_param_nrp">nrp</string>
+    <string name="upload_image_request_param_idUser">idUser</string>
+    <string name="upload_image_request_param_password">password</string>
     <string name="upload_image_request_param_image">image</string>
 
-    <string name="predict_image_url">http://mobile.if.its.ac.id/predict</string>
-    <string name="predict_image_request_param_nrp">nrp</string>
-    <string name="predict_image_request_param_image">imagefile</string>
+    <string name="train_url">http://etc.if.its.ac.id/doTrain/</string>
+    <string name="train_request_param_idUser">idUser</string>
+    <string name="train_request_param_password">password</string>
+
+    <string name="predict_url">http://etc.if.its.ac.id/doPredict/</string>
+    <string name="predict_request_param_idUser">idUser</string>
+    <string name="predict_request_param_password">password</string>
+    <string name="predict_request_param_image">image</string>
+
+    <string name="signin_url">http://etc.if.its.ac.id/signin/</string>
+    <string name="signin_request_param_idUser">idUser</string>
+    <string name="signin_request_param_password">password</string>
+    <string name="signin_request_param_image">image</string>
+    <string name="signin_request_param_latitude">Lat</string>
+    <string name="signin_request_param_longitude">Lon</string>
+    <string name="signin_request_param_idAgenda">idAgenda</string>
 
     <string-array name="upload_list">
         <item>Normal tegak lurus kamera</item>

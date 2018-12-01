@@ -14,7 +14,7 @@
         <com.otaliastudios.cameraview.CameraView
             android:id="@+id/camera"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:cameraFacing="front"
             app:cameraPictureSizeAspectRatio="1:1" />
 

@@ -17,7 +17,7 @@ fun File.isImageFile (): Boolean =
 
 fun ByteArray.compress (): ByteArrayOutputStream {
     val image: Bitmap = BitmapFactory.decodeByteArray (this, 0, size)
-    val scaledImage: Bitmap = Bitmap.createScaledBitmap (image, 256, 256, true)
+    val scaledImage: Bitmap = Bitmap.createScaledBitmap (image, 96, 96, true)
     val bos = ByteArrayOutputStream ()
     scaledImage.compress (Bitmap.CompressFormat.JPEG, 100, bos)
     return bos

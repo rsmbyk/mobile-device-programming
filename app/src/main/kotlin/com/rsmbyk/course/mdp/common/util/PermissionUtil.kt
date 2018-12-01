@@ -59,6 +59,12 @@ class PermissionUtil (private val activity: Activity? = null, private val fragme
     private fun isGranted (permission: String): Boolean =
         ContextCompat.checkSelfPermission (context!!, permission) == PackageManager.PERMISSION_GRANTED
 
+    fun hasPermission (permission: String): Boolean =
+        isGranted (permission)
+
+    fun hasPermissions (permissions: Array<String>) =
+        permissions.all (::isGranted)
+
     fun handlePermissionResult (requestCode: Int, grantResults: IntArray) {
         requestQueue.firstOrNull ()?.apply {
             if (this.requestCode == requestCode) {

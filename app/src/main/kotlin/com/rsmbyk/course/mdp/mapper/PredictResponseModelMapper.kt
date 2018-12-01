@@ -7,8 +7,8 @@ import com.rsmbyk.course.mdp.model.PredictResponseModel
 class PredictResponseModelMapper: Mapper<PredictResponse, PredictResponseModel> {
 
     override fun mapToEntity (model: PredictResponseModel): PredictResponse =
-        model.run { PredictResponse () }
+        model.run { PredictResponse (msg) }
 
     override fun mapToModel (entity: PredictResponse): PredictResponseModel =
-        entity.run { PredictResponseModel () }
+        entity.run { PredictResponseModel (msg) }
 }

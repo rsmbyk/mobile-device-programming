@@ -1,3 +1,3 @@
 package com.rsmbyk.course.mdp.model
 
-class PredictResponseModel
+class PredictResponseModel (val msg: String)

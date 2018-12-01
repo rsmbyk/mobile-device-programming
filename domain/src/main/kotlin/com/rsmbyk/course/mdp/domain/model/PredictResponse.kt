@@ -1,3 +1,3 @@
 package com.rsmbyk.course.mdp.domain.model
 
-class PredictResponse: Entity
+class PredictResponse (val msg: String): Entity

@@ -1,3 +1,7 @@
 package com.rsmbyk.course.mdp.data.model
 
-class PredictRequestData (val nrp: String, val image: ByteArray)
+class PredictRequestData (
+    val idUser: String,
+    val password: String,
+    val image: String,
+    val agenda: AgendaData)

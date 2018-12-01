@@ -15,7 +15,7 @@ class PredictVolleyRequest (
     errorListener: (error: VolleyError) -> Unit)
         : VolleyRequest<PredictRequestData, PredictResponseData> (
             Method.POST,
-            context.getString (R.string.predict_image_url),
+            context.getString (R.string.signin_url),
             request,
             listener,
             errorListener,

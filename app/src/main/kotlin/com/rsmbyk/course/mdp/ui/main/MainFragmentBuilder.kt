@@ -1,5 +1,7 @@
 package com.rsmbyk.course.mdp.ui.main
 
+import com.rsmbyk.course.mdp.ui.absent.AbsentFragment
+import com.rsmbyk.course.mdp.ui.absent.AbsentFragmentModule
 import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragment
 import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragmentModule
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
@@ -30,4 +32,7 @@ abstract class MainFragmentBuilder {
 
     @ContributesAndroidInjector (modules = [AttendanceFragmentModule::class])
     abstract fun bindAttendanceFragment (): AttendanceFragment
+
+    @ContributesAndroidInjector (modules = [AbsentFragmentModule::class])
+    abstract fun bindAbsentFragment (): AbsentFragment
 }

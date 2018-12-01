@@ -15,9 +15,6 @@ open class VolleyRequest<Request, Response> (
     parser: Parser<Response>)
         : StringRequest (method, url, { listener (parser.parse (it)) }, errorListener) {
 
-    override fun getBodyContentType (): String =
-        "application/x-www-form-urlencoded"
-
     override fun getParams (): MutableMap<String, String> =
         parameterBuilder.build (request)
 }

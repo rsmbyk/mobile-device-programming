@@ -8,7 +8,7 @@ import android.support.v4.view.GravityCompat
 import android.view.MenuItem
 import com.rsmbyk.course.mdp.R
 import com.rsmbyk.course.mdp.common.handler.DoubleTapExitHandler
-import com.rsmbyk.course.mdp.ui.attendance.AttendanceFragment
+import com.rsmbyk.course.mdp.ui.absent.AbsentFragment
 import com.rsmbyk.course.mdp.ui.calculator.CalculatorFragment
 import com.rsmbyk.course.mdp.ui.database.DatabaseFragment
 import com.rsmbyk.course.mdp.ui.gallery.GalleryFragment
@@ -57,7 +57,7 @@ class MainActivity: DaggerAppCompatActivity () {
                 R.id.menu_gallery -> GalleryFragment ()
                 R.id.menu_upload -> UploadFragment ()
                 R.id.menu_database -> DatabaseFragment ()
-                R.id.menu_attendance -> AttendanceFragment ()
+                R.id.menu_attendance -> AbsentFragment ()
                 else -> null
             })
             supportActionBar?.title = menuItem.title
@@ -67,7 +67,7 @@ class MainActivity: DaggerAppCompatActivity () {
         }
 
         if (supportFragmentManager.findFragmentById (R.id.fragment) == null) {
-            supportFragmentManager.replaceFragment (R.id.fragment, AttendanceFragment ())
+            supportFragmentManager.replaceFragment (R.id.fragment, AbsentFragment ())
             supportActionBar?.title = getString (R.string.menu_attendance)
             navigation_view.setCheckedItem (R.id.menu_attendance)
         }

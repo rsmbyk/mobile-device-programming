@@ -12,8 +12,10 @@ class UploadImageRequestParameterBuilder (private val context: Context)
     override fun build (request: UploadImageRequestData): MutableMap<String, String> {
         return request.run {
             mutableMapOf (
-                context.getString (R.string.upload_image_request_param_nrp)
+                context.getString (R.string.upload_image_request_param_idUser)
                     to context.getString (R.string.upload_image_request_nrp),
+                context.getString (R.string.upload_image_request_param_password)
+                        to context.getString (R.string.upload_image_request_password),
                 context.getString (R.string.upload_image_request_param_image)
                     to image.compress ().toBase64ImageString ()
             )

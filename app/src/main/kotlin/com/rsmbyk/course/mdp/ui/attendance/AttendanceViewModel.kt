@@ -3,7 +3,6 @@ package com.rsmbyk.course.mdp.ui.attendance
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.rsmbyk.course.mdp.domain.mapper.Mapper
-import com.rsmbyk.course.mdp.domain.model.PredictRequest
 import com.rsmbyk.course.mdp.domain.model.PredictResponse
 import com.rsmbyk.course.mdp.domain.model.Student
 import com.rsmbyk.course.mdp.domain.usecase.GetAttendanceColumnHeadersUseCase
@@ -42,12 +41,12 @@ class AttendanceViewModel (
     }
 
     fun checkFace (row: Int, image: ByteArray) {
-        disposable.add (
-            getPredictionUseCase (PredictRequest (students.value!![row].nrp, image))
-                .map (predictResponseMapper::mapToModel)
-                .subscribeOn (Schedulers.io ())
-                .observeOn (AndroidSchedulers.mainThread ())
-                .subscribe (predictResult::setValue, error::setValue))
+//        disposable.add (
+//            getPredictionUseCase (PredictRequest (students.value!![row].nrp, image))
+//                .map (predictResponseMapper::mapToModel)
+//                .subscribeOn (Schedulers.io ())
+//                .observeOn (AndroidSchedulers.mainThread ())
+//                .subscribe (predictResult::setValue, error::setValue))
     }
 
     override fun onCleared () =

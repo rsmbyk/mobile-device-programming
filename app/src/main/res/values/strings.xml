@@ -38,4 +38,8 @@
     <string name="btn_upload">Upload</string>
     <string name="btn_retry">Retry</string>
     <string name="btn_clear">Clear</string>
+
+    <!-- Absent -->
+    <string name="qrcode_invalid">Invalid QRCode</string>
+    <string name="location_permission_denied">ACCESS_LOCATION was denied</string>
 </resources>

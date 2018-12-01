@@ -1,3 +1,5 @@
 package com.rsmbyk.course.mdp.data.model
 
-class PredictResponseData
+import com.google.gson.annotations.SerializedName
+
+class PredictResponseData (@SerializedName ("msg") val msg: String)
