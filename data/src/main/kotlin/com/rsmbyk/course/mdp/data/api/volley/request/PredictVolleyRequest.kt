@@ -4,20 +4,17 @@ import android.content.Context
 import com.android.volley.VolleyError
 import com.rsmbyk.course.mdp.data.R
 import com.rsmbyk.course.mdp.data.api.volley.parambuilder.PredictRequestParameterBuilder
-import com.rsmbyk.course.mdp.data.api.volley.parser.PredictResponseParser
 import com.rsmbyk.course.mdp.data.model.PredictRequestData
-import com.rsmbyk.course.mdp.data.model.PredictResponseData
+import com.rsmbyk.course.mdp.data.model.SuperResponseData
 
 class PredictVolleyRequest (
     context: Context,
     request: PredictRequestData,
-    listener: (response: PredictResponseData) -> Unit,
+    listener: (response: SuperResponseData) -> Unit,
     errorListener: (error: VolleyError) -> Unit)
-        : VolleyRequest<PredictRequestData, PredictResponseData> (
-            Method.POST,
+        : SuperVolleyRequest<PredictRequestData> (
             context.getString (R.string.signin_url),
             request,
             listener,
             errorListener,
-            PredictRequestParameterBuilder (context),
-            PredictResponseParser (context))
+            PredictRequestParameterBuilder (context))

@@ -9,21 +9,21 @@ import com.rsmbyk.course.mdp.data.api.volley.VolleyRequestQueue
 import com.rsmbyk.course.mdp.data.db.dao.StudentDao
 import com.rsmbyk.course.mdp.data.db.entity.StudentEntity
 import com.rsmbyk.course.mdp.data.mapper.PredictRequestDataMapper
-import com.rsmbyk.course.mdp.data.mapper.PredictResponseDataMapper
 import com.rsmbyk.course.mdp.data.mapper.StudentEntityMapper
+import com.rsmbyk.course.mdp.data.mapper.SuperResponseDataMapper
 import com.rsmbyk.course.mdp.data.model.PredictRequestData
-import com.rsmbyk.course.mdp.data.model.PredictResponseData
+import com.rsmbyk.course.mdp.data.model.SuperResponseData
 import com.rsmbyk.course.mdp.data.repository.AttendanceDataRepository
 import com.rsmbyk.course.mdp.domain.mapper.Mapper
 import com.rsmbyk.course.mdp.domain.model.PredictRequest
-import com.rsmbyk.course.mdp.domain.model.PredictResponse
 import com.rsmbyk.course.mdp.domain.model.Student
+import com.rsmbyk.course.mdp.domain.model.SuperResponse
 import com.rsmbyk.course.mdp.domain.repository.AttendanceRepository
 import com.rsmbyk.course.mdp.domain.usecase.GetPredictionUseCase
 import com.rsmbyk.course.mdp.mapper.PredictRequestModelMapper
-import com.rsmbyk.course.mdp.mapper.PredictResponseModelMapper
+import com.rsmbyk.course.mdp.mapper.SuperResponseModelMapper
 import com.rsmbyk.course.mdp.model.PredictRequestModel
-import com.rsmbyk.course.mdp.model.PredictResponseModel
+import com.rsmbyk.course.mdp.model.SuperResponseModel
 import dagger.Module
 import dagger.Provides
 
@@ -35,7 +35,7 @@ class AbsentFragmentModule {
         ViewModelProviders.of (fragment, factory).get (AbsentViewModel::class.java)
 
     @Provides
-    fun provideViewModelFactory (getPredictionUseCase: GetPredictionUseCase, locationClient: FusedLocationProviderClient, predictRequestMapper: Mapper<PredictRequest, PredictRequestModel>, predictResponseMapper: Mapper<PredictResponse, PredictResponseModel>): AbsentViewModelFactory =
+    fun provideViewModelFactory (getPredictionUseCase: GetPredictionUseCase, locationClient: FusedLocationProviderClient, predictRequestMapper: Mapper<PredictRequest, PredictRequestModel>, predictResponseMapper: Mapper<SuperResponse, SuperResponseModel>): AbsentViewModelFactory =
         AbsentViewModelFactory (getPredictionUseCase, locationClient, predictRequestMapper, predictResponseMapper)
 
     @Provides
@@ -43,7 +43,7 @@ class AbsentFragmentModule {
         GetPredictionUseCase (repository)
 
     @Provides
-    fun provideAttendanceRepository (context: Context, studentDao: StudentDao, volleyRequestQueue: VolleyRequestQueue, studentEntityMapper: Mapper<Student, StudentEntity>, predictRequestDataMapper: Mapper<PredictRequest, PredictRequestData>, predictResponseDataMapper: Mapper<PredictResponse, PredictResponseData>): AttendanceRepository {
+    fun provideAttendanceRepository (context: Context, studentDao: StudentDao, volleyRequestQueue: VolleyRequestQueue, studentEntityMapper: Mapper<Student, StudentEntity>, predictRequestDataMapper: Mapper<PredictRequest, PredictRequestData>, predictResponseDataMapper: Mapper<SuperResponse, SuperResponseData>): AttendanceRepository {
         return AttendanceDataRepository (
             context, studentDao, volleyRequestQueue, studentEntityMapper, predictRequestDataMapper, predictResponseDataMapper)
     }
@@ -57,16 +57,16 @@ class AbsentFragmentModule {
         PredictRequestDataMapper ()
 
     @Provides
-    fun providePredictResponseDataMapper (): Mapper<PredictResponse, PredictResponseData> =
-        PredictResponseDataMapper ()
+    fun providePredictResponseDataMapper (): Mapper<SuperResponse, SuperResponseData> =
+        SuperResponseDataMapper ()
 
     @Provides
     fun providePredictRequestModelMapper (): Mapper<PredictRequest, PredictRequestModel> =
         PredictRequestModelMapper ()
 
     @Provides
-    fun providePredictResponseModelMapper (): Mapper<PredictResponse, PredictResponseModel> =
-        PredictResponseModelMapper ()
+    fun providePredictResponseModelMapper (): Mapper<SuperResponse, SuperResponseModel> =
+        SuperResponseModelMapper ()
 
     @Provides
     fun provideLocationClient (context: Context): FusedLocationProviderClient =

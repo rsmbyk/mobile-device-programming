@@ -3,15 +3,16 @@ package com.rsmbyk.course.mdp.ui.upload
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.rsmbyk.course.mdp.domain.mapper.Mapper
+import com.rsmbyk.course.mdp.domain.model.SuperResponse
 import com.rsmbyk.course.mdp.domain.model.UploadImage
 import com.rsmbyk.course.mdp.domain.model.UploadImageRequest
-import com.rsmbyk.course.mdp.domain.model.UploadImageResponse
 import com.rsmbyk.course.mdp.domain.usecase.GetUploadImageNamesUseCase
 import com.rsmbyk.course.mdp.domain.usecase.GetUploadImagesUseCase
 import com.rsmbyk.course.mdp.domain.usecase.SaveUploadImageUseCase
 import com.rsmbyk.course.mdp.domain.usecase.UploadImageUseCase
+import com.rsmbyk.course.mdp.model.ResponseStatusModel
+import com.rsmbyk.course.mdp.model.SuperResponseModel
 import com.rsmbyk.course.mdp.model.UploadImageModel
-import com.rsmbyk.course.mdp.model.UploadImageResponseModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -24,7 +25,7 @@ class UploadViewModel (
     private val uploadImageUseCase: UploadImageUseCase,
     private val saveUploadImageUseCase: SaveUploadImageUseCase,
     private val uploadImageMapper: Mapper<UploadImage, UploadImageModel>,
-    private val uploadImageResponseMapper: Mapper<UploadImageResponse, UploadImageResponseModel>)
+    private val uploadImageResponseMapper: Mapper<SuperResponse, SuperResponseModel>)
         : ViewModel () {
 
     private val disposable = CompositeDisposable ()
@@ -97,8 +98,8 @@ class UploadViewModel (
                 .subscribe (::onUploadSuccess, ::onUploadFailure))
     }
 
-    private fun onUploadSuccess (response: UploadImageResponseModel) {
-        if (response.msg == UploadImageResponseModel.Message.DETECTED) {
+    private fun onUploadSuccess (response: SuperResponseModel) {
+        if (response.status == ResponseStatusModel.ACCEPTED) {
             uploadImages.first { it.state == UploadImageModel.State.UPLOADING }.apply {
                 state = UploadImageModel.State.SUCCESS
                 elapsedTime = TimeUnit.NANOSECONDS.toMillis (System.nanoTime () - startTime) / 1000f
@@ -114,7 +115,7 @@ class UploadViewModel (
                 }
             }
         } else {
-            onUploadFailure (Throwable ("Face not detected"))
+            onUploadFailure (Throwable (response.msg))
         }
     }
 
